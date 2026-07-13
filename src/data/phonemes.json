@@ -1,134 +1,134 @@
 [
   { "id": "t", "displaySymbol": "t", "order": 1, "level": "both", "graphemes": [
-    { "grapheme": "t", "exampleWord": "tortue" },
+    { "grapheme": "t", "exampleWord": "tortue", "exampleImage": "🐢" },
     { "grapheme": "tt", "exampleWord": "chatte" }
   ] },
   { "id": "p", "displaySymbol": "p", "order": 2, "level": "both", "graphemes": [
-    { "grapheme": "p", "exampleWord": "papillon" },
+    { "grapheme": "p", "exampleWord": "papillon", "exampleImage": "🦋" },
     { "grapheme": "pp", "exampleWord": "nappe" }
   ] },
   { "id": "s", "displaySymbol": "s", "order": 3, "level": "both", "graphemes": [
-    { "grapheme": "s", "exampleWord": "souris" },
+    { "grapheme": "s", "exampleWord": "souris", "exampleImage": "🐭" },
     { "grapheme": "c", "exampleWord": "cerise" },
     { "grapheme": "ç", "exampleWord": "maçon" },
     { "grapheme": "ss", "exampleWord": "poisson" }
   ] },
   { "id": "f", "displaySymbol": "f", "order": 4, "level": "both", "graphemes": [
-    { "grapheme": "f", "exampleWord": "fourmi" },
+    { "grapheme": "f", "exampleWord": "fourmi", "exampleImage": "🐜" },
     { "grapheme": "ph", "exampleWord": "phare" },
     { "grapheme": "ff", "exampleWord": "affamé" }
   ] },
   { "id": "a", "displaySymbol": "a", "order": 5, "level": "both", "graphemes": [
-    { "grapheme": "a", "exampleWord": "araignée" }
+    { "grapheme": "a", "exampleWord": "araignée", "exampleImage": "🕷️" }
   ] },
   { "id": "ou", "displaySymbol": "ou", "order": 6, "level": "both", "graphemes": [
-    { "grapheme": "ou", "exampleWord": "ours" }
+    { "grapheme": "ou", "exampleWord": "ours", "exampleImage": "🐻" }
   ] },
   { "id": "z", "displaySymbol": "s", "order": 7, "level": "both", "graphemes": [
-    { "grapheme": "s", "exampleWord": "rose" },
+    { "grapheme": "s", "exampleWord": "rose", "exampleImage": "🌹" },
     { "grapheme": "z", "exampleWord": "zèbre" }
   ] },
   { "id": "j", "displaySymbol": "j", "order": 8, "level": "both", "graphemes": [
-    { "grapheme": "j", "exampleWord": "jaune" },
+    { "grapheme": "j", "exampleWord": "jaune", "exampleImage": "🟡" },
     { "grapheme": "g", "exampleWord": "girafe" }
   ] },
   { "id": "m", "displaySymbol": "m", "order": 9, "level": "both", "graphemes": [
-    { "grapheme": "m", "exampleWord": "maison" },
+    { "grapheme": "m", "exampleWord": "maison", "exampleImage": "🏠" },
     { "grapheme": "mm", "exampleWord": "pomme" }
   ] },
   { "id": "c", "displaySymbol": "c", "order": 10, "level": "both", "graphemes": [
-    { "grapheme": "c", "exampleWord": "carotte" },
+    { "grapheme": "c", "exampleWord": "carotte", "exampleImage": "🥕" },
     { "grapheme": "qu", "exampleWord": "quai" },
     { "grapheme": "k", "exampleWord": "koala" }
   ] },
   { "id": "v", "displaySymbol": "v", "order": 11, "level": "both", "graphemes": [
-    { "grapheme": "v", "exampleWord": "vache" }
+    { "grapheme": "v", "exampleWord": "vache", "exampleImage": "🐄" }
   ] },
   { "id": "g", "displaySymbol": "g", "order": 12, "level": "both", "graphemes": [
-    { "grapheme": "g", "exampleWord": "gâteau" },
+    { "grapheme": "g", "exampleWord": "gâteau", "exampleImage": "🎂" },
     { "grapheme": "gu", "exampleWord": "guitare" }
   ] },
   { "id": "b", "displaySymbol": "b", "order": 13, "level": "both", "graphemes": [
-    { "grapheme": "b", "exampleWord": "bonbon" }
+    { "grapheme": "b", "exampleWord": "bonbon", "exampleImage": "🍬" }
   ] },
   { "id": "u", "displaySymbol": "u", "order": 14, "level": "both", "graphemes": [
-    { "grapheme": "u", "exampleWord": "usine" }
+    { "grapheme": "u", "exampleWord": "usine", "exampleImage": "🏭" }
   ] },
   { "id": "an", "displaySymbol": "an", "order": 15, "level": "both", "graphemes": [
-    { "grapheme": "en", "exampleWord": "enfant" },
+    { "grapheme": "en", "exampleWord": "enfant", "exampleImage": "🧒" },
     { "grapheme": "an", "exampleWord": "maman" },
     { "grapheme": "em", "exampleWord": "décembre" },
     { "grapheme": "am", "exampleWord": "jambe" }
   ] },
   { "id": "n", "displaySymbol": "n", "order": 16, "level": "both", "graphemes": [
-    { "grapheme": "n", "exampleWord": "nuage" },
+    { "grapheme": "n", "exampleWord": "nuage", "exampleImage": "☁️" },
     { "grapheme": "nn", "exampleWord": "anniversaire" }
   ] },
   { "id": "oi", "displaySymbol": "oi", "order": 17, "level": "both", "graphemes": [
-    { "grapheme": "oi", "exampleWord": "oiseau" }
+    { "grapheme": "oi", "exampleWord": "oiseau", "exampleImage": "🐦" }
   ] },
   { "id": "oin", "displaySymbol": "oin", "order": 18, "level": "both", "graphemes": [
-    { "grapheme": "oin", "exampleWord": "poing" }
+    { "grapheme": "oin", "exampleWord": "poing", "exampleImage": "👊" }
   ] },
   { "id": "d", "displaySymbol": "d", "order": 19, "level": "both", "graphemes": [
-    { "grapheme": "d", "exampleWord": "dauphin" },
+    { "grapheme": "d", "exampleWord": "dauphin", "exampleImage": "🐬" },
     { "grapheme": "dd", "exampleWord": "addition" }
   ] },
   { "id": "l", "displaySymbol": "l", "order": 20, "level": "both", "graphemes": [
-    { "grapheme": "l", "exampleWord": "lapin" },
+    { "grapheme": "l", "exampleWord": "lapin", "exampleImage": "🐰" },
     { "grapheme": "ll", "exampleWord": "ballon" }
   ] },
   { "id": "r", "displaySymbol": "r", "order": 21, "level": "both", "graphemes": [
-    { "grapheme": "r", "exampleWord": "renard" },
+    { "grapheme": "r", "exampleWord": "renard", "exampleImage": "🦊" },
     { "grapheme": "rr", "exampleWord": "carotte" }
   ] },
   { "id": "on", "displaySymbol": "on", "order": 22, "level": "both", "graphemes": [
-    { "grapheme": "on", "exampleWord": "pont" },
+    { "grapheme": "on", "exampleWord": "pont", "exampleImage": "🌉" },
     { "grapheme": "om", "exampleWord": "trombone" }
   ] },
   { "id": "i", "displaySymbol": "i", "order": 23, "level": "both", "graphemes": [
-    { "grapheme": "i", "exampleWord": "igloo" },
+    { "grapheme": "i", "exampleWord": "igloo", "exampleImage": "❄️" },
     { "grapheme": "y", "exampleWord": "pyjama" }
   ] },
   { "id": "ch", "displaySymbol": "ch", "order": 24, "level": "both", "graphemes": [
-    { "grapheme": "ch", "exampleWord": "chat" }
+    { "grapheme": "ch", "exampleWord": "chat", "exampleImage": "🐱" }
   ] },
   { "id": "w", "displaySymbol": "w", "order": 25, "level": "both", "graphemes": [
-    { "grapheme": "w", "exampleWord": "wifi" }
+    { "grapheme": "w", "exampleWord": "wifi", "exampleImage": "📶" }
   ] },
   { "id": "ill", "displaySymbol": "ill", "order": 26, "level": "both", "graphemes": [
-    { "grapheme": "ill", "exampleWord": "fille" },
+    { "grapheme": "ill", "exampleWord": "fille", "exampleImage": "👧" },
     { "grapheme": "i", "exampleWord": "piano" },
     { "grapheme": "y", "exampleWord": "yoyo" },
     { "grapheme": "il", "exampleWord": "rail" }
   ] },
   { "id": "x", "displaySymbol": "x", "order": 27, "level": "both", "graphemes": [
-    { "grapheme": "x", "exampleWord": "taxi" }
+    { "grapheme": "x", "exampleWord": "taxi", "exampleImage": "🚕" }
   ] },
   { "id": "e", "displaySymbol": "é", "order": 28, "level": "both", "graphemes": [
-    { "grapheme": "é", "exampleWord": "étoile" },
+    { "grapheme": "é", "exampleWord": "étoile", "exampleImage": "⭐" },
     { "grapheme": "ai", "exampleWord": "maison" },
     { "grapheme": "è", "exampleWord": "règle" }
   ] },
   { "id": "o", "displaySymbol": "o", "order": 29, "level": "both", "graphemes": [
-    { "grapheme": "o", "exampleWord": "orange" },
+    { "grapheme": "o", "exampleWord": "orange", "exampleImage": "🍊" },
     { "grapheme": "au", "exampleWord": "autruche" },
     { "grapheme": "eau", "exampleWord": "beau" }
   ] },
   { "id": "eu", "displaySymbol": "e", "order": 30, "level": "both", "graphemes": [
-    { "grapheme": "e", "exampleWord": "cheval" },
+    { "grapheme": "e", "exampleWord": "cheval", "exampleImage": "🐴" },
     { "grapheme": "œu", "exampleWord": "œuf" },
     { "grapheme": "eu", "exampleWord": "deux" }
   ] },
   { "id": "in", "displaySymbol": "in", "order": 31, "level": "both", "graphemes": [
-    { "grapheme": "in", "exampleWord": "indien" },
+    { "grapheme": "in", "exampleWord": "indien", "exampleImage": "🏹" },
     { "grapheme": "im", "exampleWord": "timbre" },
     { "grapheme": "un", "exampleWord": "un" }
   ] },
   { "id": "ui", "displaySymbol": "ui", "order": 32, "level": "both", "graphemes": [
-    { "grapheme": "ui", "exampleWord": "huit" }
+    { "grapheme": "ui", "exampleWord": "huit", "exampleImage": "8️⃣" }
   ] },
   { "id": "gn", "displaySymbol": "gn", "order": 33, "level": "both", "graphemes": [
-    { "grapheme": "gn", "exampleWord": "montagne" }
+    { "grapheme": "gn", "exampleWord": "montagne", "exampleImage": "⛰️" }
   ] }
 ]

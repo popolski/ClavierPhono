@@ -20,6 +20,11 @@ export function PhonemeTile({ phoneme, disabled, onSelect }: PhonemeTileProps) {
       }`}
     >
       <span className="text-2xl font-bold">{phoneme.displaySymbol}</span>
+      {example?.exampleImage && (
+        <span className={`text-xl leading-none ${disabled ? 'opacity-30 grayscale' : ''}`}>
+          {example.exampleImage}
+        </span>
+      )}
       {example && <span className="mt-1 text-xs text-gray-400">{example.exampleWord}</span>}
     </button>
   )
