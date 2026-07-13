@@ -94,7 +94,7 @@
     { "grapheme": "ch", "exampleWord": "chat" }
   ] },
   { "id": "w", "displaySymbol": "w", "order": 25, "level": "both", "graphemes": [
-    { "grapheme": "w", "exampleWord": "wagon" }
+    { "grapheme": "w", "exampleWord": "wifi" }
   ] },
   { "id": "ill", "displaySymbol": "ill", "order": 26, "level": "both", "graphemes": [
     { "grapheme": "ill", "exampleWord": "fille" },

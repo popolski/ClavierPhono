@@ -44,4 +44,8 @@ export const sampleWords: WordEntry[] = [
   { word: 'manger', phonemes: ['m', 'an', 'j', 'e'], frequency: 50, level: 1, category: 'verbe' },
   { word: 'sauter', phonemes: ['s', 'o', 't', 'e'], frequency: 35, level: 1, category: 'verbe' },
   { word: 'avec', phonemes: ['a', 'v', 'e', 'c'], frequency: 65, level: 1, category: 'invariable' },
+  { word: 'wifi', phonemes: ['w', 'i', 'f', 'i'], frequency: 30, level: 1, category: 'nom' },
+  { word: 'taxi', phonemes: ['t', 'a', 'x', 'i'], frequency: 35, level: 1, category: 'nom' },
+  { word: 'huit', phonemes: ['ui', 't'], frequency: 40, level: 1, category: 'invariable' },
+  { word: 'poing', phonemes: ['p', 'oin'], frequency: 20, level: 1, category: 'nom' },
 ]
