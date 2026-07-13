@@ -1,4 +1,4 @@
-import type { PhonemeId, WordEntry } from '../../types/phonetics'
+import type { PhonemeId, WordCard, WordEntry, WordFormRole } from '../../types/phonetics'
 
 export interface PhonemeTrieNode {
   children: Map<PhonemeId, PhonemeTrieNode>
@@ -59,4 +59,42 @@ export function getViableNextPhonemes(trie: PhonemeTrieNode, sequence: PhonemeId
   const node = walk(trie, sequence)
   if (!node) return new Set()
   return new Set(node.children.keys())
+}
+
+const FORM_ROLE_ORDER: WordFormRole[] = [
+  'simple',
+  'singulier',
+  'pluriel',
+  'masculin',
+  'féminin',
+  'infinitif',
+  'participe_passé',
+  'il_elle_on',
+  'ils_elles',
+]
+
+/**
+ * Groups matched entries by word family (lemmaId) into cards, matching the
+ * original tool's results page — one card per word, its inflected forms
+ * shown together rather than as separate results.
+ */
+export function groupIntoCards(entries: WordEntry[]): WordCard[] {
+  const byLemma = new Map<string, WordEntry[]>()
+  for (const entry of entries) {
+    const forms = byLemma.get(entry.lemmaId)
+    if (forms) {
+      if (!forms.some((f) => f.word === entry.word)) forms.push(entry)
+    } else {
+      byLemma.set(entry.lemmaId, [entry])
+    }
+  }
+
+  const cards: WordCard[] = Array.from(byLemma.values()).map((forms) => ({
+    lemmaId: forms[0].lemmaId,
+    category: forms[0].category,
+    forms: [...forms].sort((a, b) => FORM_ROLE_ORDER.indexOf(a.formRole) - FORM_ROLE_ORDER.indexOf(b.formRole)),
+    frequency: Math.max(...forms.map((f) => f.frequency)),
+  }))
+
+  return cards.sort((a, b) => b.frequency - a.frequency)
 }

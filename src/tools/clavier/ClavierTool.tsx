@@ -3,7 +3,7 @@ import { ToolLayout } from '../../components/ToolLayout'
 import { PhonemeKeyboard } from '../../components/PhonemeKeyboard'
 import { SequenceBar } from '../../components/SequenceBar'
 import { WordResultsPanel } from '../../components/WordResultsPanel'
-import { buildPhonemeTrie, getMatches, getViableNextPhonemes } from './clavierLogic'
+import { buildPhonemeTrie, getMatches, getViableNextPhonemes, groupIntoCards } from './clavierLogic'
 import { sampleWords } from './__fixtures__/sampleWords'
 import { phonemes } from '../../lib/phonemes'
 import type { PhonemeId } from '../../types/phonetics'
@@ -18,8 +18,8 @@ export function ClavierTool() {
     () => (sequence.length === 0 ? null : getViableNextPhonemes(trie, sequence)),
     [trie, sequence],
   )
-  const matches = useMemo(
-    () => (sequence.length === 0 ? [] : getMatches(trie, sequence)),
+  const cards = useMemo(
+    () => (sequence.length === 0 ? [] : groupIntoCards(getMatches(trie, sequence))),
     [trie, sequence],
   )
 
@@ -36,7 +36,7 @@ export function ClavierTool() {
       />
       <WordResultsPanel
         key={sequence.join('-')}
-        words={matches}
+        cards={cards}
         hasSequence={sequence.length > 0}
         level={1}
       />
