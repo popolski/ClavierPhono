@@ -28,3 +28,6 @@ dist-ssr
 # Lexique383 source data (large, downloaded separately, see README)
 third_party/lexique383/*.tsv
 third_party/lexique383/*.zip
+
+.vercel
+.env*
