@@ -33,7 +33,12 @@ export function ClavierTool() {
         onBackspace={() => setSequence((s) => s.slice(0, -1))}
         onClear={() => setSequence([])}
       />
-      <WordResultsPanel words={matches} hasSequence={sequence.length > 0} />
+      <WordResultsPanel
+        key={sequence.join('-')}
+        words={matches}
+        hasSequence={sequence.length > 0}
+        level={1}
+      />
       <div className="mt-6">
         <PhonemeKeyboard
           phonemes={samplePhonemes}

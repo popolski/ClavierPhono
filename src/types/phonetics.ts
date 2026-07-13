@@ -21,12 +21,16 @@ export interface Phoneme {
 
 export type PhonemeTable = Phoneme[]
 
+/** Grammatical category, used to color-code results (matches the original tool's convention). */
+export type WordCategory = 'nom' | 'adjectif' | 'verbe' | 'invariable'
+
 export interface WordEntry {
   word: string
   /** Ordered sequence of our PhonemeIds — the lookup key. */
   phonemes: PhonemeId[]
   frequency: number
   level: 1 | 2
+  category: WordCategory
 }
 
 export type WordIndex = WordEntry[]
