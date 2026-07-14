@@ -48552,49 +48552,6 @@
       "elles": "ont paré"
     }
   },
-  "rayer": {
-    "infinitif": "rayer",
-    "auxiliaire": "avoir",
-    "present": {
-      "je": "raye",
-      "tu": "raies",
-      "il": "raye",
-      "elle": "raye",
-      "on": "raye",
-      "nous": "rayons",
-      "vous": "rayez",
-      "ils": "raient",
-      "elles": "raient"
-    },
-    "futur": {
-      "je": "rayerai",
-      "tu": "rayeras",
-      "il": "rayera",
-      "elle": "rayera",
-      "on": "rayera",
-      "ils": "rayeront",
-      "elles": "rayeront"
-    },
-    "imparfait": {
-      "il": "rayait",
-      "elle": "rayait",
-      "on": "rayait",
-      "nous": "rayions",
-      "ils": "rayaient",
-      "elles": "rayaient"
-    },
-    "passeCompose": {
-      "je": "ai rayé",
-      "tu": "as rayé",
-      "il": "a rayé",
-      "elle": "a rayé",
-      "on": "a rayé",
-      "nous": "avons rayé",
-      "vous": "avez rayé",
-      "ils": "ont rayé",
-      "elles": "ont rayé"
-    }
-  },
   "répandre": {
     "infinitif": "répandre",
     "auxiliaire": "avoir",
@@ -52029,6 +51986,49 @@
       "vous": "avez roucoulé",
       "ils": "ont roucoulé",
       "elles": "ont roucoulé"
+    }
+  },
+  "rayer": {
+    "infinitif": "rayer",
+    "auxiliaire": "avoir",
+    "present": {
+      "je": "raye",
+      "tu": "raies",
+      "il": "raye",
+      "elle": "raye",
+      "on": "raye",
+      "nous": "rayons",
+      "vous": "rayez",
+      "ils": "raient",
+      "elles": "raient"
+    },
+    "futur": {
+      "je": "rayerai",
+      "tu": "rayeras",
+      "il": "rayera",
+      "elle": "rayera",
+      "on": "rayera",
+      "ils": "rayeront",
+      "elles": "rayeront"
+    },
+    "imparfait": {
+      "il": "rayait",
+      "elle": "rayait",
+      "on": "rayait",
+      "nous": "rayions",
+      "ils": "rayaient",
+      "elles": "rayaient"
+    },
+    "passeCompose": {
+      "je": "ai rayé",
+      "tu": "as rayé",
+      "il": "a rayé",
+      "elle": "a rayé",
+      "on": "a rayé",
+      "nous": "avons rayé",
+      "vous": "avez rayé",
+      "ils": "ont rayé",
+      "elles": "ont rayé"
     }
   },
   "inclure": {
@@ -81017,32 +81017,6 @@
       "elles": "ont foutu"
     }
   },
-  "frauder": {
-    "infinitif": "frauder",
-    "auxiliaire": "avoir",
-    "present": {
-      "tu": "fraudes",
-      "il": "fraude",
-      "elle": "fraude",
-      "on": "fraude"
-    },
-    "futur": {},
-    "imparfait": {
-      "je": "fraudais",
-      "tu": "fraudais"
-    },
-    "passeCompose": {
-      "je": "ai fraudé",
-      "tu": "as fraudé",
-      "il": "a fraudé",
-      "elle": "a fraudé",
-      "on": "a fraudé",
-      "nous": "avons fraudé",
-      "vous": "avez fraudé",
-      "ils": "ont fraudé",
-      "elles": "ont fraudé"
-    }
-  },
   "frayer": {
     "infinitif": "frayer",
     "auxiliaire": "avoir",
@@ -81076,6 +81050,32 @@
       "vous": "avez frayé",
       "ils": "ont frayé",
       "elles": "ont frayé"
+    }
+  },
+  "frauder": {
+    "infinitif": "frauder",
+    "auxiliaire": "avoir",
+    "present": {
+      "tu": "fraudes",
+      "il": "fraude",
+      "elle": "fraude",
+      "on": "fraude"
+    },
+    "futur": {},
+    "imparfait": {
+      "je": "fraudais",
+      "tu": "fraudais"
+    },
+    "passeCompose": {
+      "je": "ai fraudé",
+      "tu": "as fraudé",
+      "il": "a fraudé",
+      "elle": "a fraudé",
+      "on": "a fraudé",
+      "nous": "avons fraudé",
+      "vous": "avez fraudé",
+      "ils": "ont fraudé",
+      "elles": "ont fraudé"
     }
   },
   "mander": {
@@ -90663,6 +90663,35 @@
       "elles": "ont haï"
     }
   },
+  "héler": {
+    "infinitif": "héler",
+    "auxiliaire": "avoir",
+    "present": {
+      "je": "hèle",
+      "il": "hèle",
+      "elle": "hèle",
+      "on": "hèle"
+    },
+    "futur": {},
+    "imparfait": {
+      "il": "hélait",
+      "elle": "hélait",
+      "on": "hélait",
+      "ils": "hélaient",
+      "elles": "hélaient"
+    },
+    "passeCompose": {
+      "je": "ai hélé",
+      "tu": "as hélé",
+      "il": "a hélé",
+      "elle": "a hélé",
+      "on": "a hélé",
+      "nous": "avons hélé",
+      "vous": "avez hélé",
+      "ils": "ont hélé",
+      "elles": "ont hélé"
+    }
+  },
   "héberger": {
     "infinitif": "héberger",
     "auxiliaire": "avoir",
@@ -90703,35 +90732,6 @@
       "vous": "avez hébergé",
       "ils": "ont hébergé",
       "elles": "ont hébergé"
-    }
-  },
-  "héler": {
-    "infinitif": "héler",
-    "auxiliaire": "avoir",
-    "present": {
-      "je": "hèle",
-      "il": "hèle",
-      "elle": "hèle",
-      "on": "hèle"
-    },
-    "futur": {},
-    "imparfait": {
-      "il": "hélait",
-      "elle": "hélait",
-      "on": "hélait",
-      "ils": "hélaient",
-      "elles": "hélaient"
-    },
-    "passeCompose": {
-      "je": "ai hélé",
-      "tu": "as hélé",
-      "il": "a hélé",
-      "elle": "a hélé",
-      "on": "a hélé",
-      "nous": "avons hélé",
-      "vous": "avez hélé",
-      "ils": "ont hélé",
-      "elles": "ont hélé"
     }
   },
   "infecter": {
@@ -91096,6 +91096,44 @@
       "elles": "ont prosterné"
     }
   },
+  "repenser": {
+    "infinitif": "repenser",
+    "auxiliaire": "avoir",
+    "present": {
+      "je": "repense",
+      "tu": "repenses",
+      "il": "repense",
+      "elle": "repense",
+      "on": "repense",
+      "vous": "repensez",
+      "ils": "repensent",
+      "elles": "repensent"
+    },
+    "futur": {
+      "je": "repenserai",
+      "il": "repensera",
+      "elle": "repensera",
+      "on": "repensera",
+      "vous": "repenserez"
+    },
+    "imparfait": {
+      "je": "repensais",
+      "il": "repensait",
+      "elle": "repensait",
+      "on": "repensait"
+    },
+    "passeCompose": {
+      "je": "ai repensé",
+      "tu": "as repensé",
+      "il": "a repensé",
+      "elle": "a repensé",
+      "on": "a repensé",
+      "nous": "avons repensé",
+      "vous": "avez repensé",
+      "ils": "ont repensé",
+      "elles": "ont repensé"
+    }
+  },
   "recroqueviller": {
     "infinitif": "recroqueviller",
     "auxiliaire": "avoir",
@@ -91189,44 +91227,6 @@
       "vous": "avez remédié",
       "ils": "ont remédié",
       "elles": "ont remédié"
-    }
-  },
-  "repenser": {
-    "infinitif": "repenser",
-    "auxiliaire": "avoir",
-    "present": {
-      "je": "repense",
-      "tu": "repenses",
-      "il": "repense",
-      "elle": "repense",
-      "on": "repense",
-      "vous": "repensez",
-      "ils": "repensent",
-      "elles": "repensent"
-    },
-    "futur": {
-      "je": "repenserai",
-      "il": "repensera",
-      "elle": "repensera",
-      "on": "repensera",
-      "vous": "repenserez"
-    },
-    "imparfait": {
-      "je": "repensais",
-      "il": "repensait",
-      "elle": "repensait",
-      "on": "repensait"
-    },
-    "passeCompose": {
-      "je": "ai repensé",
-      "tu": "as repensé",
-      "il": "a repensé",
-      "elle": "a repensé",
-      "on": "a repensé",
-      "nous": "avons repensé",
-      "vous": "avez repensé",
-      "ils": "ont repensé",
-      "elles": "ont repensé"
     }
   },
   "réhabiliter": {
@@ -92992,6 +92992,31 @@
       "elles": "ont gercé"
     }
   },
+  "gésir": {
+    "infinitif": "gésir",
+    "auxiliaire": "avoir",
+    "present": {
+      "je": "gis",
+      "tu": "gis",
+      "il": "gît",
+      "elle": "gît",
+      "on": "gît",
+      "ils": "gisent",
+      "elles": "gisent"
+    },
+    "futur": {},
+    "imparfait": {
+      "je": "gisais",
+      "tu": "gisais",
+      "il": "gisait",
+      "elle": "gisait",
+      "on": "gisait",
+      "nous": "gisions",
+      "ils": "gisaient",
+      "elles": "gisaient"
+    },
+    "passeCompose": {}
+  },
   "grappiller": {
     "infinitif": "grappiller",
     "auxiliaire": "avoir",
@@ -93017,31 +93042,6 @@
       "ils": "ont grappillé",
       "elles": "ont grappillé"
     }
-  },
-  "gésir": {
-    "infinitif": "gésir",
-    "auxiliaire": "avoir",
-    "present": {
-      "je": "gis",
-      "tu": "gis",
-      "il": "gît",
-      "elle": "gît",
-      "on": "gît",
-      "ils": "gisent",
-      "elles": "gisent"
-    },
-    "futur": {},
-    "imparfait": {
-      "je": "gisais",
-      "tu": "gisais",
-      "il": "gisait",
-      "elle": "gisait",
-      "on": "gisait",
-      "nous": "gisions",
-      "ils": "gisaient",
-      "elles": "gisaient"
-    },
-    "passeCompose": {}
   },
   "impliquer": {
     "infinitif": "impliquer",
@@ -98777,6 +98777,39 @@
       "elles": "ont rallié"
     }
   },
+  "receler": {
+    "infinitif": "receler",
+    "auxiliaire": "avoir",
+    "present": {
+      "je": "recèle",
+      "tu": "recèles",
+      "il": "recèle",
+      "elle": "recèle",
+      "on": "recèle",
+      "nous": "recelons",
+      "ils": "recèlent",
+      "elles": "recèlent"
+    },
+    "futur": {},
+    "imparfait": {
+      "il": "recelait",
+      "elle": "recelait",
+      "on": "recelait",
+      "ils": "recelaient",
+      "elles": "recelaient"
+    },
+    "passeCompose": {
+      "je": "ai recelé",
+      "tu": "as recelé",
+      "il": "a recelé",
+      "elle": "a recelé",
+      "on": "a recelé",
+      "nous": "avons recelé",
+      "vous": "avez recelé",
+      "ils": "ont recelé",
+      "elles": "ont recelé"
+    }
+  },
   "reconstruire": {
     "infinitif": "reconstruire",
     "auxiliaire": "avoir",
@@ -98818,39 +98851,6 @@
       "vous": "avez reconstruit",
       "ils": "ont reconstruit",
       "elles": "ont reconstruit"
-    }
-  },
-  "receler": {
-    "infinitif": "receler",
-    "auxiliaire": "avoir",
-    "present": {
-      "je": "recèle",
-      "tu": "recèles",
-      "il": "recèle",
-      "elle": "recèle",
-      "on": "recèle",
-      "nous": "recelons",
-      "ils": "recèlent",
-      "elles": "recèlent"
-    },
-    "futur": {},
-    "imparfait": {
-      "il": "recelait",
-      "elle": "recelait",
-      "on": "recelait",
-      "ils": "recelaient",
-      "elles": "recelaient"
-    },
-    "passeCompose": {
-      "je": "ai recelé",
-      "tu": "as recelé",
-      "il": "a recelé",
-      "elle": "a recelé",
-      "on": "a recelé",
-      "nous": "avons recelé",
-      "vous": "avez recelé",
-      "ils": "ont recelé",
-      "elles": "ont recelé"
     }
   },
   "rembarquer": {

@@ -10,6 +10,15 @@
 // de filtrage automatique "en plus" de la relecture manuelle, ce EST le
 // filtrage : ne garder que ce qui a été effectivement écrit pour des enfants.
 //
+// Cas particulier des verbes : le filtre Manulex se décide au niveau du
+// VERBE, pas forme par forme. Sinon un verbe dont seule une forme conjuguée
+// (ex. "huile") apparaît dans Manulex, mais pas l'infinitif ("huiler") lui-
+// même, perdrait son infinitif alors que le verbe est manifestement connu
+// des élèves. Si au moins une forme du verbe est dans Manulex, on construit
+// la carte complète (infinitif/participe passé/il-elle-on/ils-elles) à
+// partir de Lexique383, même pour les formes qui n'ont pas elles-mêmes de
+// correspondance directe dans Manulex.
+//
 // Prérequis : third_party/manulex/manulex-forms.csv (export de Manulex.xls,
 // voir le commit "Croiser le lexique avec Manulex" pour la commande Python).
 //
@@ -55,7 +64,10 @@ function categoryFor(cgram) {
   return null // catégorie hors périmètre (ex. cgram vide)
 }
 
-// --- Lecture + décodage phonétique + filtre Manulex -------------------------
+// --- Lecture + décodage phonétique -------------------------------------------
+// Pour les non-verbes, le filtre Manulex s'applique tout de suite (chaque
+// forme doit justifier sa propre présence). Pour les verbes, on garde toutes
+// les lignes ici et on décide au niveau du lemme plus bas.
 const rows = []
 let droppedNotInManulex = 0
 for (let i = 1; i < lines.length; i++) {
@@ -68,7 +80,7 @@ for (let i = 1; i < lines.length; i++) {
   if (!category) continue
 
   const manulexSfi = manulexByWord.get(ortho)
-  if (manulexSfi === undefined) {
+  if (category !== 'verbe' && manulexSfi === undefined) {
     droppedNotInManulex++
     continue // le mot n'apparaît dans aucun des 54 manuels scolaires étudiés
   }
@@ -88,7 +100,8 @@ for (let i = 1; i < lines.length; i++) {
     genre: get(cols, 'genre'),
     nombre: get(cols, 'nombre'),
     infover: get(cols, 'infover'),
-    frequency: manulexSfi,
+    freqlivres: parseFloat(get(cols, 'freqlivres')) || 0,
+    manulexSfi, // undefined si cette forme précise n'est pas dans Manulex
     category,
   })
 }
@@ -115,25 +128,34 @@ function addEntry(lemmaId, category, word, phonemes, formRole, frequency) {
   entriesByLemma.set(lemmaId, list)
 }
 
-// Pour verbe : on ne garde que la ligne la plus fréquente par (lemme, rôle),
-// ce qui résout au passage les doublons AUX/VER (ex. "être" auxiliaire vs
-// verbe principal partagent les mêmes formes).
-const verbSlotBest = new Map() // `${lemme}::${role}` -> row la plus fréquente
+// Pour verbe : on garde la ligne la plus pertinente par (lemme, rôle) — en
+// préférant une forme elle-même présente dans Manulex, sinon la plus
+// fréquente (freqlivres) — ce qui résout au passage les doublons AUX/VER
+// (ex. "être" auxiliaire vs verbe principal partagent les mêmes formes).
+const verbSlotBest = new Map() // `${lemme}::${role}` -> row la plus pertinente
+
+function isBetterVerbCandidate(candidate, current) {
+  if (!current) return true
+  const candidateInManulex = candidate.manulexSfi !== undefined
+  const currentInManulex = current.manulexSfi !== undefined
+  if (candidateInManulex !== currentInManulex) return candidateInManulex
+  return candidate.freqlivres > current.freqlivres
+}
 
 for (const row of rows) {
   if (row.category === 'nom') {
     const lemmaId = `nom:${row.lemme}`
     const formRole = row.nombre === 'p' ? 'pluriel' : 'singulier'
-    addEntry(lemmaId, 'nom', row.ortho, row.phonemes, formRole, row.frequency)
+    addEntry(lemmaId, 'nom', row.ortho, row.phonemes, formRole, row.manulexSfi)
   } else if (row.category === 'adjectif') {
     if (row.nombre === 'p') continue // seules les formes au singulier (règle Clavier 1)
     const lemmaId = `adjectif:${row.lemme}`
     const formRole = row.genre === 'f' ? 'féminin' : 'masculin'
-    addEntry(lemmaId, 'adjectif', row.ortho, row.phonemes, formRole, row.frequency)
+    addEntry(lemmaId, 'adjectif', row.ortho, row.phonemes, formRole, row.manulexSfi)
   } else if (row.category === 'adverbe') {
-    addEntry(`adverbe:${row.ortho}`, 'adverbe', row.ortho, row.phonemes, 'simple', row.frequency)
+    addEntry(`adverbe:${row.ortho}`, 'adverbe', row.ortho, row.phonemes, 'simple', row.manulexSfi)
   } else if (row.category === 'invariable') {
-    addEntry(`invariable:${row.ortho}`, 'invariable', row.ortho, row.phonemes, 'simple', row.frequency)
+    addEntry(`invariable:${row.ortho}`, 'invariable', row.ortho, row.phonemes, 'simple', row.manulexSfi)
   } else if (row.category === 'verbe') {
     const infover = row.infover || ''
     let role = null
@@ -145,14 +167,33 @@ for (const row of rows) {
     if (!role) continue
 
     const slotKey = `${row.lemme}::${role}`
-    const best = verbSlotBest.get(slotKey)
-    if (!best || row.frequency > best.frequency) verbSlotBest.set(slotKey, row)
+    if (isBetterVerbCandidate(row, verbSlotBest.get(slotKey))) verbSlotBest.set(slotKey, { ...row, role })
   }
 }
 
+// Qualification par lemme : le verbe est retenu si AU MOINS une de ses 4
+// formes candidates est elle-même dans Manulex — auquel cas on construit la
+// carte complète avec toutes les formes trouvées dans Lexique383, même
+// celles qui n'ont pas individuellement de correspondance dans Manulex.
+const verbRowsByLemma = new Map()
 for (const [slotKey, row] of verbSlotBest) {
-  const role = slotKey.split('::')[1]
-  addEntry(`verbe:${row.lemme}`, 'verbe', row.ortho, row.phonemes, role, row.frequency)
+  const lemme = slotKey.split('::')[0]
+  const list = verbRowsByLemma.get(lemme) ?? []
+  list.push(row)
+  verbRowsByLemma.set(lemme, list)
+}
+
+let verbLemmesRejected = 0
+for (const [lemme, verbRows] of verbRowsByLemma) {
+  const qualifyingSfis = verbRows.map((r) => r.manulexSfi).filter((sfi) => sfi !== undefined)
+  if (qualifyingSfis.length === 0) {
+    verbLemmesRejected++
+    continue // aucune forme de ce verbe n'apparaît dans Manulex
+  }
+  const representativeSfi = Math.max(...qualifyingSfis)
+  for (const row of verbRows) {
+    addEntry(`verbe:${lemme}`, 'verbe', row.ortho, row.phonemes, row.role, row.manulexSfi ?? representativeSfi)
+  }
 }
 
 // --- Pas de coupure artificielle : on garde tout ce qui a passé le filtre --
@@ -185,8 +226,9 @@ const csvRows = wordIndex
   .join('\n')
 writeFileSync(new URL('words-review.csv', reviewDir), '﻿' + csvHeader + csvRows)
 
-console.log(`${wordIndex.length} mots générés (tous présents dans Manulex).`)
-console.log(`${droppedNotInManulex} lignes Lexique383 écartées car absentes de Manulex.`)
+console.log(`${wordIndex.length} mots générés (tous présents dans Manulex, ou verbe dont au moins une forme y est).`)
+console.log(`${droppedNotInManulex} lignes non-verbe écartées car absentes de Manulex.`)
+console.log(`${verbLemmesRejected} verbes écartés car aucune de leurs formes n'est dans Manulex.`)
 console.log(`Familles de mots (cartes) : ${lemmaGroups.length}`)
 const byCategory = {}
 for (const e of wordIndex) byCategory[e.category] = (byCategory[e.category] || 0) + 1
