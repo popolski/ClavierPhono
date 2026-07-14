@@ -27,18 +27,10 @@ export function PhonemeTile({ phoneme, disabled, onSelect, onShowInfo }: Phoneme
         {secondaryGraphemes.length > 0 && (
           <span className="text-[10px] text-gray-400">{secondaryGraphemes.join(' · ')}</span>
         )}
-        {phoneme.gestureImage ? (
-          <img
-            src={phoneme.gestureImage}
-            alt={`Geste Borel-Maisonny — ${phoneme.displaySymbol}`}
-            className={`mt-1 h-10 w-10 object-contain ${disabled ? 'opacity-30 grayscale' : ''}`}
-          />
-        ) : (
-          primary?.exampleImage && (
-            <span className={`mt-1 text-xl leading-none ${disabled ? 'opacity-30 grayscale' : ''}`}>
-              {primary.exampleImage}
-            </span>
-          )
+        {primary?.exampleImage && (
+          <span className={`mt-1 text-xl leading-none ${disabled ? 'opacity-30 grayscale' : ''}`}>
+            {primary.exampleImage}
+          </span>
         )}
       </button>
       <button

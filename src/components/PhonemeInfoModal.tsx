@@ -14,14 +14,15 @@ export function PhonemeInfoModal({ phoneme, onClose }: PhonemeInfoModalProps) {
       >
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            {phoneme.gestureImage && (
-              <img
-                src={phoneme.gestureImage}
-                alt={`Geste Borel-Maisonny — ${phoneme.displaySymbol}`}
-                className="h-16 w-16 object-contain"
-              />
-            )}
             <span className="text-4xl font-bold text-gray-900">{phoneme.displaySymbol}</span>
+            {phoneme.gestureImages?.map((src) => (
+              <img
+                key={src}
+                src={src}
+                alt={`Geste Borel-Maisonny — ${phoneme.displaySymbol}`}
+                className="h-14 w-14 object-contain"
+              />
+            ))}
           </div>
           <button
             type="button"

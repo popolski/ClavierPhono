@@ -17,8 +17,14 @@ export interface Phoneme {
   /** Position in the keyboard grid. */
   order: number
   level: 1 | 2 | 'both'
-  /** Geste Borel-Maisonny (photo/dessin), un par son — absent pour les 2 sons sans geste dédié (w, ui). */
-  gestureImage?: string
+  /**
+   * Geste(s) Borel-Maisonny (photo/dessin). Un seul élément pour la plupart
+   * des touches ; deux pour les "touches doubles" qui fusionnent 2 sons
+   * ayant chacun leur propre geste (ex. é/è). Absent pour w et ui (pas de
+   * geste dédié dans la méthode). Affiché dans la fiche du son, pas sur la
+   * touche elle-même (pour ne pas surcharger le clavier).
+   */
+  gestureImages?: string[]
   /** Piège(s) orthographique(s) ou règle (ex. "Règle du M, B, P") à afficher dans la fiche du son. */
   note?: string
 }
