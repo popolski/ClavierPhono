@@ -1,18 +1,37 @@
-// Génère le lexique ClavierPhono à partir de Lexique383 : décodage phonétique,
-// catégorisation grammaticale, regroupement en familles de mots (lemmaId +
-// formRole), filtrage par fréquence pour atteindre AU MOINS 18 000 mots
-// (un seul lexique, portée "Clavier 2" — pas de séparation Clavier 1/2).
+// Génère le lexique ClavierPhono : structure grammaticale et phonétique
+// depuis Lexique383, mais le mot n'est retenu QUE s'il apparaît réellement
+// dans Manulex (54 manuels scolaires CP/CE1/cycle 3, manulex.org) — Manulex
+// sert de filtre de contenu ET de source de fréquence/classement (SFI
+// combiné CP à CM2), à la place de la fréquence livres adulte de Lexique383.
+//
+// Ça élimine mécaniquement le vocabulaire hors-sujet pour une classe
+// primaire (un manuel scolaire ne contient pas d'insultes) et réduit la
+// liste finale à une taille réellement relisable par l'enseignante — pas
+// de filtrage automatique "en plus" de la relecture manuelle, ce EST le
+// filtrage : ne garder que ce qui a été effectivement écrit pour des enfants.
+//
+// Prérequis : third_party/manulex/manulex-forms.csv (export de Manulex.xls,
+// voir le commit "Croiser le lexique avec Manulex" pour la commande Python).
 //
 // Sortie :
-//   src/data/words-clavier2.json   — le lexique, prêt à être importé par l'app
+//   src/data/words-clavier2.json    — le lexique, prêt à être importé par l'app
 //   scripts/output/words-review.csv — même contenu en CSV (UTF-8 BOM, Excel/LibreOffice)
-//     pour relecture manuelle par l'enseignante AVANT toute intégration finale.
+//     pour une relecture finale, allégée, par l'enseignante.
 //
 // Lancé à la main : node scripts/build-word-index.mjs
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { decodePhon } from './lexiquePhonemeMap.ts'
 
-const MIN_WORDS = 18000
+// --- Manulex : lookup mot -> fréquence CP-CM2 (SFI) -------------------------
+const manulexPath = new URL('../third_party/manulex/manulex-forms.csv', import.meta.url)
+const manulexLines = readFileSync(manulexPath, 'utf8').split(/\r\n|\n/).filter(Boolean)
+const manulexByWord = new Map()
+for (let i = 1; i < manulexLines.length; i++) {
+  const [word, , , , cpcm2Sfi] = manulexLines[i].split(',')
+  const sfi = parseFloat(cpcm2Sfi) || 0
+  const existing = manulexByWord.get(word)
+  if (!existing || sfi > existing) manulexByWord.set(word, sfi)
+}
 
 const tsvPath = new URL('../third_party/lexique383/Lexique383.tsv', import.meta.url)
 const text = readFileSync(tsvPath, 'utf8')
@@ -36,8 +55,9 @@ function categoryFor(cgram) {
   return null // catégorie hors périmètre (ex. cgram vide)
 }
 
-// --- Lecture + décodage phonétique -----------------------------------------
+// --- Lecture + décodage phonétique + filtre Manulex -------------------------
 const rows = []
+let droppedNotInManulex = 0
 for (let i = 1; i < lines.length; i++) {
   const cols = lines[i].split('\t')
   const ortho = get(cols, 'ortho')
@@ -46,6 +66,12 @@ for (let i = 1; i < lines.length; i++) {
   if (!ortho || !phon || !cgram) continue
   const category = categoryFor(cgram)
   if (!category) continue
+
+  const manulexSfi = manulexByWord.get(ortho)
+  if (manulexSfi === undefined) {
+    droppedNotInManulex++
+    continue // le mot n'apparaît dans aucun des 54 manuels scolaires étudiés
+  }
 
   let phonemes
   try {
@@ -62,7 +88,7 @@ for (let i = 1; i < lines.length; i++) {
     genre: get(cols, 'genre'),
     nombre: get(cols, 'nombre'),
     infover: get(cols, 'infover'),
-    frequency: parseFloat(get(cols, 'freqlivres')) || 0,
+    frequency: manulexSfi,
     category,
   })
 }
@@ -78,8 +104,8 @@ function addEntry(lemmaId, category, word, phonemes, formRole, frequency) {
   const existingIdx = list.findIndex((e) => e.key === key)
   if (existingIdx !== -1) {
     // Un même mot peut apparaître sous plusieurs cgram proches (ex. "de" en
-    // ART:def freq=0 ET en PRE freq=38928) — on garde la fréquence la plus
-    // élevée plutôt que la première ligne rencontrée dans le fichier.
+    // ART:def ET en PRE) — on garde la fréquence la plus élevée plutôt que
+    // la première ligne rencontrée dans le fichier.
     if (frequency > list[existingIdx].frequency) {
       list[existingIdx] = { key, word, phonemes, frequency, category, lemmaId, formRole }
     }
@@ -129,18 +155,11 @@ for (const [slotKey, row] of verbSlotBest) {
   addEntry(`verbe:${row.lemme}`, 'verbe', row.ortho, row.phonemes, role, row.frequency)
 }
 
-// --- Filtrage par fréquence : au moins MIN_WORDS mots au total -------------
+// --- Pas de coupure artificielle : on garde tout ce qui a passé le filtre --
+// Manulex (contrairement à la version précédente, plus de cible "au moins
+// 18000" — la taille finale est celle du vocabulaire réellement scolaire).
 const lemmaGroups = [...entriesByLemma.values()]
-lemmaGroups.forEach((group) => {
-  group.maxFrequency = Math.max(...group.map((e) => e.frequency))
-})
-lemmaGroups.sort((a, b) => b.maxFrequency - a.maxFrequency)
-
-const finalEntries = []
-for (const group of lemmaGroups) {
-  finalEntries.push(...group)
-  if (finalEntries.length >= MIN_WORDS) break
-}
+const finalEntries = lemmaGroups.flat()
 
 // --- Écriture des sorties ----------------------------------------------------
 const outDir = new URL('../src/data/', import.meta.url)
@@ -148,7 +167,7 @@ const wordIndex = finalEntries
   .map((e) => ({
     word: e.word,
     phonemes: e.phonemes,
-    frequency: Math.round(e.frequency * 100) / 100,
+    frequency: Math.round(e.frequency * 100) / 100, // SFI Manulex (CP-CM2), pas freqlivres
     level: 2,
     category: e.category,
     lemmaId: e.lemmaId,
@@ -160,14 +179,15 @@ writeFileSync(new URL('words-clavier2.json', outDir), JSON.stringify(wordIndex, 
 
 const reviewDir = new URL('output/', import.meta.url)
 mkdirSync(reviewDir, { recursive: true })
-const csvHeader = 'mot;categorie;role;famille;frequence\n'
+const csvHeader = 'mot;categorie;role;famille;sfi_manulex_cp_cm2\n'
 const csvRows = wordIndex
   .map((e) => `${e.word};${e.category};${e.formRole};${e.lemmaId};${e.frequency}`)
   .join('\n')
 writeFileSync(new URL('words-review.csv', reviewDir), '﻿' + csvHeader + csvRows)
 
-console.log(`${wordIndex.length} mots générés (objectif: >= ${MIN_WORDS}).`)
-console.log(`Familles de mots (cartes) : ${lemmaGroups.filter((g) => finalEntries.includes(g[0])).length}`)
+console.log(`${wordIndex.length} mots générés (tous présents dans Manulex).`)
+console.log(`${droppedNotInManulex} lignes Lexique383 écartées car absentes de Manulex.`)
+console.log(`Familles de mots (cartes) : ${lemmaGroups.length}`)
 const byCategory = {}
 for (const e of wordIndex) byCategory[e.category] = (byCategory[e.category] || 0) + 1
 console.log('Répartition par catégorie:', byCategory)
