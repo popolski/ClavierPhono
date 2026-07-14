@@ -26,8 +26,11 @@ dist-ssr
 .vercel
 
 # Lexique383 source data (large, downloaded separately, see README)
-third_party/lexique383/*.tsv
-third_party/lexique383/*.zip
+third_party/lexique383/*
+
+# Sortie de build-word-index.mjs destinée à la relecture manuelle,
+# pas au dépôt public (à transmettre directement à l'enseignante)
+scripts/output/
 
 .vercel
 .env*
