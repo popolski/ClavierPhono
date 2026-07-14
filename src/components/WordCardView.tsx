@@ -21,8 +21,6 @@ export function WordCardView({ card }: WordCardViewProps) {
   if (card.category === 'verbe') {
     const infinitif = card.forms.find((f) => f.formRole === 'infinitif')
     const participe = card.forms.find((f) => f.formRole === 'participe_passé')
-    const ilElleOn = card.forms.find((f) => f.formRole === 'il_elle_on')
-    const ilsElles = card.forms.find((f) => f.formRole === 'ils_elles')
     const lemme = card.lemmaId.replace(/^verbe:/, '')
     return (
       <Link
@@ -33,20 +31,6 @@ export function WordCardView({ card }: WordCardViewProps) {
           <span>{infinitif?.word}</span>
           {participe && <span>{participe.word}</span>}
         </div>
-        {(ilElleOn ?? ilsElles) && (
-          <div className="mt-2 flex flex-wrap justify-between gap-x-4 border-t border-current/20 pt-2 text-sm">
-            {ilElleOn && (
-              <span>
-                il / elle / on <strong>{ilElleOn.word}</strong>
-              </span>
-            )}
-            {ilsElles && (
-              <span>
-                ils / elles <strong>{ilsElles.word}</strong>
-              </span>
-            )}
-          </div>
-        )}
       </Link>
     )
   }
