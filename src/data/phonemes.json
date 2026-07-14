@@ -6,7 +6,7 @@
       { "grapheme": "â", "exampleWord": "âne" },
       { "grapheme": "à", "exampleWord": "là" }
     ] },
-  { "id": "e", "displaySymbol": "é", "order": 2, "level": "both", "gestureImages": ["/gestures/e.png", "/gestures/e2.png"],
+  { "id": "e", "displaySymbol": "é è", "order": 2, "level": "both", "gestureImages": ["/gestures/e.png", "/gestures/e2.png"],
     "note": "Deux gestes Borel-Maisonny pour cette touche : é (fermé) et è (ouvert). « et », « es » et « est » se prononcent tous [é].",
     "graphemes": [
       { "grapheme": "é", "exampleWord": "étoile", "exampleImage": "⭐" },
@@ -166,10 +166,10 @@
     "graphemes": [
       { "grapheme": "v", "exampleWord": "vache", "exampleImage": "🐄" }
     ] },
-  { "id": "z", "displaySymbol": "s", "order": 27, "level": "both", "gestureImages": ["/gestures/z.png"],
+  { "id": "z", "displaySymbol": "z", "order": 27, "level": "both", "gestureImages": ["/gestures/z.png"],
     "graphemes": [
-      { "grapheme": "s", "exampleWord": "rose" },
-      { "grapheme": "z", "exampleWord": "zèbre" }
+      { "grapheme": "z", "exampleWord": "zèbre", "exampleImage": "🦓" },
+      { "grapheme": "s", "exampleWord": "rose" }
     ] },
   { "id": "gn", "displaySymbol": "gn", "order": 28, "level": "both", "gestureImages": ["/gestures/gn.png"],
     "graphemes": [

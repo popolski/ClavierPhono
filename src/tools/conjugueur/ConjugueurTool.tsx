@@ -22,14 +22,15 @@ function PersonRow({ personne, form }: { personne: string; form: StyledForm | un
   // Le pronom (« Je », « J' » élidé, « Tu »…) va toujours dans la colonne de
   // gauche, la forme conjuguée dans la colonne de droite — comme un tableau
   // de conjugaison classique. Toutes les lignes s'alignent ainsi.
-  const { texte } = pronomAffiche(personne, form)
+  // Auxiliaire (passé composé) + terminaison en rouge, radical en noir.
+  const texte = pronomAffiche(personne, form)
   return (
     <div className="flex items-baseline gap-2 text-xl">
       <span className="w-16 shrink-0 text-gray-500">{texte}</span>
       <span>
-        <span className="text-gray-500">{form.prefix}</span>
+        <span className="font-semibold text-red-700">{form.redPrefix}</span>
         <span className="font-medium text-gray-900">{form.stem}</span>
-        <span className="font-semibold text-red-700">{form.ending}</span>
+        <span className="font-semibold text-red-700">{form.redEnding}</span>
       </span>
     </div>
   )
@@ -69,7 +70,7 @@ export function ConjugueurTool() {
     )
   }
 
-  const styled = styleConjugatedForms(verb[tense])
+  const styled = styleConjugatedForms(tense, verb[tense])
 
   return (
     <ToolLayout

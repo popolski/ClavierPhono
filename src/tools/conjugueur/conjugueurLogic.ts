@@ -1,45 +1,62 @@
-/** Plus longue chaîne commune en préfixe à un ensemble de mots (le "radical" approximatif). */
-function longestCommonPrefixLength(words: string[]): number {
-  if (words.length === 0) return 0
-  let prefix = words[0]
-  for (const w of words.slice(1)) {
-    let i = 0
-    while (i < prefix.length && i < w.length && prefix[i] === w[i]) i++
-    prefix = prefix.slice(0, i)
-  }
-  return prefix.length
+export interface StyledForm {
+  /** Partie affichée en ROUGE avant le radical (l'auxiliaire du passé composé, ex. "ai "). */
+  redPrefix: string
+  /** Radical, affiché en noir. */
+  stem: string
+  /** Terminaison, affichée en ROUGE (ex. "erai" dans "mangERAI", "é" dans "mangÉ"). */
+  redEnding: string
 }
 
-export interface StyledForm {
-  /** Mot(s) affichés tels quels devant la forme conjuguée (ex. l'auxiliaire "a" pour "a mangé"). */
-  prefix: string
-  /** Radical de la forme conjuguée. */
-  stem: string
-  /** Terminaison de la forme conjuguée. */
-  ending: string
+// Terminaisons connues par temps (les plus longues d'abord — on colore la
+// plus longue qui correspond à la fin du mot). Calibrées pour les verbes
+// réguliers, majoritaires au primaire ; sur un irrégulier rare la coupe peut
+// être approximative, sans conséquence sur l'orthographe affichée.
+const SIMPLE_TENSE_ENDINGS: Record<string, string[]> = {
+  present: ['issons', 'issent', 'issez', 'ons', 'ent', 'ez', 'es', 'e', 's', 't', 'x'],
+  imparfait: ['issaient', 'issions', 'issiez', 'aient', 'ions', 'iez', 'ais', 'ait'],
+  futur: [
+    'erons', 'eront', 'erez', 'eras', 'erai', 'era',
+    'irons', 'iront', 'irez', 'iras', 'irai', 'ira',
+    'rons', 'ront', 'rez', 'ras', 'rai', 'ra',
+  ],
+}
+
+// Terminaisons de participe passé (passé composé), les plus longues d'abord.
+const PARTICIPE_ENDINGS = ['ées', 'és', 'ée', 'é', 'ies', 'ie', 'is', 'ues', 'ue', 'us', 'u', 'ts', 'te', 't', 's']
+
+function splitEnding(word: string, endings: string[]): { stem: string; ending: string } {
+  for (const e of endings) {
+    if (word.length > e.length && word.endsWith(e)) {
+      return { stem: word.slice(0, -e.length), ending: e }
+    }
+  }
+  return { stem: word, ending: '' }
 }
 
 /**
- * Découpe chaque forme d'un temps en (préfixe éventuel, radical, terminaison)
- * pour la coloration radical/terminaison — le radical est approximé par le
- * plus long préfixe commun aux formes du dernier mot (le participe, pour un
- * temps composé). Approximation raisonnable pour les verbes réguliers ;
- * moins pertinente pour les verbes très irréguliers (aller, être...).
+ * Découpe une forme conjuguée pour la coloration radical (noir) / terminaison
+ * (rouge). Pour le passé composé (temps composé "aux + participe"),
+ * l'auxiliaire est entièrement rouge et le participe est découpé
+ * radical/terminaison : "j'AI mangÉ".
  */
-export function styleConjugatedForms(forms: Record<string, string>): Record<string, StyledForm> {
-  const lastWords = Object.values(forms).map((f) => f.split(' ').at(-1) ?? f)
-  const stemLength = longestCommonPrefixLength(lastWords)
+export function styleForm(tense: string, form: string): StyledForm {
+  if (tense === 'passeCompose') {
+    const spaceIdx = form.lastIndexOf(' ')
+    if (spaceIdx !== -1) {
+      const aux = form.slice(0, spaceIdx)
+      const participe = form.slice(spaceIdx + 1)
+      const { stem, ending } = splitEnding(participe, PARTICIPE_ENDINGS)
+      return { redPrefix: aux + ' ', stem, redEnding: ending }
+    }
+  }
+  const { stem, ending } = splitEnding(form, SIMPLE_TENSE_ENDINGS[tense] ?? [])
+  return { redPrefix: '', stem, redEnding: ending }
+}
 
+export function styleConjugatedForms(tense: string, forms: Record<string, string>): Record<string, StyledForm> {
   const result: Record<string, StyledForm> = {}
   for (const [personne, form] of Object.entries(forms)) {
-    const words = form.split(' ')
-    const lastWord = words.at(-1) ?? form
-    const prefix = words.slice(0, -1).join(' ')
-    result[personne] = {
-      prefix: prefix ? prefix + ' ' : '',
-      stem: lastWord.slice(0, stemLength),
-      ending: lastWord.slice(stemLength),
-    }
+    result[personne] = styleForm(tense, form)
   }
   return result
 }
@@ -63,13 +80,12 @@ const VOYELLE_OU_H = /^[aeiouyàâäéèêëïîôöùûüh]/i
 
 /**
  * "Je" s'élide en "J'" devant une voyelle ou un h muet (j'ai, j'aime,
- * j'habite) — seul pronom sujet concerné parmi les 9 (il/elle/on/nous/
- * vous/ils/elles ne s'élident pas : "il a", "on a").
+ * j'habite) — seul pronom sujet concerné parmi les 9.
  */
-export function pronomAffiche(personne: string, form: StyledForm): { texte: string; elide: boolean } {
-  const premiereLettre = (form.prefix || form.stem || form.ending)[0] ?? ''
+export function pronomAffiche(personne: string, form: StyledForm): string {
+  const premiereLettre = (form.redPrefix || form.stem || form.redEnding)[0] ?? ''
   if (personne === 'je' && VOYELLE_OU_H.test(premiereLettre)) {
-    return { texte: "J'", elide: true }
+    return "J'"
   }
-  return { texte: PRONOMS[personne], elide: false }
+  return PRONOMS[personne]
 }
