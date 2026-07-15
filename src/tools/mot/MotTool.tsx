@@ -3,8 +3,15 @@ import { Link, useParams } from 'react-router-dom'
 import { ToolLayout } from '../../components/ToolLayout'
 import { loadWordIndex } from '../../lib/wordIndex'
 import { loadWordFamilies } from '../../lib/wordFamilies'
+import { loadWordSynonyms, loadWordAntonyms } from '../../lib/wordSynonyms'
 import { pickPrimaryForm } from '../clavier/clavierLogic'
-import type { WordCategory, WordEntry, WordFamilyMember, WordFormRole } from '../../types/phonetics'
+import type {
+  WordCategory,
+  WordEntry,
+  WordFamilyMember,
+  WordFormRole,
+  WordRelationMember,
+} from '../../types/phonetics'
 
 const CATEGORY_LABEL: Record<WordCategory, string> = {
   nom: 'Nom',
@@ -47,24 +54,42 @@ function formLabel(f: WordEntry, hasBothGenders: boolean): string {
   return FORM_ROLE_LABEL[f.formRole] ?? f.formRole
 }
 
+function WordChip({ member }: { member: WordRelationMember }) {
+  return (
+    <Link
+      to={`/mot/${encodeURIComponent(member.lemmaId)}`}
+      className={`rounded-lg border px-4 py-2 shadow-sm transition hover:shadow-md ${categoryStyles[member.category]}`}
+    >
+      <div className="text-xs opacity-70">{CATEGORY_LABEL[member.category]}</div>
+      <div className="text-xl font-medium">{member.word}</div>
+    </Link>
+  )
+}
+
 export function MotTool() {
   const { lemmaId } = useParams<{ lemmaId: string }>()
   const [forms, setForms] = useState<WordEntry[] | null>(null)
   const [family, setFamily] = useState<WordFamilyMember[] | null>(null)
+  const [synonyms, setSynonyms] = useState<WordRelationMember[] | null>(null)
+  const [antonyms, setAntonyms] = useState<WordRelationMember[] | null>(null)
 
   useEffect(() => {
     let cancelled = false
-    Promise.all([loadWordIndex(), loadWordFamilies()]).then(([index, families]) => {
-      if (cancelled) return
-      setForms(index.filter((e) => e.lemmaId === lemmaId))
-      setFamily(families[lemmaId ?? ''] ?? [])
-    })
+    Promise.all([loadWordIndex(), loadWordFamilies(), loadWordSynonyms(), loadWordAntonyms()]).then(
+      ([index, families, syn, anto]) => {
+        if (cancelled) return
+        setForms(index.filter((e) => e.lemmaId === lemmaId))
+        setFamily(families[lemmaId ?? ''] ?? [])
+        setSynonyms(syn[lemmaId ?? ''] ?? [])
+        setAntonyms(anto[lemmaId ?? ''] ?? [])
+      },
+    )
     return () => {
       cancelled = true
     }
   }, [lemmaId])
 
-  if (!forms || !family) {
+  if (!forms || !family || !synonyms || !antonyms) {
     return (
       <ToolLayout title="Fiche mot" description="Chargement…">
         <p className="py-10 text-center text-gray-400">Chargement…</p>
@@ -112,7 +137,7 @@ export function MotTool() {
         </div>
       )}
 
-      <div>
+      <div className="mb-8">
         <h2 className="mb-2 text-sm font-semibold tracking-wide text-gray-500 uppercase">
           Mots de la même famille
         </h2>
@@ -122,17 +147,11 @@ export function MotTool() {
           <div className="flex flex-wrap gap-3">
             {family.map((member) =>
               member.inLexicon ? (
-                <Link
-                  key={member.lemmaId}
-                  to={`/mot/${encodeURIComponent(member.lemmaId)}`}
-                  className={`rounded-lg border px-4 py-2 shadow-sm transition hover:shadow-md ${categoryStyles[member.category]}`}
-                >
-                  <div className="text-xs opacity-70">{CATEGORY_LABEL[member.category]}</div>
-                  <div className="text-xl font-medium">{member.word}</div>
-                </Link>
+                <WordChip key={member.lemmaId} member={member} />
               ) : (
-                // Mot scolaire (Manulex) mais absent d'EQOL : pas de fiche à
-                // ouvrir, affiché quand même à titre indicatif (ex. "maisonnette").
+                // Mot scolaire (Manulex) mais sous le seuil de fréquence du
+                // lexique principal : pas de fiche à ouvrir, affiché quand
+                // même à titre indicatif (ex. "maisonnette").
                 <div key={member.lemmaId} className={`rounded-lg border px-4 py-2 opacity-70 ${categoryStyles[member.category]}`}>
                   <div className="text-xs opacity-70">{CATEGORY_LABEL[member.category]}</div>
                   <div className="text-xl font-medium">{member.word}</div>
@@ -142,6 +161,28 @@ export function MotTool() {
           </div>
         )}
       </div>
+
+      {synonyms.length > 0 && (
+        <div className="mb-8">
+          <h2 className="mb-2 text-sm font-semibold tracking-wide text-gray-500 uppercase">Synonymes</h2>
+          <div className="flex flex-wrap gap-3">
+            {synonyms.map((member) => (
+              <WordChip key={member.lemmaId} member={member} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {antonyms.length > 0 && (
+        <div>
+          <h2 className="mb-2 text-sm font-semibold tracking-wide text-gray-500 uppercase">Contraires</h2>
+          <div className="flex flex-wrap gap-3">
+            {antonyms.map((member) => (
+              <WordChip key={member.lemmaId} member={member} />
+            ))}
+          </div>
+        </div>
+      )}
     </ToolLayout>
   )
 }

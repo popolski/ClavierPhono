@@ -40,6 +40,7 @@
 // Lancé à la main : node scripts/build-word-index.mjs
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { decodePhon } from './lexiquePhonemeMap.ts'
+import { EXCLUDED_WORDS } from './excluded-words.mjs'
 
 // --- Manulex : lookup mot -> fréquences par tranche scolaire (SFI) ---------
 // cp_sfi/ce1_sfi/ce2cm2_sfi/cpcm2_sfi (combiné) sont les 4 colonnes de
@@ -107,6 +108,7 @@ for (let i = 1; i < lines.length; i++) {
   const phon = get(cols, 'phon')
   const cgram = get(cols, 'cgram')
   if (!ortho || !phon || !cgram) continue
+  if (EXCLUDED_WORDS.has(ortho.toLowerCase())) continue
   const category = categoryFor(cgram)
   if (!category) continue
 

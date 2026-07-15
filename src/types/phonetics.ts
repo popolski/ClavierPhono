@@ -98,3 +98,17 @@ export interface WordFamilyMember {
 
 /** src/data/word-families.json : lemmaId -> ses mots de la même famille présents dans notre lexique. */
 export type WordFamilyIndex = Record<string, WordFamilyMember[]>
+
+/**
+ * Un synonyme ou antonyme (JeuxDeMots, CC0/domaine public, jeuxdemots.org).
+ * Toujours dans notre lexique (le croisement l'exige) donc toujours
+ * cliquable, contrairement à WordFamilyMember.
+ */
+export interface WordRelationMember {
+  word: string
+  category: WordCategory
+  lemmaId: string
+}
+
+/** src/data/word-synonyms.json et word-antonyms.json : lemmaId -> mots liés, par poids décroissant. */
+export type WordRelationIndex = Record<string, WordRelationMember[]>
