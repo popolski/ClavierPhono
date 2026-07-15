@@ -8,10 +8,15 @@ interface PhonemeTileProps {
 }
 
 // Comme sur le vrai Clavier Métalo : les différentes graphies d'un son sont
-// affichées à la même taille (pas une grosse + des petites en dessous), sur
-// deux colonnes. On en montre au plus 4 : au-delà (ex. "ill", 17 graphies
-// possibles), ce sont de toute façon des variantes rares peu utiles à
-// afficher sur la touche elle-même — les autres restent dans la fiche du son.
+// affichées à la même taille (pas une grosse + des petites en dessous). En
+// LISTE VERTICALE (une par ligne), pas en grille 2 colonnes : sur une touche
+// de largeur fixe, une grille chevauchait dès qu'une graphie était un peu
+// longue (ex. "aon"/"em", "ain"/"aim", "euill"/"aill" se collaient l'un à
+// l'autre) — la liste verticale n'a jamais ce problème, chaque graphie a
+// toute la largeur pour elle. On en montre au plus 4 : au-delà (ex. "ill",
+// 17 graphies possibles), ce sont de toute façon des variantes rares peu
+// utiles à afficher sur la touche elle-même — les autres restent dans la
+// fiche du son.
 const MAX_DISPLAYED_GRAPHEMES = 4
 
 export function PhonemeTile({ phoneme, disabled, onSelect, onShowInfo }: PhonemeTileProps) {
@@ -30,9 +35,9 @@ export function PhonemeTile({ phoneme, disabled, onSelect, onShowInfo }: Phoneme
             : 'border-brand-200 bg-white text-gray-900 hover:border-brand-500 hover:bg-brand-50 active:scale-95'
         }`}
       >
-        <div className="grid grid-cols-2 gap-x-2 gap-y-0.5">
+        <div className="flex flex-col gap-0.5">
           {displayedGraphemes.map((g) => (
-            <span key={g} className="text-lg font-bold">
+            <span key={g} className="text-base leading-tight font-bold whitespace-nowrap">
               {g}
             </span>
           ))}
