@@ -29,9 +29,10 @@ export const multiCharPatterns: PhonemePattern[] = [
   { match: 'ij', id: 'ill' }, // fille -> fij, brillant -> bRij@
 ]
 
-// Symboles voyelles/nasales de Lexique383 : servent à savoir si un yod [j] est
-// suivi d'une voyelle (auquel cas il se code touche "i", ex. avion = a-v-i-on)
-// ou non (yod final/pré-consonne -> touche "ill", ex. paille, réveil).
+// Symboles voyelles/nasales de Lexique383 : servent à savoir si un yod [j] ou
+// un [w] est suivi d'une voyelle (yod -> touche "i", ex. avion = a-v-i-on ;
+// w -> touche "ou", ex. chouette = ch-ou-e-t) ou non (yod final/pré-consonne
+// -> touche "ill" ; w isolé -> touche "w", ex. week-end).
 const VOWEL_SYMBOLS = new Set(['a', 'i', 'y', 'u', 'o', 'O', 'e', 'E', '°', '2', '9', '5', '1', '@', '§'])
 
 // Symboles Lexique -> notre PhonemeId, un pour un.
@@ -56,7 +57,8 @@ export const singleCharMap: Record<string, string> = {
   // Semi-voyelles (le yod 'j' est traité au cas par cas dans decodePhon selon
   // ce qui le suit — voir plus bas ; il n'a pas d'entrée fixe ici).
   '8': 'u', // /ɥ/ isolé (nuage = n+8+a+Z), sauf si suivi de "i" (voir motifs)
-  w: 'w', // isolé (wifi, week-end), sauf si suivi de "a"/"5" (voir motifs)
+  // w : traité au cas par cas dans decodePhon selon ce qui le suit (voir plus
+  // bas), sauf 'wa'/'w5' déjà captés par les motifs multi-caractères ci-dessus.
   // Consonnes
   p: 'p',
   b: 'b',
@@ -98,6 +100,20 @@ export function decodePhon(phon: string): string[] {
     if (ch === 'j') {
       const next = phon[i + 1]
       result.push(next !== undefined && VOWEL_SYMBOLS.has(next) ? 'i' : 'ill')
+      i += 1
+      continue
+    }
+    // [w] devant une voyelle est perçu par un enfant comme le son "ou"
+    // (chouette = ch-ou-e-t, oui = ou-i), pas comme la lettre "w" — sauf les
+    // cas déjà captés plus haut ('wa' -> "oi", 'w5' -> "oin"), qui collent
+    // mieux à la graphie réelle (roi, coin). [w] non suivi d'une voyelle (rare,
+    // fin de mot/devant consonne) reste sur sa touche dédiée "w" (wifi,
+    // week-end) — un compromis assumé : quelques emprunts comme "kiwi"
+    // (k-i-w-i) seront alors décodés k-i-ou-i, au bénéfice du cas très
+    // majoritaire des mots français natifs en "ou"/"oi".
+    if (ch === 'w') {
+      const next = phon[i + 1]
+      result.push(next !== undefined && VOWEL_SYMBOLS.has(next) ? 'ou' : 'w')
       i += 1
       continue
     }

@@ -42,6 +42,11 @@ const controlWords = {
   vélo: ['v', 'e', 'l', 'o'],
   fleur: ['f', 'l', 'eu', 'r'],
   montagne: ['m', 'on', 't', 'a', 'gn'],
+  chouette: ['ch', 'ou', 'e', 't'],
+  oui: ['ou', 'i'],
+  // Compromis assumé : "w" isolé (wifi, week-end) est plus rare que "w"+voyelle
+  // natif (chouette, oui, roi...), donc kiwi se décode k-i-ou-i, pas k-i-w-i.
+  kiwi: ['c', 'i', 'ou', 'i'],
 }
 
 let pass = 0
