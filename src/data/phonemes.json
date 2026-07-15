@@ -199,7 +199,7 @@
     "graphemes": [
       {
         "grapheme": "on",
-        "exampleWord": "pont",
+        "exampleWord": "ongle",
         "exampleImage": "/pictos/on.png"
       },
       {
@@ -334,17 +334,17 @@
     "note": "Pièges : « on » (monsieur) et « ai » (faisons) peuvent aussi faire ce son.",
     "graphemes": [
       {
-        "grapheme": "e",
-        "exampleWord": "cheval",
+        "grapheme": "œu",
+        "exampleWord": "œuf",
         "exampleImage": "/pictos/eu.png"
+      },
+      {
+        "grapheme": "e",
+        "exampleWord": "cheval"
       },
       {
         "grapheme": "eu",
         "exampleWord": "deux"
-      },
-      {
-        "grapheme": "œu",
-        "exampleWord": "œuf"
       }
     ]
   },
@@ -791,7 +791,7 @@
     "graphemes": [
       {
         "grapheme": "x",
-        "exampleWord": "taxi",
+        "exampleWord": "xylophone",
         "exampleImage": "/pictos/x.png"
       }
     ]
