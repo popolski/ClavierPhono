@@ -47,6 +47,7 @@ const controlWords = {
   // Compromis assumé : "w" isolé (wifi, week-end) est plus rare que "w"+voyelle
   // natif (chouette, oui, roi...), donc kiwi se décode k-i-ou-i, pas k-i-w-i.
   kiwi: ['c', 'i', 'ou', 'i'],
+  xylophone: ['x', 'i', 'l', 'o', 'f', 'o', 'n'],
 }
 
 let pass = 0

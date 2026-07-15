@@ -23,6 +23,7 @@ export const multiCharPatterns: PhonemePattern[] = [
   { match: 'wa', id: 'oi' }, // oiseau, moi, roi -> wazo, mwa, Rwa
   { match: '8i', id: 'ui' }, // huit, lui, pluie, fruit -> 8it, l8i, pl8i, fR8i
   { match: 'ks', id: 'x' }, // taxi -> taksi
+  { match: 'gz', id: 'x' }, // xylophone, xénophobe -> gzilofOn, gzenofOb (x prononcé /gz/)
   // Quand un [i] voyelle précède immédiatement le yod, ils forment la graphie
   // "ill" (fille = f+ij -> f+ill, brillant = bR+ij+@ -> b+r+ill+an). C'est le
   // seul cas où le yod se code sur la touche "ill".

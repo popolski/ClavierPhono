@@ -28,6 +28,7 @@
 //
 // Lancé à la main, après build-word-index.mjs : node scripts/build-word-synonyms.mjs
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs'
+import { isExcludedRelation } from './excluded-relations.mjs'
 
 const wordIndexPath = new URL('../src/data/words-clavier2.json', import.meta.url)
 const wordIndex = JSON.parse(readFileSync(wordIndexPath, 'utf8'))
@@ -98,7 +99,10 @@ function parseRelations(dirName, poidsSeuil) {
 // 90e percentile ~70-95) : garde une confirmation nette de la communauté
 // sans se limiter aux seuls tout premiers résultats.
 const POIDS_SEUIL = 30
-const MAX_PAR_MOT = 8
+// Volontairement bas : JeuxDeMots n'a pas de vrais synonymes pour certains
+// mots (ex. "araignée"), et au-delà de 2-3 la qualité chute vite vers des
+// relations trop techniques ou hors-sujet pour un enfant.
+const MAX_PAR_MOT = 3
 
 function buildIndex(dirName) {
   const relations = parseRelations(dirName, POIDS_SEUIL)
@@ -106,6 +110,7 @@ function buildIndex(dirName) {
 
   for (const { t1, t2, weight } of relations) {
     if (t1 === t2) continue
+    if (isExcludedRelation(t1, t2)) continue
     const entries1 = baseEntriesByWord.get(t1)
     const entries2 = baseEntriesByWord.get(t2)
     if (!entries1 || !entries2) continue // l'un des deux mots n'est pas dans notre lexique
