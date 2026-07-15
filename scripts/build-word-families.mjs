@@ -33,6 +33,7 @@
 //
 // Lancé à la main, après build-word-index.mjs : node scripts/build-word-families.mjs
 import { readFileSync, writeFileSync } from 'node:fs'
+import { EXCLUDED_WORDS } from './excluded-words.mjs'
 
 const wordIndexPath = new URL('../src/data/words-clavier2.json', import.meta.url)
 const wordIndex = JSON.parse(readFileSync(wordIndexPath, 'utf8'))
@@ -131,6 +132,10 @@ function resolveMember(memberKey, originalWord) {
   const word = originalWord.toLowerCase()
   if (!manulexWords.has(word)) return null
   const category = memberKey.split('::')[1]
+  // Le repli Manulex ne passe pas par build-word-index.mjs : sans cette
+  // vérification, un mot de la liste noire (ex. "bête" adjectif) pourrait
+  // réapparaître ici alors qu'il a été délibérément retiré du lexique.
+  if (EXCLUDED_WORDS.has(word) || EXCLUDED_WORDS.has(`${word}::${category}`)) return null
   return { word, category, lemmaId: memberKey, inLexicon: false }
 }
 

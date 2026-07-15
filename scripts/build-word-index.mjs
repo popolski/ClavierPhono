@@ -108,9 +108,10 @@ for (let i = 1; i < lines.length; i++) {
   const phon = get(cols, 'phon')
   const cgram = get(cols, 'cgram')
   if (!ortho || !phon || !cgram) continue
-  if (EXCLUDED_WORDS.has(ortho.toLowerCase())) continue
   const category = categoryFor(cgram)
   if (!category) continue
+  const orthoLower = ortho.toLowerCase()
+  if (EXCLUDED_WORDS.has(orthoLower) || EXCLUDED_WORDS.has(`${orthoLower}::${category}`)) continue
 
   const manulexRecord = manulexByWord.get(ortho)
   const manulexSfi = manulexRecord?.cpcm2
