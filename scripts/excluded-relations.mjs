@@ -19,6 +19,28 @@ const RAW_PAIRS = [
   ['araignée', 'coussinet'],
   ['araignée', 'filet'],
   ['araignée', 'carrelet'],
+  // dent : de vrais synonymes existent (croc, quenotte, chicot — confirmé
+  // par le Larousse), mais noyés parmi des sens figurés au poids tout aussi
+  // élevé : "avoir une dent contre" (rancune, ressentiment, haine, rancœur,
+  // animosité) et "dent de scie/montagne" (aiguille, sommet, crête, pic,
+  // éperon, saillie), plus quelques termes techniques d'engrenage (alluchon,
+  // came) ou géologiques (chaille) sans rapport avec une dent de la bouche.
+  ['dent', 'aiguille'],
+  ['dent', 'sommet'],
+  ['dent', 'rancune'],
+  ['dent', 'ressentiment'],
+  ['dent', 'haine'],
+  ['dent', 'crête'],
+  ['dent', 'pic'],
+  ['dent', 'éperon'],
+  ['dent', 'alluchon'],
+  ['dent', 'came'],
+  ['dent', 'chaille'],
+  ['dent', 'indentation'],
+  ['dent', 'animosité'],
+  ['dent', 'saillie'],
+  ['dent', 'tabouret'],
+  ['dent', 'rancoeur'],
 ]
 
 export const EXCLUDED_RELATION_PAIRS = new Set(RAW_PAIRS.map(([a, b]) => [a, b].sort().join('::')))
@@ -36,10 +58,6 @@ export function isExcludedRelation(wordA, wordB) {
 // supprime la source entière.
 export const EXCLUDED_RELATION_SOURCES = new Set([
   'sexe', // quasi tous les "synonymes" sont des vulgarismes (chatte, queue, bite...)
-  // "dent" : ses meilleurs résultats par poids viennent tous d'expressions
-  // figurées ("avoir une dent contre" -> rancune/haine, "dent de scie" ->
-  // aiguille/sommet/crête/pic), pas du sens premier (une dent de la bouche).
-  'dent',
 ])
 
 export function hasSuppressedRelations(word) {
