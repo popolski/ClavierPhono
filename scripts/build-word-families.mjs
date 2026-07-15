@@ -21,6 +21,13 @@
 // jamais la graphie seule, pour ne pas confondre "beau" (adjectif, famille de
 // "embellir"/"beauté") avec "beau" (nom, "le beau", autre famille).
 //
+// Filtre "même radical" : les familles Démonette regroupent aussi des mots
+// liés seulement par le SENS (ex. "arc-en-ciel"/"iris", "chat"/"félin") sans
+// aucune racine visible en commun — pertinent pour un linguiste, mais
+// trompeur pour un enfant qui ne verra pas le rapport. On n'inclut donc un
+// membre que si son mot partage une racine orthographique avec le mot de
+// base (shareRadical), quelle que soit la raison du rapprochement Démonette.
+//
 // Prérequis : third_party/demonette/lexemes.csv (fichier "lexemes.csv" du
 // dossier Démonext fourni par l'enseignante, non versionné).
 //
@@ -97,6 +104,22 @@ for (let i = 1; i < lines.length; i++) {
   fidSet.add(fid)
 }
 
+// Vrai si `a` et `b` partagent une racine orthographique : le plus court des
+// deux (éventuellement amputé de 1-2 lettres finales, pour absorber une
+// terminaison simple) apparaît quelque part dans le plus long. Pas une vraie
+// lemmatisation, mais suffisant pour distinguer "chatière" (contient "chat")
+// de "félin" (ne contient rien de "chat") sans dépendre de la classification
+// interne de Démonette (voir plus haut).
+function shareRadical(a, b) {
+  const shorter = a.length <= b.length ? a : b
+  const longer = a.length <= b.length ? b : a
+  if (shorter.length < 3) return false
+  for (let cut = 0; cut <= Math.min(2, shorter.length - 3); cut++) {
+    if (longer.includes(shorter.slice(0, shorter.length - cut))) return true
+  }
+  return false
+}
+
 // Résout un membre de famille Démonette (mot + catégorie) vers un
 // WordFamilyMember : priorité à notre lexique principal (cliquable), sinon
 // repli sur Manulex seul (affiché mais pas cliquable), sinon ignoré.
@@ -115,14 +138,20 @@ function resolveMember(memberKey, originalWord) {
 const MAX_FAMILY_SIZE = 12
 const families = {}
 let manulexOnlyMembers = 0
+let droppedNoSharedRadical = 0
 for (const [key, entry] of baseEntriesByKey) {
   const fids = fidsByKey.get(key)
   if (!fids) continue
+  const baseWord = entry.word.toLowerCase()
 
   const membersByLemma = new Map()
   for (const fid of fids) {
     for (const { key: memberKey, word: originalWord } of membersByFid.get(fid)) {
       if (memberKey === key) continue
+      if (!shareRadical(baseWord, originalWord.toLowerCase())) {
+        droppedNoSharedRadical++
+        continue
+      }
       const member = resolveMember(memberKey, originalWord)
       if (!member || member.lemmaId === entry.lemmaId) continue
       if (!membersByLemma.has(member.lemmaId)) {
@@ -145,4 +174,5 @@ const lemmaCount = Object.keys(families).length
 console.log(`${lemmaCount} mots de notre lexique ont au moins un "mot de la même famille" trouvé.`)
 console.log(`(sur ${baseEntriesByKey.size} mots de base au total)`)
 console.log(`Dont ${manulexOnlyMembers} occurrences de mots sous le seuil de fréquence (non cliquables).`)
+console.log(`${droppedNoSharedRadical} rapprochements Démonette écartés car aucune racine commune (ex. "chat"/"félin").`)
 console.log('Écrit: src/data/word-families.json')
