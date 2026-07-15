@@ -7,21 +7,19 @@ interface PhonemeTileProps {
   onShowInfo: (id: PhonemeId) => void
 }
 
-// Comme sur le vrai Clavier Métalo : les différentes graphies d'un son sont
-// affichées à la même taille (pas une grosse + des petites en dessous). En
-// LISTE VERTICALE (une par ligne), pas en grille 2 colonnes : sur une touche
-// de largeur fixe, une grille chevauchait dès qu'une graphie était un peu
-// longue (ex. "aon"/"em", "ain"/"aim", "euill"/"aill" se collaient l'un à
-// l'autre) — la liste verticale n'a jamais ce problème, chaque graphie a
-// toute la largeur pour elle. On en montre au plus 4 : au-delà (ex. "ill",
-// 17 graphies possibles), ce sont de toute façon des variantes rares peu
-// utiles à afficher sur la touche elle-même — les autres restent dans la
-// fiche du son.
-const MAX_DISPLAYED_GRAPHEMES = 4
+// Repris de la photo du vrai Clavier Métalo fournie par l'enseignante :
+// graphie principale en GRAND en haut, jusqu'à 2 graphies secondaires plus
+// PETITES en dessous (pas la même taille — une tentative précédente les
+// mettait toutes à la même taille "sur le modèle du Métalo", mais en
+// regardant la vraie photo la principale est clairement plus grosse), texte
+// à gauche et pictogramme à droite. Deux graphies secondaires maximum : au-
+// delà, la touche devient illisible ; les autres variantes (ex. "ill" a 17
+// graphies possibles) restent dans la fiche du son, pas sur la touche.
+const MAX_SECONDARY_GRAPHEMES = 2
 
 export function PhonemeTile({ phoneme, disabled, onSelect, onShowInfo }: PhonemeTileProps) {
   const primary = phoneme.graphemes[0]
-  const displayedGraphemes = phoneme.graphemes.slice(0, MAX_DISPLAYED_GRAPHEMES).map((g) => g.grapheme)
+  const secondaryGraphemes = phoneme.graphemes.slice(1, 1 + MAX_SECONDARY_GRAPHEMES).map((g) => g.grapheme)
 
   return (
     <div className="relative">
@@ -29,24 +27,23 @@ export function PhonemeTile({ phoneme, disabled, onSelect, onShowInfo }: Phoneme
         type="button"
         disabled={disabled}
         onClick={() => onSelect(phoneme.id)}
-        className={`flex w-full items-center justify-between gap-1 rounded-xl border-2 p-2 pt-3 text-left transition ${
+        className={`flex w-full items-center justify-between gap-2 rounded-xl border-2 p-2 pt-3 text-left transition ${
           disabled
             ? 'cursor-not-allowed border-gray-100 bg-gray-50 text-gray-300'
             : 'border-brand-200 bg-white text-gray-900 hover:border-brand-500 hover:bg-brand-50 active:scale-95'
         }`}
       >
         <div className="flex flex-col gap-0.5">
-          {displayedGraphemes.map((g) => (
-            <span key={g} className="text-base leading-tight font-bold whitespace-nowrap">
-              {g}
-            </span>
-          ))}
+          <span className="text-2xl leading-none font-bold whitespace-nowrap">{phoneme.displaySymbol}</span>
+          {secondaryGraphemes.length > 0 && (
+            <span className="text-xs leading-tight text-gray-500">{secondaryGraphemes.join(' ')}</span>
+          )}
         </div>
         {primary?.exampleImage && (
           <img
             src={primary.exampleImage}
             alt={primary.exampleWord}
-            className={`h-9 w-9 shrink-0 object-contain ${disabled ? 'opacity-30 grayscale' : ''}`}
+            className={`h-10 w-10 shrink-0 object-contain ${disabled ? 'opacity-30 grayscale' : ''}`}
           />
         )}
       </button>
