@@ -44,10 +44,19 @@ const controlWords = {
   montagne: ['m', 'on', 't', 'a', 'gn'],
   chouette: ['ch', 'ou', 'e', 't'],
   oui: ['ou', 'i'],
-  // Compromis assumé : "w" isolé (wifi, week-end) est plus rare que "w"+voyelle
-  // natif (chouette, oui, roi...), donc kiwi se décode k-i-ou-i, pas k-i-w-i.
-  kiwi: ['c', 'i', 'ou', 'i'],
+  // La touche dépend de la lettre réellement écrite : "ou" (chouette, oui,
+  // kiwi est ambigu à l'oreille mais écrit avec un vrai "w") -> touche "w"
+  // dédiée, jamais fondue avec "ou", enseigné comme W + voyelle.
+  kiwi: ['c', 'i', 'w', 'i'],
   xylophone: ['x', 'i', 'l', 'o', 'f', 'o', 'n'],
+  // "oi" fusionné seulement si le mot est vraiment écrit "oi"/"oî"/"oy" (roi,
+  // moi, oiseau, boîte, voyage) ; écrit "oua" -> OU + voyelle (comme "oui") ;
+  // écrit avec un vrai "w" -> touche "w" + voyelle (jamais "ou").
+  wapiti: ['w', 'a', 'p', 'i', 't', 'i'],
+  ouate: ['ou', 'a', 't'],
+  douane: ['d', 'ou', 'a', 'n'],
+  boîte: ['b', 'oi', 't'],
+  voyage: ['v', 'oi', 'i', 'a', 'j'],
 }
 
 let pass = 0
@@ -61,7 +70,7 @@ for (const [word, expected] of Object.entries(controlWords)) {
   }
   let decoded
   try {
-    decoded = decodePhon(phon)
+    decoded = decodePhon(phon, word)
   } catch (e) {
     console.log(`❌ ${word} (phon="${phon}"): ${e.message}`)
     fail++

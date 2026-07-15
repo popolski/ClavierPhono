@@ -127,7 +127,7 @@ for (let i = 1; i < lines.length; i++) {
 
   let phonemes
   try {
-    phonemes = decodePhon(phon)
+    phonemes = decodePhon(phon, ortho)
   } catch {
     continue // ne devrait pas arriver (spike validé à 100%), filet de sécurité
   }

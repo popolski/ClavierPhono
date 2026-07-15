@@ -21,7 +21,7 @@ for (let i = 1; i < lines.length; i++) {
   const phon = cols[phonIdx]
   if (!phon) continue
   try {
-    decodePhon(phon)
+    decodePhon(phon, ortho)
     ok++
   } catch (e) {
     failed++

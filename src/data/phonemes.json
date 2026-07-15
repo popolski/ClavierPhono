@@ -307,18 +307,6 @@
       {
         "grapheme": "oy",
         "exampleWord": "voyage"
-      },
-      {
-        "grapheme": "wa",
-        "exampleWord": "wapiti"
-      },
-      {
-        "grapheme": "ua",
-        "exampleWord": "jaguar"
-      },
-      {
-        "grapheme": "oua",
-        "exampleWord": "douane"
       }
     ]
   },
@@ -805,7 +793,7 @@
     "graphemes": [
       {
         "grapheme": "w",
-        "exampleWord": "wifi",
+        "exampleWord": "wapiti",
         "exampleImage": "/pictos/w.png"
       }
     ]

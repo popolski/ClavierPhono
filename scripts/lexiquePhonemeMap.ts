@@ -18,9 +18,11 @@ export interface PhonemePattern {
 }
 
 // Ordre important : les motifs les plus longs/spécifiques d'abord.
+// NB : 'wa' -> "oi" n'est PAS ici (contrairement à 'w5' -> "oin") car cette
+// fusion dépend de l'orthographe réelle du mot, pas seulement du son — voir
+// shouldFuseOi() et son usage dans decodePhon().
 export const multiCharPatterns: PhonemePattern[] = [
   { match: 'w5', id: 'oin' }, // coin, loin, point -> kw5, lw5, pw5
-  { match: 'wa', id: 'oi' }, // oiseau, moi, roi -> wazo, mwa, Rwa
   { match: '8i', id: 'ui' }, // huit, lui, pluie, fruit -> 8it, l8i, pl8i, fR8i
   { match: 'ks', id: 'x' }, // taxi -> taksi
   { match: 'gz', id: 'x' }, // xylophone, xénophobe -> gzilofOn, gzenofOb (x prononcé /gz/)
@@ -82,8 +84,25 @@ export const singleCharMap: Record<string, string> = {
   G: 'gn', // ng anglais (camping), très rare — approximé sur notre touche [ɲ]
 }
 
+// Le son [wa] (rangé sous la touche "oi") se décode différemment selon
+// l'orthographe réelle du mot, pas seulement d'après le son :
+//  - écrit "oi"/"oî"/"oy" (roi, moi, oiseau, boîte, voyage, royal) ->
+//    fusionné sur la touche "oi" : ce sont les trois graphies enseignées
+//    comme la même famille de son composé (déjà groupées ainsi dans
+//    phonemes.json).
+//  - écrit "oua" (ouate, douane) ou avec un vrai "w" (wapiti) -> décomposé en
+//    deux touches OU + [voyelle], comme "oui" (jamais fusionné) — c'est ainsi
+//    que l'enseignante l'enseigne : le "w"/"ou" est son propre son, combiné
+//    ensuite à la voyelle qui suit, peu importe la lettre affichée.
+// Lexique383 code le son [wa] de façon identique ("wa") dans tous les cas ;
+// seule l'orthographe permet de trancher, d'où le paramètre `ortho`.
+function shouldFuseOi(ortho: string): boolean {
+  const lower = ortho.toLowerCase()
+  return lower.includes('oi') || lower.includes('oî') || lower.includes('oy')
+}
+
 /** Découpe une chaîne phon Lexique383 en séquence de nos PhonemeId. */
-export function decodePhon(phon: string): string[] {
+export function decodePhon(phon: string, ortho: string): string[] {
   const result: string[] = []
   let i = 0
   while (i < phon.length) {
@@ -104,17 +123,28 @@ export function decodePhon(phon: string): string[] {
       i += 1
       continue
     }
-    // [w] devant une voyelle est perçu par un enfant comme le son "ou"
-    // (chouette = ch-ou-e-t, oui = ou-i), pas comme la lettre "w" — sauf les
-    // cas déjà captés plus haut ('wa' -> "oi", 'w5' -> "oin"), qui collent
-    // mieux à la graphie réelle (roi, coin). [w] non suivi d'une voyelle (rare,
-    // fin de mot/devant consonne) reste sur sa touche dédiée "w" (wifi,
-    // week-end) — un compromis assumé : quelques emprunts comme "kiwi"
-    // (k-i-w-i) seront alors décodés k-i-ou-i, au bénéfice du cas très
-    // majoritaire des mots français natifs en "ou"/"oi".
+    // [w] devant une voyelle : la touche dépend de la lettre réellement
+    // écrite, pas seulement du son — comme pour "oi" plus haut.
+    //  - écrit "ou" (chouette, oui, ouate) -> touche "ou" (+ la voyelle suit
+    //    normalement).
+    //  - écrit avec un vrai "w" (wapiti, wifi, kiwi, week-end) -> touche "w"
+    //    dédiée + la voyelle suit normalement (enseigné comme W + voyelle,
+    //    jamais fondu avec "ou").
+    // [w] non suivi d'une voyelle (rare, fin de mot/devant consonne) reste
+    // sur la touche "w" de toute façon.
     if (ch === 'w') {
       const next = phon[i + 1]
-      result.push(next !== undefined && VOWEL_SYMBOLS.has(next) ? 'ou' : 'w')
+      if (next === 'a' && shouldFuseOi(ortho)) {
+        result.push('oi') // roi, moi, oiseau, boîte : vraiment écrits "oi"/"oî"
+        i += 2
+        continue
+      }
+      if (next !== undefined && VOWEL_SYMBOLS.has(next)) {
+        result.push(ortho.toLowerCase().includes('w') ? 'w' : 'ou')
+        i += 1
+        continue
+      }
+      result.push('w')
       i += 1
       continue
     }
