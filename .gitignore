@@ -30,6 +30,7 @@ dist-ssr
 third_party/lexique383/*
 third_party/manulex/*
 third_party/eqol/*
+third_party/demonette/*
 
 # Sortie de build-word-index.mjs destinée à la relecture manuelle,
 # pas au dépôt public (à transmettre directement à l'enseignante)

@@ -6,6 +6,7 @@ const ClavierTool = lazy(() => import('./tools/clavier/ClavierTool').then((m) =>
 const ConjugueurTool = lazy(() =>
   import('./tools/conjugueur/ConjugueurTool').then((m) => ({ default: m.ConjugueurTool })),
 )
+const MotTool = lazy(() => import('./tools/mot/MotTool').then((m) => ({ default: m.MotTool })))
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/clavier" element={<ClavierTool />} />
             <Route path="/conjugueur/:verbe" element={<ConjugueurTool />} />
+            <Route path="/mot/:lemmaId" element={<MotTool />} />
           </Routes>
         </Suspense>
       </div>

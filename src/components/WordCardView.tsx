@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import type { WordCard, WordCategory } from '../types/phonetics'
+import type { WordCard, WordCategory, WordFormRole } from '../types/phonetics'
 
 interface WordCardViewProps {
   card: WordCard
@@ -15,35 +15,27 @@ const categoryStyles: Record<WordCategory, string> = {
   adverbe: 'bg-orange-50 text-orange-900 border-orange-200',
 }
 
+// Forme "de base" affichée dans les résultats — les autres formes (pluriel,
+// féminin, participe passé) n'apparaissent que dans la fiche mot (tuile
+// cliquable), pour ne pas surcharger la liste de résultats.
+const BASE_ROLE: Record<WordCategory, WordFormRole> = {
+  nom: 'singulier',
+  adjectif: 'masculin',
+  verbe: 'infinitif',
+  adverbe: 'simple',
+  invariable: 'simple',
+}
+
 export function WordCardView({ card }: WordCardViewProps) {
   const style = categoryStyles[card.category]
+  const primary = card.forms.find((f) => f.formRole === BASE_ROLE[card.category]) ?? card.forms[0]
 
-  if (card.category === 'verbe') {
-    const infinitif = card.forms.find((f) => f.formRole === 'infinitif')
-    const participe = card.forms.find((f) => f.formRole === 'participe_passé')
-    const lemme = card.lemmaId.replace(/^verbe:/, '')
-    return (
-      <Link
-        to={`/conjugueur/${lemme}`}
-        className={`block rounded-lg border p-3 shadow-sm transition hover:shadow-md ${style}`}
-      >
-        <div className="flex flex-wrap justify-between gap-x-4 text-xl font-medium">
-          <span>{infinitif?.word}</span>
-          {participe && <span>{participe.word}</span>}
-        </div>
-      </Link>
-    )
-  }
-
-  // Nom/adjectif : pas encore cliquables — la fiche de destination (famille de
-  // mots, synonymes, antonymes) n'existe pas encore, voir le plan.
   return (
-    <div className={`rounded-lg border px-4 py-2 shadow-sm ${style}`}>
-      {card.forms.map((form) => (
-        <div key={form.word} className="text-2xl font-medium">
-          {form.word}
-        </div>
-      ))}
-    </div>
+    <Link
+      to={`/mot/${encodeURIComponent(card.lemmaId)}`}
+      className={`block rounded-lg border px-4 py-2 shadow-sm transition hover:shadow-md ${style}`}
+    >
+      <div className="text-2xl font-medium">{primary.word}</div>
+    </Link>
   )
 }

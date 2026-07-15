@@ -73,3 +73,13 @@ export interface WordCard {
   /** Highest frequency among the card's forms — drives card-level ranking/pagination. */
   frequency: number
 }
+
+/** One "mot de la même famille" (Démonette), shown on the fiche mot. */
+export interface WordFamilyMember {
+  word: string
+  category: WordCategory
+  lemmaId: string
+}
+
+/** src/data/word-families.json : lemmaId -> ses mots de la même famille présents dans notre lexique. */
+export type WordFamilyIndex = Record<string, WordFamilyMember[]>

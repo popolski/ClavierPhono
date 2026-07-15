@@ -6,7 +6,7 @@
 // (non versionné, comme third_party/lexique383 et third_party/manulex).
 //
 // Lancé à la main, une seule fois : node scripts/convert-eqol.mjs
-import { readFileSync, writeFileSync } from 'node:fs'
+import { writeFileSync } from 'node:fs'
 import xlsx from 'xlsx'
 
 const srcPath = new URL('../third_party/eqol/liste_eqol.xlsx', import.meta.url)
