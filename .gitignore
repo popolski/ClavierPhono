@@ -25,9 +25,11 @@ dist-ssr
 
 .vercel
 
-# Lexique383 / Manulex source data (large, downloaded separately, see README)
+# Lexique383 / Manulex / EQOL source data (large, downloaded/fournies
+# séparément, voir scripts/convert-eqol.mjs pour EQOL)
 third_party/lexique383/*
 third_party/manulex/*
+third_party/eqol/*
 
 # Sortie de build-word-index.mjs destinée à la relecture manuelle,
 # pas au dépôt public (à transmettre directement à l'enseignante)

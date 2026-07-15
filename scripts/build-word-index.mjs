@@ -1,26 +1,31 @@
 // Génère le lexique ClavierPhono : structure grammaticale et phonétique
-// depuis Lexique383, mais le mot n'est retenu QUE s'il apparaît réellement
-// dans Manulex (54 manuels scolaires CP/CE1/cycle 3, manulex.org) — Manulex
-// sert de filtre de contenu ET de source de fréquence/classement (SFI
-// combiné CP à CM2), à la place de la fréquence livres adulte de Lexique383.
+// depuis Lexique383, mais le mot n'est retenu QUE s'il apparaît à la fois
+// dans Manulex (54 manuels scolaires CP/CE1/cycle 3, manulex.org) ET dans
+// EQOL (14 085 mots réellement testés à l'écrit auprès d'élèves du CP à la
+// 6e, appligogiques.com/eqol) — ce double filtre resserre le lexique à un
+// vocabulaire à la fois scolaire (Manulex) et effectivement maîtrisable par
+// des enfants (EQOL), et ramène la liste finale à ~15 000 mots (au lieu de
+// ~36 000 avec Manulex seul).
 //
-// Ça élimine mécaniquement le vocabulaire hors-sujet pour une classe
-// primaire (un manuel scolaire ne contient pas d'insultes) et réduit la
-// liste finale à une taille réellement relisable par l'enseignante — pas
-// de filtrage automatique "en plus" de la relecture manuelle, ce EST le
-// filtrage : ne garder que ce qui a été effectivement écrit pour des enfants.
+// EQOL sert aussi de source pour le "level" (1 = maîtrisé dès le cycle 2
+// CP-CE1-CE2, 2 = cycle 3 CM1-CM2 ou plus tardif), via le taux de réussite
+// par classe.
 //
-// Cas particulier des verbes : le filtre Manulex se décide au niveau du
-// VERBE, pas forme par forme. Sinon un verbe dont seule une forme conjuguée
-// (ex. "huile") apparaît dans Manulex, mais pas l'infinitif ("huiler") lui-
-// même, perdrait son infinitif alors que le verbe est manifestement connu
-// des élèves. Si au moins une forme du verbe est dans Manulex, on construit
-// la carte complète (infinitif/participe passé/il-elle-on/ils-elles) à
-// partir de Lexique383, même pour les formes qui n'ont pas elles-mêmes de
-// correspondance directe dans Manulex.
+// Cas particulier des verbes : les filtres Manulex ET EQOL se décident au
+// niveau du VERBE, pas forme par forme. Sinon un verbe dont seule une forme
+// conjuguée (ex. "huile") apparaît dans Manulex, mais pas l'infinitif
+// ("huiler") lui-même, perdrait son infinitif alors que le verbe est
+// manifestement connu des élèves. Si au moins une forme du verbe est dans
+// Manulex ET au moins une forme (pas forcément la même) est dans EQOL, on
+// construit la carte complète (infinitif/participe passé/il-elle-on/ils-
+// elles) à partir de Lexique383, même pour les formes qui n'ont pas elles-
+// mêmes de correspondance directe dans l'une ou l'autre base.
 //
-// Prérequis : third_party/manulex/manulex-forms.csv (export de Manulex.xls,
-// voir le commit "Croiser le lexique avec Manulex" pour la commande Python).
+// Prérequis :
+//   third_party/manulex/manulex-forms.csv (export de Manulex.xls,
+//     voir le commit "Croiser le lexique avec Manulex" pour la commande Python)
+//   third_party/eqol/eqol-forms.csv (généré par scripts/convert-eqol.mjs
+//     depuis third_party/eqol/liste_eqol.xlsx)
 //
 // Sortie :
 //   src/data/words-clavier2.json    — le lexique, prêt à être importé par l'app
@@ -40,6 +45,35 @@ for (let i = 1; i < manulexLines.length; i++) {
   const sfi = parseFloat(cpcm2Sfi) || 0
   const existing = manulexByWord.get(word)
   if (!existing || sfi > existing) manulexByWord.set(word, sfi)
+}
+
+// --- EQOL : lookup mot -> taux de réussite orthographique par classe -------
+// (voir scripts/convert-eqol.mjs). Sert de second filtre de contenu, en plus
+// de Manulex : un mot doit être attesté à la fois dans un manuel scolaire
+// (Manulex) ET dans la base de test EQOL (14 085 mots réellement évalués
+// auprès d'élèves du CP à la 6e) pour être retenu. Ce croisement resserre le
+// lexique vers ~15 000 mots (au lieu de ~36 000 avec Manulex seul).
+//
+// La réussite par classe sert aussi à calculer le "level" (1 = maîtrisé dès
+// le cycle 2 CP-CE1-CE2, 2 = cycle 3 CM1-CM2 ou plus tardif) : champ qui
+// existait déjà dans WordEntry mais restait à 2 partout faute de donnée.
+const eqolPath = new URL('../third_party/eqol/eqol-forms.csv', import.meta.url)
+const eqolLines = readFileSync(eqolPath, 'utf8').split(/\r\n|\n/).filter(Boolean)
+const REUSSITE_SEUIL = 0.75
+const eqolByWord = new Map()
+for (let i = 1; i < eqolLines.length; i++) {
+  const cols = eqolLines[i].split(';')
+  const word = cols[0]
+  if (!word) continue
+  const reussiteParClasse = [1, 2, 3, 4, 5, 6].map((n) => parseFloat(cols[1 + n]) || 0)
+  eqolByWord.set(word, reussiteParClasse)
+}
+
+function levelFor(word) {
+  const reussite = eqolByWord.get(word)
+  if (!reussite) return 2
+  const cycle2Mastered = reussite.slice(0, 3).some((r) => r >= REUSSITE_SEUIL)
+  return cycle2Mastered ? 1 : 2
 }
 
 const tsvPath = new URL('../third_party/lexique383/Lexique383.tsv', import.meta.url)
@@ -70,6 +104,7 @@ function categoryFor(cgram) {
 // les lignes ici et on décide au niveau du lemme plus bas.
 const rows = []
 let droppedNotInManulex = 0
+let droppedNotInEqol = 0
 for (let i = 1; i < lines.length; i++) {
   const cols = lines[i].split('\t')
   const ortho = get(cols, 'ortho')
@@ -83,6 +118,10 @@ for (let i = 1; i < lines.length; i++) {
   if (category !== 'verbe' && manulexSfi === undefined) {
     droppedNotInManulex++
     continue // le mot n'apparaît dans aucun des 54 manuels scolaires étudiés
+  }
+  if (category !== 'verbe' && !eqolByWord.has(ortho)) {
+    droppedNotInEqol++
+    continue // le mot n'apparaît pas dans la base de test EQOL (CP -> 6e)
   }
 
   let phonemes
@@ -186,9 +225,10 @@ for (const [slotKey, row] of verbSlotBest) {
 let verbLemmesRejected = 0
 for (const [lemme, verbRows] of verbRowsByLemma) {
   const qualifyingSfis = verbRows.map((r) => r.manulexSfi).filter((sfi) => sfi !== undefined)
-  if (qualifyingSfis.length === 0) {
+  const hasEqolForm = verbRows.some((r) => eqolByWord.has(r.ortho))
+  if (qualifyingSfis.length === 0 || !hasEqolForm) {
     verbLemmesRejected++
-    continue // aucune forme de ce verbe n'apparaît dans Manulex
+    continue // aucune forme de ce verbe n'apparaît dans Manulex, ou aucune dans EQOL
   }
   const representativeSfi = Math.max(...qualifyingSfis)
   for (const row of verbRows) {
@@ -209,7 +249,7 @@ const wordIndex = finalEntries
     word: e.word,
     phonemes: e.phonemes,
     frequency: Math.round(e.frequency * 100) / 100, // SFI Manulex (CP-CM2), pas freqlivres
-    level: 2,
+    level: levelFor(e.word),
     category: e.category,
     lemmaId: e.lemmaId,
     formRole: e.formRole,
@@ -220,15 +260,18 @@ writeFileSync(new URL('words-clavier2.json', outDir), JSON.stringify(wordIndex, 
 
 const reviewDir = new URL('output/', import.meta.url)
 mkdirSync(reviewDir, { recursive: true })
-const csvHeader = 'mot;categorie;role;famille;sfi_manulex_cp_cm2\n'
+const csvHeader = 'mot;categorie;role;famille;sfi_manulex_cp_cm2;level\n'
 const csvRows = wordIndex
-  .map((e) => `${e.word};${e.category};${e.formRole};${e.lemmaId};${e.frequency}`)
+  .map((e) => `${e.word};${e.category};${e.formRole};${e.lemmaId};${e.frequency};${e.level}`)
   .join('\n')
 writeFileSync(new URL('words-review.csv', reviewDir), '﻿' + csvHeader + csvRows)
 
-console.log(`${wordIndex.length} mots générés (tous présents dans Manulex, ou verbe dont au moins une forme y est).`)
+console.log(
+  `${wordIndex.length} mots générés (croisement Manulex + EQOL, ou verbe dont au moins une forme est dans chacune des deux).`,
+)
 console.log(`${droppedNotInManulex} lignes non-verbe écartées car absentes de Manulex.`)
-console.log(`${verbLemmesRejected} verbes écartés car aucune de leurs formes n'est dans Manulex.`)
+console.log(`${droppedNotInEqol} lignes non-verbe écartées car absentes de EQOL.`)
+console.log(`${verbLemmesRejected} verbes écartés car aucune forme dans Manulex, ou aucune dans EQOL.`)
 console.log(`Familles de mots (cartes) : ${lemmaGroups.length}`)
 const byCategory = {}
 for (const e of wordIndex) byCategory[e.category] = (byCategory[e.category] || 0) + 1
