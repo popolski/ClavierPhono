@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ToolLayout } from '../../components/ToolLayout'
-import { loadWordIndex } from '../../lib/wordIndex'
+import { estMotAjoute, loadWordIndex } from '../../lib/wordIndex'
 import { loadWordFamilies } from '../../lib/wordFamilies'
 import { loadWordSynonyms, loadWordAntonyms } from '../../lib/wordSynonyms'
 import { pickPrimaryForm } from '../clavier/clavierLogic'
@@ -149,7 +149,10 @@ export function MotTool() {
         </div>
       )}
 
-      {primary.category === 'verbe' && (
+      {/* Pas de lien conjugaison pour un verbe ajouté par l'enseignante : les
+          tableaux sont générés au build depuis Lexique383, un mot ajouté à la
+          main n'en a donc aucun et le lien mènerait à un "verbe introuvable". */}
+      {primary.category === 'verbe' && !estMotAjoute(primary.lemmaId) && (
         <div className="mb-8">
           <Link
             to={`/conjugueur/${encodeURIComponent(primary.word)}`}
