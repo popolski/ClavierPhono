@@ -165,8 +165,8 @@
       "on": "dira",
       "nous": "dirons",
       "vous": "direz",
-      "ils": "dit",
-      "elles": "dit"
+      "ils": "diront",
+      "elles": "diront"
     },
     "imparfait": {
       "je": "disais",
@@ -692,7 +692,7 @@
       "elle": "porte",
       "on": "porte",
       "nous": "portons",
-      "vous": "porter",
+      "vous": "portez",
       "ils": "portent",
       "elles": "portent"
     },
@@ -787,7 +787,7 @@
       "il": "donne",
       "elle": "donne",
       "on": "donne",
-      "nous": "donnes",
+      "nous": "donnons",
       "vous": "donnez",
       "ils": "donnent",
       "elles": "donnent"
@@ -1901,7 +1901,7 @@
     }
   },
   "devoir": {
-    "infinitif": "dois",
+    "infinitif": "devoir",
     "auxiliaire": "avoir",
     "present": {
       "je": "dois",
@@ -2120,9 +2120,9 @@
     "imparfait": {
       "je": "vivais",
       "tu": "vivais",
-      "il": "vivre",
-      "elle": "vivre",
-      "on": "vivre",
+      "il": "vivait",
+      "elle": "vivait",
+      "on": "vivait",
       "nous": "vivions",
       "vous": "viviez",
       "ils": "vivaient",
@@ -2388,8 +2388,7 @@
       "tu": "fonds",
       "il": "fond",
       "elle": "fond",
-      "on": "fond",
-      "vous": "fondre"
+      "on": "fond"
     },
     "futur": {
       "je": "fondrai",
@@ -2469,7 +2468,7 @@
       "elle": "indique",
       "on": "indique",
       "nous": "indiquons",
-      "vous": "indiquer",
+      "vous": "indiquez",
       "ils": "indiquent",
       "elles": "indiquent"
     },
@@ -2756,7 +2755,7 @@
       "il": "raconte",
       "elle": "raconte",
       "on": "raconte",
-      "nous": "racontes",
+      "nous": "racontons",
       "vous": "racontez",
       "ils": "racontent",
       "elles": "racontent"
@@ -3892,7 +3891,7 @@
       "elle": "crie",
       "on": "crie",
       "nous": "crions",
-      "vous": "crier",
+      "vous": "criez",
       "ils": "crient",
       "elles": "crient"
     },
@@ -4054,9 +4053,9 @@
     "imparfait": {
       "je": "comprenais",
       "tu": "comprenais",
-      "il": "comprendre",
-      "elle": "comprendre",
-      "on": "comprendre",
+      "il": "comprenait",
+      "elle": "comprenait",
+      "on": "comprenait",
       "nous": "comprenions",
       "vous": "compreniez",
       "ils": "comprenaient",
@@ -4228,7 +4227,7 @@
       "elle": "imagine",
       "on": "imagine",
       "nous": "imaginons",
-      "vous": "imaginer",
+      "vous": "imaginez",
       "ils": "imaginent",
       "elles": "imaginent"
     },
@@ -4372,7 +4371,7 @@
       "elle": "explique",
       "on": "explique",
       "nous": "expliquons",
-      "vous": "emmener",
+      "vous": "expliquez",
       "ils": "expliquent",
       "elles": "expliquent"
     },
@@ -4514,7 +4513,7 @@
       "elle": "cause",
       "on": "cause",
       "nous": "causons",
-      "vous": "causer",
+      "vous": "causez",
       "ils": "causent",
       "elles": "causent"
     },
@@ -4695,14 +4694,6 @@
       "ils": "ont écouté",
       "elles": "ont écouté"
     }
-  },
-  "connais": {
-    "infinitif": "connais",
-    "auxiliaire": "avoir",
-    "present": {},
-    "futur": {},
-    "imparfait": {},
-    "passeCompose": {}
   },
   "correspondre": {
     "infinitif": "correspondre",
@@ -5111,9 +5102,9 @@
     "imparfait": {
       "je": "marchais",
       "tu": "marchais",
-      "il": "marcher",
-      "elle": "marcher",
-      "on": "marcher",
+      "il": "marchait",
+      "elle": "marchait",
+      "on": "marchait",
       "nous": "marchions",
       "vous": "marchiez",
       "ils": "marchaient",
@@ -5236,7 +5227,7 @@
       "elle": "monte",
       "on": "monte",
       "nous": "montons",
-      "vous": "monter",
+      "vous": "montez",
       "ils": "montent",
       "elles": "montent"
     },
@@ -5332,7 +5323,7 @@
       "elle": "achète",
       "on": "achète",
       "nous": "achetons",
-      "vous": "acheter",
+      "vous": "achetez",
       "ils": "achètent",
       "elles": "achètent"
     },
@@ -5428,7 +5419,7 @@
       "elle": "essaie",
       "on": "essaie",
       "nous": "essayons",
-      "vous": "essayer",
+      "vous": "essayez",
       "ils": "essaient",
       "elles": "essaient"
     },
@@ -5907,7 +5898,7 @@
       "il": "montre",
       "elle": "montre",
       "on": "montre",
-      "nous": "montres",
+      "nous": "montrons",
       "vous": "montrez",
       "ils": "montrent",
       "elles": "montrent"
@@ -7019,9 +7010,9 @@
     "imparfait": {
       "je": "transformais",
       "tu": "transformais",
-      "il": "transformer",
-      "elle": "transformer",
-      "on": "transformer",
+      "il": "transformait",
+      "elle": "transformait",
+      "on": "transformait",
       "nous": "transformions",
       "vous": "transformiez",
       "ils": "transformaient",
@@ -7049,7 +7040,7 @@
       "elle": "apprend",
       "on": "apprend",
       "nous": "apprenons",
-      "vous": "apprendre",
+      "vous": "apprenez",
       "ils": "apprennent",
       "elles": "apprennent"
     },
@@ -7989,14 +7980,14 @@
     "auxiliaire": "être",
     "present": {
       "je": "rentre",
-      "tu": "rentrais",
+      "tu": "rentres",
       "il": "rentre",
       "elle": "rentre",
       "on": "rentre",
       "nous": "rentrons",
       "vous": "rentrez",
-      "ils": "rentraient",
-      "elles": "rentraient"
+      "ils": "rentrent",
+      "elles": "rentrent"
     },
     "futur": {
       "je": "rentrerai",
@@ -8031,14 +8022,6 @@
       "ils": "sont rentrés",
       "elles": "sont rentrées"
     }
-  },
-  "vouler": {
-    "infinitif": "voulez",
-    "auxiliaire": "avoir",
-    "present": {},
-    "futur": {},
-    "imparfait": {},
-    "passeCompose": {}
   },
   "terminer": {
     "infinitif": "terminer",
@@ -8192,7 +8175,7 @@
       "elle": "voile",
       "on": "voile",
       "nous": "voilons",
-      "vous": "voiler",
+      "vous": "voilez",
       "ils": "voilent",
       "elles": "voilent"
     },
@@ -8384,7 +8367,7 @@
       "elle": "tourne",
       "on": "tourne",
       "nous": "tournons",
-      "vous": "tourner",
+      "vous": "tournez",
       "ils": "tournent",
       "elles": "tournent"
     },
@@ -9430,7 +9413,7 @@
       "elle": "ressemble",
       "on": "ressemble",
       "nous": "ressemblons",
-      "vous": "ressembler",
+      "vous": "ressemblez",
       "ils": "ressemblent",
       "elles": "ressemblent"
     },
@@ -10231,7 +10214,7 @@
       "elle": "emploie",
       "on": "emploie",
       "nous": "employons",
-      "vous": "employer",
+      "vous": "employez",
       "ils": "emploient",
       "elles": "emploient"
     },
@@ -11654,7 +11637,7 @@
       "elle": "tente",
       "on": "tente",
       "nous": "tentons",
-      "vous": "tenter",
+      "vous": "tentez",
       "ils": "tentent",
       "elles": "tentent"
     },
@@ -11836,14 +11819,6 @@
       "elles": "ont affairé"
     }
   },
-  "aurai": {
-    "infinitif": "aurai",
-    "auxiliaire": "avoir",
-    "present": {},
-    "futur": {},
-    "imparfait": {},
-    "passeCompose": {}
-  },
   "centrer": {
     "infinitif": "centrer",
     "auxiliaire": "avoir",
@@ -11902,7 +11877,7 @@
       "elle": "fie",
       "on": "fie",
       "nous": "fions",
-      "vous": "fier",
+      "vous": "fiez",
       "ils": "fient",
       "elles": "fient"
     },
@@ -11944,15 +11919,15 @@
     "infinitif": "régler",
     "auxiliaire": "avoir",
     "present": {
-      "je": "règle",
-      "tu": "règles",
-      "il": "règle",
-      "elle": "règle",
-      "on": "règle",
+      "je": "régle",
+      "tu": "régles",
+      "il": "régle",
+      "elle": "régle",
+      "on": "régle",
       "nous": "réglons",
       "vous": "réglez",
-      "ils": "règlent",
-      "elles": "règlent"
+      "ils": "réglent",
+      "elles": "réglent"
     },
     "futur": {
       "je": "réglerai",
@@ -12508,7 +12483,7 @@
       "elle": "lance",
       "on": "lance",
       "nous": "lançons",
-      "vous": "lancer",
+      "vous": "lancez",
       "ils": "lancent",
       "elles": "lancent"
     },
@@ -12940,7 +12915,7 @@
       "elle": "échappe",
       "on": "échappe",
       "nous": "échappons",
-      "vous": "échapper",
+      "vous": "échappez",
       "ils": "échappent",
       "elles": "échappent"
     },
@@ -13584,15 +13559,15 @@
     "infinitif": "célébrer",
     "auxiliaire": "avoir",
     "present": {
-      "je": "célèbre",
-      "tu": "célèbres",
-      "il": "célèbre",
-      "elle": "célèbre",
-      "on": "célèbre",
+      "je": "célébre",
+      "tu": "célébres",
+      "il": "célébre",
+      "elle": "célébre",
+      "on": "célébre",
       "nous": "célébrons",
       "vous": "célébrez",
-      "ils": "célèbrent",
-      "elles": "célèbrent"
+      "ils": "célébrent",
+      "elles": "célébrent"
     },
     "futur": {
       "je": "célébrerai",
@@ -14505,8 +14480,8 @@
       "on": "mariait",
       "nous": "mariions",
       "vous": "mariiez",
-      "ils": "mariée",
-      "elles": "mariée"
+      "ils": "mariaient",
+      "elles": "mariaient"
     },
     "passeCompose": {
       "je": "ai marié",
@@ -15199,7 +15174,7 @@
       "il": "rappelle",
       "elle": "rappelle",
       "on": "rappelle",
-      "nous": "rappelles",
+      "nous": "rappelons",
       "vous": "rappelez",
       "ils": "rappellent",
       "elles": "rappellent"
@@ -15480,7 +15455,7 @@
       "il": "envoie",
       "elle": "envoie",
       "on": "envoie",
-      "nous": "envoies",
+      "nous": "envoyons",
       "vous": "envoyez",
       "ils": "envoient",
       "elles": "envoient"
@@ -15673,7 +15648,7 @@
       "elle": "enlève",
       "on": "enlève",
       "nous": "enlevons",
-      "vous": "enlever",
+      "vous": "enlevez",
       "ils": "enlèvent",
       "elles": "enlèvent"
     },
@@ -16584,7 +16559,7 @@
       "elle": "remet",
       "on": "remet",
       "nous": "remettons",
-      "vous": "remettre",
+      "vous": "remettez",
       "ils": "remettent",
       "elles": "remettent"
     },
@@ -17130,9 +17105,9 @@
     "imparfait": {
       "je": "revoyais",
       "tu": "revoyais",
-      "il": "revoir",
-      "elle": "revoir",
-      "on": "revoir",
+      "il": "revoyait",
+      "elle": "revoyait",
+      "on": "revoyait",
       "nous": "revoyions",
       "vous": "revoyiez",
       "ils": "revoyaient",
@@ -17733,7 +17708,7 @@
       "elle": "coule",
       "on": "coule",
       "nous": "coulons",
-      "vous": "couler",
+      "vous": "coulez",
       "ils": "coulent",
       "elles": "coulent"
     },
@@ -18018,7 +17993,7 @@
       "elle": "tache",
       "on": "tache",
       "nous": "tachons",
-      "vous": "tacher",
+      "vous": "tachez",
       "ils": "tachent",
       "elles": "tachent"
     },
@@ -18904,7 +18879,7 @@
       "elle": "chute",
       "on": "chute",
       "nous": "chutons",
-      "vous": "contrôler",
+      "vous": "chutez",
       "ils": "chutent",
       "elles": "chutent"
     },
@@ -19111,9 +19086,9 @@
     "imparfait": {
       "je": "prévenais",
       "tu": "prévenais",
-      "il": "prévenir",
-      "elle": "prévenir",
-      "on": "prévenir",
+      "il": "prévenait",
+      "elle": "prévenait",
+      "on": "prévenait",
       "nous": "prévenions",
       "vous": "préveniez",
       "ils": "prévenaient",
@@ -19141,7 +19116,7 @@
       "elle": "réalise",
       "on": "réalise",
       "nous": "réalisons",
-      "vous": "réalises",
+      "vous": "réalisez",
       "ils": "réalisent",
       "elles": "réalisent"
     },
@@ -19377,13 +19352,13 @@
     "present": {
       "je": "zébre",
       "tu": "zébres",
-      "il": "zèbre",
-      "elle": "zèbre",
-      "on": "zèbre",
+      "il": "zébre",
+      "elle": "zébre",
+      "on": "zébre",
       "nous": "zébrons",
       "vous": "zébrez",
-      "ils": "zèbrent",
-      "elles": "zèbrent"
+      "ils": "zébrent",
+      "elles": "zébrent"
     },
     "futur": {
       "je": "zébrerai",
@@ -20694,7 +20669,7 @@
       "elle": "vire",
       "on": "vire",
       "nous": "virons",
-      "vous": "virer",
+      "vous": "virez",
       "ils": "virent",
       "elles": "virent"
     },
@@ -21029,7 +21004,7 @@
       "il": "emmène",
       "elle": "emmène",
       "on": "emmène",
-      "nous": "emmènes",
+      "nous": "emmenons",
       "vous": "emmenez",
       "ils": "emmènent",
       "elles": "emmènent"
@@ -21148,8 +21123,8 @@
       "on": "entraînait",
       "nous": "entraînions",
       "vous": "entraîniez",
-      "ils": "entraînée",
-      "elles": "entraînée"
+      "ils": "entraînaient",
+      "elles": "entraînaient"
     },
     "passeCompose": {
       "je": "ai entraîné",
@@ -21609,15 +21584,15 @@
     "infinitif": "sécher",
     "auxiliaire": "avoir",
     "present": {
-      "je": "sèche",
-      "tu": "sèches",
-      "il": "sèche",
-      "elle": "sèche",
-      "on": "sèche",
+      "je": "séche",
+      "tu": "séches",
+      "il": "séche",
+      "elle": "séche",
+      "on": "séche",
       "nous": "séchons",
       "vous": "séchez",
-      "ils": "sèchent",
-      "elles": "sèchent"
+      "ils": "séchent",
+      "elles": "séchent"
     },
     "futur": {
       "je": "sécherai",
@@ -21759,7 +21734,7 @@
       "elle": "nettoie",
       "on": "nettoie",
       "nous": "nettoyons",
-      "vous": "nettoyer",
+      "vous": "nettoyez",
       "ils": "nettoient",
       "elles": "nettoient"
     },
@@ -22091,8 +22066,8 @@
       "il": "file",
       "elle": "file",
       "on": "file",
-      "nous": "files",
-      "vous": "filer",
+      "nous": "filons",
+      "vous": "filez",
       "ils": "filent",
       "elles": "filent"
     },
@@ -23010,9 +22985,9 @@
     "imparfait": {
       "je": "piquais",
       "tu": "piquais",
-      "il": "piquer",
-      "elle": "piquer",
-      "on": "piquer",
+      "il": "piquait",
+      "elle": "piquait",
+      "on": "piquait",
       "nous": "piquions",
       "vous": "piquiez",
       "ils": "piquaient",
@@ -23085,7 +23060,7 @@
       "elle": "transporte",
       "on": "transporte",
       "nous": "transportons",
-      "vous": "transporter",
+      "vous": "transportez",
       "ils": "transportent",
       "elles": "transportent"
     },
@@ -23517,7 +23492,7 @@
       "elle": "tape",
       "on": "tape",
       "nous": "tapons",
-      "vous": "taper",
+      "vous": "tapez",
       "ils": "tapent",
       "elles": "tapent"
     },
@@ -24486,7 +24461,7 @@
       "elle": "coûte",
       "on": "coûte",
       "nous": "coûtons",
-      "vous": "coûter",
+      "vous": "coûtez",
       "ils": "coûtent",
       "elles": "coûtent"
     },
@@ -26103,7 +26078,7 @@
       "elle": "appuie",
       "on": "appuie",
       "nous": "appuyons",
-      "vous": "appuyer",
+      "vous": "appuyez",
       "ils": "appuient",
       "elles": "appuient"
     },
@@ -26198,7 +26173,7 @@
       "elle": "dore",
       "on": "dore",
       "nous": "dorons",
-      "vous": "dorer",
+      "vous": "dorez",
       "ils": "dorent",
       "elles": "dorent"
     },
@@ -27329,7 +27304,7 @@
       "elle": "abandonne",
       "on": "abandonne",
       "nous": "abandonnons",
-      "vous": "abandonner",
+      "vous": "abandonnez",
       "ils": "abandonnent",
       "elles": "abandonnent"
     },
@@ -28169,7 +28144,7 @@
       "elle": "attire",
       "on": "attire",
       "nous": "attirons",
-      "vous": "attirer",
+      "vous": "attirez",
       "ils": "attirent",
       "elles": "attirent"
     },
@@ -29443,7 +29418,7 @@
       "elle": "assure",
       "on": "assure",
       "nous": "assurons",
-      "vous": "assurer",
+      "vous": "assurez",
       "ils": "assurent",
       "elles": "assurent"
     },
@@ -31260,7 +31235,7 @@
       "elle": "imite",
       "on": "imite",
       "nous": "imitons",
-      "vous": "imiter",
+      "vous": "imitez",
       "ils": "imitent",
       "elles": "imitent"
     },
@@ -33995,7 +33970,7 @@
       "il": "pariait",
       "elle": "pariait",
       "on": "pariait",
-      "nous": "parions",
+      "nous": "pariions",
       "vous": "pariiez",
       "ils": "pariaient",
       "elles": "pariaient"
@@ -35085,15 +35060,15 @@
     "infinitif": "pénétrer",
     "auxiliaire": "avoir",
     "present": {
-      "je": "pénètre",
-      "tu": "pénètres",
-      "il": "pénètre",
-      "elle": "pénètre",
-      "on": "pénètre",
+      "je": "pénétre",
+      "tu": "pénétres",
+      "il": "pénétre",
+      "elle": "pénétre",
+      "on": "pénétre",
       "nous": "pénétrons",
       "vous": "pénétrez",
-      "ils": "pénètrent",
-      "elles": "pénètrent"
+      "ils": "pénétrent",
+      "elles": "pénétrent"
     },
     "futur": {
       "je": "pénétrerai",
@@ -35423,7 +35398,7 @@
       "elle": "prouve",
       "on": "prouve",
       "nous": "prouvons",
-      "vous": "prouver",
+      "vous": "prouvez",
       "ils": "prouvent",
       "elles": "prouvent"
     },
@@ -38354,7 +38329,7 @@
       "elle": "jure",
       "on": "jure",
       "nous": "jurons",
-      "vous": "jurer",
+      "vous": "jurez",
       "ils": "jurent",
       "elles": "jurent"
     },
@@ -39669,7 +39644,7 @@
       "elle": "menace",
       "on": "menace",
       "nous": "menaçons",
-      "vous": "menacer",
+      "vous": "menacez",
       "ils": "menacent",
       "elles": "menacent"
     },
@@ -41484,7 +41459,7 @@
       "elle": "renseigne",
       "on": "renseigne",
       "nous": "renseignons",
-      "vous": "renseigner",
+      "vous": "renseignez",
       "ils": "renseignent",
       "elles": "renseignent"
     },
@@ -42570,14 +42545,6 @@
       "elles": "ont confié"
     }
   },
-  "parait": {
-    "infinitif": "parait",
-    "auxiliaire": "avoir",
-    "present": {},
-    "futur": {},
-    "imparfait": {},
-    "passeCompose": {}
-  },
   "dériver": {
     "infinitif": "dériver",
     "auxiliaire": "avoir",
@@ -42724,15 +42691,15 @@
     "infinitif": "lécher",
     "auxiliaire": "avoir",
     "present": {
-      "je": "lèche",
-      "tu": "lèches",
-      "il": "lèche",
-      "elle": "lèche",
-      "on": "lèche",
+      "je": "léche",
+      "tu": "léches",
+      "il": "léche",
+      "elle": "léche",
+      "on": "léche",
       "nous": "léchons",
       "vous": "léchez",
-      "ils": "lèchent",
-      "elles": "lèchent"
+      "ils": "léchent",
+      "elles": "léchent"
     },
     "futur": {
       "je": "lécherai",
@@ -43801,9 +43768,9 @@
     "imparfait": {
       "je": "désolais",
       "tu": "désolais",
-      "il": "désolée",
-      "elle": "désolée",
-      "on": "désolée",
+      "il": "désolait",
+      "elle": "désolait",
+      "on": "désolait",
       "nous": "désolions",
       "vous": "désoliez",
       "ils": "désolaient",
@@ -44553,15 +44520,15 @@
     "infinitif": "régner",
     "auxiliaire": "avoir",
     "present": {
-      "je": "règne",
-      "tu": "règnes",
-      "il": "règne",
-      "elle": "règne",
-      "on": "règne",
+      "je": "régne",
+      "tu": "régnes",
+      "il": "régne",
+      "elle": "régne",
+      "on": "régne",
       "nous": "régnons",
       "vous": "régnez",
-      "ils": "règnent",
-      "elles": "règnent"
+      "ils": "régnent",
+      "elles": "régnent"
     },
     "futur": {
       "je": "régnerai",
@@ -45178,7 +45145,7 @@
       "elle": "informe",
       "on": "informe",
       "nous": "informons",
-      "vous": "informer",
+      "vous": "informez",
       "ils": "informent",
       "elles": "informent"
     },
@@ -45558,8 +45525,8 @@
       "on": "coinçait",
       "nous": "coincions",
       "vous": "coinciez",
-      "ils": "coincée",
-      "elles": "coincée"
+      "ils": "coinçaient",
+      "elles": "coinçaient"
     },
     "passeCompose": {
       "je": "ai coincé",
@@ -46202,7 +46169,7 @@
       "elle": "supplie",
       "on": "supplie",
       "nous": "supplions",
-      "vous": "supplier",
+      "vous": "suppliez",
       "ils": "supplient",
       "elles": "supplient"
     },
@@ -46799,11 +46766,11 @@
     "infinitif": "chronométrer",
     "auxiliaire": "avoir",
     "present": {
-      "je": "chronomètre",
-      "tu": "chronomètres",
-      "il": "chronomètre",
-      "elle": "chronomètre",
-      "on": "chronomètre",
+      "je": "chronométre",
+      "tu": "chronométres",
+      "il": "chronométre",
+      "elle": "chronométre",
+      "on": "chronométre",
       "nous": "chronométrons",
       "vous": "chronométrez",
       "ils": "chronométrent",
@@ -47091,7 +47058,7 @@
       "il": "excuse",
       "elle": "excuse",
       "on": "excuse",
-      "nous": "excuses",
+      "nous": "excusons",
       "vous": "excusez",
       "ils": "excusent",
       "elles": "excusent"
@@ -47935,7 +47902,7 @@
       "elle": "expose",
       "on": "expose",
       "nous": "exposons",
-      "vous": "exposer",
+      "vous": "exposez",
       "ils": "exposent",
       "elles": "exposent"
     },
@@ -51465,7 +51432,7 @@
       "elle": "condamne",
       "on": "condamne",
       "nous": "condamnons",
-      "vous": "condamner",
+      "vous": "condamnez",
       "ils": "condamnent",
       "elles": "condamnent"
     },
@@ -54286,7 +54253,7 @@
       "elle": "facilite",
       "on": "facilite",
       "nous": "facilitons",
-      "vous": "faciliter",
+      "vous": "facilitez",
       "ils": "facilitent",
       "elles": "facilitent"
     },
@@ -55947,7 +55914,7 @@
       "elle": "débarque",
       "on": "débarque",
       "nous": "débarquons",
-      "vous": "débarquer",
+      "vous": "débarquez",
       "ils": "débarquent",
       "elles": "débarquent"
     },
@@ -56694,7 +56661,7 @@
       "elle": "cloue",
       "on": "cloue",
       "nous": "clouons",
-      "vous": "clouer",
+      "vous": "clouez",
       "ils": "clouent",
       "elles": "clouent"
     },
@@ -58222,9 +58189,9 @@
     "imparfait": {
       "je": "persuadais",
       "tu": "persuadais",
-      "il": "persuadée",
-      "elle": "persuadée",
-      "on": "persuadée",
+      "il": "persuadait",
+      "elle": "persuadait",
+      "on": "persuadait",
       "nous": "persuadions",
       "vous": "persuadiez",
       "ils": "persuadaient",
@@ -59179,7 +59146,7 @@
       "elle": "dégoûte",
       "on": "dégoûte",
       "nous": "dégoûtons",
-      "vous": "dégoûter",
+      "vous": "dégoûtez",
       "ils": "dégoûtent",
       "elles": "dégoûtent"
     },
@@ -61746,15 +61713,15 @@
     "infinitif": "crécher",
     "auxiliaire": "avoir",
     "present": {
-      "je": "crèche",
-      "tu": "crèches",
-      "il": "crèche",
-      "elle": "crèche",
-      "on": "crèche",
+      "je": "créche",
+      "tu": "créches",
+      "il": "créche",
+      "elle": "créche",
+      "on": "créche",
       "nous": "créchons",
       "vous": "créchez",
-      "ils": "crèchent",
-      "elles": "crèchent"
+      "ils": "créchent",
+      "elles": "créchent"
     },
     "futur": {
       "je": "crécherai",
@@ -63383,7 +63350,7 @@
       "il": "impressionne",
       "elle": "impressionne",
       "on": "impressionne",
-      "nous": "impressionnes",
+      "nous": "impressionnons",
       "vous": "impressionnez",
       "ils": "impressionnent",
       "elles": "impressionnent"
@@ -63620,9 +63587,9 @@
     "present": {
       "je": "alléche",
       "tu": "alléches",
-      "il": "allèche",
-      "elle": "allèche",
-      "on": "allèche",
+      "il": "alléche",
+      "elle": "alléche",
+      "on": "alléche",
       "nous": "alléchons",
       "vous": "alléchez",
       "ils": "alléchent",
@@ -63708,7 +63675,7 @@
       "elle": "incline",
       "on": "incline",
       "nous": "inclinons",
-      "vous": "incliner",
+      "vous": "inclinez",
       "ils": "inclinent",
       "elles": "inclinent"
     },
@@ -65110,7 +65077,7 @@
       "elle": "oriente",
       "on": "oriente",
       "nous": "orientons",
-      "vous": "orienter",
+      "vous": "orientez",
       "ils": "orientent",
       "elles": "orientent"
     },
@@ -66124,11 +66091,11 @@
     "infinitif": "déléguer",
     "auxiliaire": "avoir",
     "present": {
-      "je": "délègue",
+      "je": "délégue",
       "tu": "délégues",
-      "il": "délègue",
-      "elle": "délègue",
-      "on": "délègue",
+      "il": "délégue",
+      "elle": "délégue",
+      "on": "délégue",
       "nous": "déléguons",
       "vous": "déléguez",
       "ils": "déléguent",
@@ -67752,7 +67719,7 @@
       "elle": "embête",
       "on": "embête",
       "nous": "embêtons",
-      "vous": "embêter",
+      "vous": "embêtez",
       "ils": "embêtent",
       "elles": "embêtent"
     },
@@ -69108,8 +69075,8 @@
       "on": "emprisonnait",
       "nous": "emprisonnions",
       "vous": "emprisonniez",
-      "ils": "emprisonnée",
-      "elles": "emprisonnée"
+      "ils": "emprisonnaient",
+      "elles": "emprisonnaient"
     },
     "passeCompose": {
       "je": "ai emprisonné",
@@ -70213,7 +70180,7 @@
       "elle": "astique",
       "on": "astique",
       "nous": "astiquons",
-      "vous": "astiquer",
+      "vous": "astiquez",
       "ils": "astiquent",
       "elles": "astiquent"
     },
@@ -71846,7 +71813,7 @@
       "elle": "agace",
       "on": "agace",
       "nous": "agaçons",
-      "vous": "agacer",
+      "vous": "agacez",
       "ils": "agacent",
       "elles": "agacent"
     },
@@ -74979,7 +74946,7 @@
       "elle": "affecte",
       "on": "affecte",
       "nous": "affectons",
-      "vous": "affecter",
+      "vous": "affectez",
       "ils": "affectent",
       "elles": "affectent"
     },
@@ -76516,7 +76483,7 @@
       "elle": "échauffe",
       "on": "échauffe",
       "nous": "échauffons",
-      "vous": "échauffer",
+      "vous": "échauffez",
       "ils": "échauffent",
       "elles": "échauffent"
     },
@@ -76649,14 +76616,6 @@
       "ils": "ont aménagé",
       "elles": "ont aménagé"
     }
-  },
-  "mentez": {
-    "infinitif": "mentez",
-    "auxiliaire": "avoir",
-    "present": {},
-    "futur": {},
-    "imparfait": {},
-    "passeCompose": {}
   },
   "gondoler": {
     "infinitif": "gondoler",
@@ -80760,14 +80719,6 @@
       "elles": "ont dingué"
     }
   },
-  "forfait": {
-    "infinitif": "forfait",
-    "auxiliaire": "avoir",
-    "present": {},
-    "futur": {},
-    "imparfait": {},
-    "passeCompose": {}
-  },
   "succomber": {
     "infinitif": "succomber",
     "auxiliaire": "avoir",
@@ -82477,15 +82428,15 @@
     "infinitif": "dessécher",
     "auxiliaire": "avoir",
     "present": {
-      "je": "dessèche",
+      "je": "desséche",
       "tu": "desséches",
-      "il": "dessèche",
-      "elle": "dessèche",
-      "on": "dessèche",
+      "il": "desséche",
+      "elle": "desséche",
+      "on": "desséche",
       "nous": "desséchons",
       "vous": "desséchez",
-      "ils": "dessèchent",
-      "elles": "dessèchent"
+      "ils": "desséchent",
+      "elles": "desséchent"
     },
     "futur": {
       "je": "dessécherai",
@@ -87229,7 +87180,7 @@
       "elle": "braque",
       "on": "braque",
       "nous": "braquons",
-      "vous": "braquer",
+      "vous": "braquez",
       "ils": "braquent",
       "elles": "braquent"
     },

@@ -255,7 +255,10 @@ for (const row of rows) {
   } else if (row.category === 'verbe') {
     const infover = row.infover || ''
     let role = null
-    if (infover.includes('inf')) role = 'infinitif'
+    // Le lemme d'un verbe EST son infinitif chez Lexique383 : une ligne qui
+    // étiquette "inf" une autre orthographe est erronée (ex. ortho="voulez",
+    // lemme="vouler"), et faisait afficher "voulez" comme un infinitif.
+    if (infover.includes('inf') && row.ortho === row.lemme) role = 'infinitif'
     else if (infover.includes('par:pas') && (row.genre === 'm' || !row.genre) && (row.nombre === 's' || !row.nombre)) {
       role = 'participe_passé'
     } else if (infover.includes('ind:pre:3s')) role = 'il_elle_on'
@@ -279,8 +282,22 @@ for (const [slotKey, row] of verbSlotBest) {
   verbRowsByLemma.set(lemme, list)
 }
 
+// Un infinitif français se termine toujours par -er, -ir, -ïr (haïr), -re ou
+// -oir. Chez Lexique383 le lemme d'un verbe EST son infinitif : un lemme qui
+// ne peut pas en être un trahit une ligne erronée du corpus (des formes
+// conjuguées étiquetées comme infinitif : "connais", "aurai", "parait",
+// "mentez"...). Sans ce filtre, ces entrées arrivaient jusqu'à l'élève, qui
+// pouvait tomber sur une carte présentant "connais" comme un verbe à
+// l'infinitif, avec un conjugueur vide à la clé.
+const INFINITIF_POSSIBLE = /(er|ir|ïr|re|oir)$/
+
 let verbLemmesRejected = 0
+let verbLemmesNonInfinitif = 0
 for (const [lemme, verbRows] of verbRowsByLemma) {
+  if (!INFINITIF_POSSIBLE.test(lemme)) {
+    verbLemmesNonInfinitif++
+    continue
+  }
   if (!qualifies(verbRows)) {
     verbLemmesRejected++
     continue // aucune forme de ce verbe ne dépasse le seuil de fréquence Manulex
@@ -374,6 +391,7 @@ console.log(`${droppedBelowThreshold} lignes adverbe/invariable écartées car s
 console.log(`${nomLemmesRejected} noms écartés car aucune forme ne dépasse le seuil de fréquence.`)
 console.log(`${adjectifLemmesRejected} adjectifs écartés car aucune forme ne dépasse le seuil de fréquence.`)
 console.log(`${verbLemmesRejected} verbes écartés car aucune forme ne dépasse le seuil de fréquence.`)
+console.log(`${verbLemmesNonInfinitif} "verbes" écartés car leur lemme ne peut pas être un infinitif (erreurs Lexique383).`)
 console.log(`Familles de mots (cartes) : ${lemmaGroups.length}`)
 const byCategory = {}
 for (const e of wordIndex) byCategory[e.category] = (byCategory[e.category] || 0) + 1

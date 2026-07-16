@@ -149,10 +149,13 @@ export function MotTool() {
         </div>
       )}
 
-      {/* Pas de lien conjugaison pour un verbe ajouté par l'enseignante : les
-          tableaux sont générés au build depuis Lexique383, un mot ajouté à la
-          main n'en a donc aucun et le lien mènerait à un "verbe introuvable". */}
-      {primary.category === 'verbe' && !estMotAjoute(primary.lemmaId) && (
+      {/* Le lien n'a de sens que si la forme principale est bien l'infinitif :
+          les tableaux sont indexés par infinitif. Une poignée de verbes rares
+          (étoiler, poêler...) n'ont pas d'infinitif attesté dans Lexique383 —
+          leur fiche retombe sur le participe passé, et le lien menait alors à
+          un "verbe introuvable". Idem pour un verbe ajouté à la main, dont la
+          conjugaison n'est pas générée au build. */}
+      {primary.category === 'verbe' && primary.formRole === 'infinitif' && !estMotAjoute(primary.lemmaId) && (
         <div className="mb-8">
           <Link
             to={`/conjugueur/${encodeURIComponent(primary.word)}`}

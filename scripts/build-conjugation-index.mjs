@@ -84,6 +84,38 @@ function bestByFreq(current, candidateWord, candidateFreq, freqByWord) {
   return candidateFreq > currentFreq ? candidateWord : current
 }
 
+// Garde-fou sur les formes attestées : Lexique383 contient des lignes mal
+// étiquetées, et on ne peut pas les avaler telles quelles.
+//   - l'infinitif "porter" est aussi tagué ind:pre:2p -> "vous porter"
+//   - "donnes" est tagué ind:pre:1p -> "nous donnes"
+//   - une ligne franchement corrompue donne "emmener" comme forme du lemme
+//     "expliquer" -> "vous emmener"
+// bestByFreq aggravait le cas : freqByWord est indexé par orthographe seule,
+// donc la forme fautive héritait de la fréquence de son homographe (celle de
+// l'infinitif "emmener", 26.96) et écrasait la bonne forme ("expliquez",
+// 3.11). Comparer les fréquences ne peut pas trancher ici — l'infinitif est
+// toujours plus fréquent que sa forme "vous".
+//
+// D'où ce filtre par terminaison, indépendant des fréquences : à l'imparfait
+// et au futur, les terminaisons françaises sont universelles (tous groupes,
+// y compris les irréguliers) ; au présent, 1p et 2p le sont à quelques
+// exceptions près (sommes, êtes, faites, dites). Une forme qui n'y
+// correspond pas est forcément une erreur d'étiquetage : on l'ignore, et la
+// bonne forme (correctement étiquetée par ailleurs) prend sa place.
+// Les autres personnes du présent (1s/2s/3s/3p) varient selon le groupe :
+// pas de règle sûre, on ne filtre pas — mais les verbes réguliers en -er
+// sont de toute façon couverts par la génération (voir plus bas).
+const TERMINAISONS_ATTENDUES = {
+  present: { '1p': /(ons|sommes)$/, '2p': /(ez|tes)$/ },
+  imparfait: { '1s': /ais$/, '2s': /ais$/, '3s': /ait$/, '1p': /ions$/, '2p': /iez$/, '3p': /aient$/ },
+  futur: { '1s': /rai$/, '2s': /ras$/, '3s': /ra$/, '1p': /rons$/, '2p': /rez$/, '3p': /ront$/ },
+}
+
+function formeAttesteePlausible(temps, person, forme) {
+  const attendu = TERMINAISONS_ATTENDUES[temps]?.[person]
+  return !attendu || attendu.test(forme)
+}
+
 const freqByWord = new Map()
 
 for (let i = 1; i < lines.length; i++) {
@@ -105,7 +137,12 @@ for (let i = 1; i < lines.length; i++) {
 
   const v = ensure(lemme)
 
-  if (infover.includes('inf')) {
+  // Chez Lexique383, le lemme d'un verbe EST son infinitif : une ligne qui
+  // étiquette "inf" une orthographe différente du lemme est erronée. Ex. la
+  // ligne (ortho=voulez, lemme=vouler, infover=inf) invente un verbe "vouler"
+  // dont l'infinitif serait "voulez" — sans ce contrôle, il finissait dans le
+  // lexique avec un tableau de conjugaison vide.
+  if (infover.includes('inf') && ortho === lemme) {
     v.infinitif = bestByFreq(v.infinitif, ortho, freq, freqByWord)
   }
   if (infover.includes('par:pas')) {
@@ -113,13 +150,13 @@ for (let i = 1; i < lines.length; i++) {
     v.participe[slot] = bestByFreq(v.participe[slot], ortho, freq, freqByWord)
   }
   for (const person of PERSONS) {
-    if (infover.includes(`ind:pre:${person}`)) {
+    if (infover.includes(`ind:pre:${person}`) && formeAttesteePlausible('present', person, ortho)) {
       v.present[person] = bestByFreq(v.present[person], ortho, freq, freqByWord)
     }
-    if (infover.includes(`ind:fut:${person}`)) {
+    if (infover.includes(`ind:fut:${person}`) && formeAttesteePlausible('futur', person, ortho)) {
       v.futur[person] = bestByFreq(v.futur[person], ortho, freq, freqByWord)
     }
-    if (infover.includes(`ind:imp:${person}`)) {
+    if (infover.includes(`ind:imp:${person}`) && formeAttesteePlausible('imparfait', person, ortho)) {
       v.imparfait[person] = bestByFreq(v.imparfait[person], ortho, freq, freqByWord)
     }
   }
@@ -273,25 +310,34 @@ function regularErForms(infinitif) {
   return { present, imparfait, futur, participe }
 }
 
-function fillMissingRegularForms(v) {
+// Pour un verbe dont la conjugaison est DÉTERMINISTE (régulier en -er, ou
+// famille de céder), la génération fait autorité : elle remplace les formes
+// attestées au lieu de se contenter de combler les trous.
+//
+// C'était l'inverse avant, sur l'intuition qu'une forme réellement attestée
+// dans un corpus vaut mieux qu'une forme calculée. À l'usage c'est faux :
+// pour ces verbes, la règle ne souffre aucune exception (c'est la définition
+// de "régulier", et isRiskyErStem écarte justement les familles à radical
+// variable), alors que les étiquettes de Lexique383, elles, comportent des
+// erreurs — 71 verbes en -er avaient au moins une forme fausse, dont des
+// verbes très courants (vous porter, nous donnes, nous racontes...). Le
+// filtre par terminaison plus haut ne peut pas tout rattraper : il ne couvre
+// pas les personnes 1s/2s/3s/3p du présent, dont les terminaisons dépendent
+// du groupe.
+function appliquerFormesRegulieres(v) {
   const cederGen = cederStyleForms(v.infinitif)
   const gen = regularErForms(v.infinitif) ?? cederGen
   if (!gen) return
   for (const p of PERSONS) {
-    if (!v.present[p]) v.present[p] = gen.present[p]
-    if (!v.imparfait[p]) v.imparfait[p] = gen.imparfait[p]
-  }
-  if (cederGen) {
-    // Rectifications de 1990 : le futur/conditionnel en è remplace même les
-    // formes traditionnelles (é) déjà attestées par Lexique383 pour cette
-    // famille — contrairement au présent/imparfait/participe, inchangés par
-    // la réforme, où on ne comble que les trous.
-    for (const p of PERSONS) v.futur[p] = cederGen.futur[p]
-  } else {
-    for (const p of PERSONS) if (!v.futur[p]) v.futur[p] = gen.futur[p]
+    v.present[p] = gen.present[p]
+    v.imparfait[p] = gen.imparfait[p]
+    // Pour la famille de céder, le futur généré porte en plus l'accent grave
+    // des rectifications de 1990 (je cèderai) là où Lexique383 garde l'accent
+    // aigu traditionnel.
+    v.futur[p] = gen.futur[p]
   }
   for (const slot of ['ms', 'fs', 'mp', 'fp']) {
-    if (!v.participe[slot]) v.participe[slot] = gen.participe[slot]
+    v.participe[slot] = gen.participe[slot]
   }
 }
 
@@ -300,7 +346,7 @@ const output = {}
 for (const lemme of reachableVerbs) {
   const v = byLemma.get(lemme)
   if (!v || !v.infinitif) continue
-  fillMissingRegularForms(v)
+  appliquerFormesRegulieres(v)
   const isEtre = ETRE_VERBS.has(lemme)
   output[lemme] = {
     infinitif: v.infinitif,
