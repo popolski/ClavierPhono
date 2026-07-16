@@ -29,6 +29,16 @@ const categoryStyles: Record<WordCategory, string> = {
   adverbe: 'bg-orange-50 text-orange-900 border-orange-200',
 }
 
+// Mascottes issues de la Feuille de route design (une par catégorie
+// grammaticale), utilisées comme repère visuel à côté du titre du mot.
+const CATEGORY_MASCOT: Record<WordCategory, string> = {
+  nom: '/mascottes/nom.png',
+  adjectif: '/mascottes/adjectif.jpg',
+  verbe: '/mascottes/verbe.png',
+  invariable: '/mascottes/invariable.png',
+  adverbe: '/mascottes/adverbe.png',
+}
+
 const FORM_ROLE_LABEL: Partial<Record<WordFormRole, string>> = {
   singulier: 'Singulier',
   pluriel: 'Pluriel',
@@ -111,7 +121,12 @@ export function MotTool() {
   const style = categoryStyles[primary.category]
 
   return (
-    <ToolLayout title={primary.word} description={CATEGORY_LABEL[primary.category]} showBackToKeyboard>
+    <ToolLayout
+      title={primary.word}
+      description={CATEGORY_LABEL[primary.category]}
+      showBackToKeyboard
+      titleIcon={<img src={CATEGORY_MASCOT[primary.category]} alt="" className="h-16 w-16 object-contain" />}
+    >
       {otherForms.length > 0 && (
         <div className="mb-8">
           <h2 className="mb-2 text-sm font-semibold tracking-wide text-gray-500 uppercase">Autres formes</h2>
@@ -138,7 +153,8 @@ export function MotTool() {
       )}
 
       <div className="mb-8">
-        <h2 className="mb-2 text-sm font-semibold tracking-wide text-gray-500 uppercase">
+        <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold tracking-wide text-gray-500 uppercase">
+          <img src="/mascottes/famille.png" alt="" className="h-8 w-8 object-contain" />
           Mots de la même famille
         </h2>
         {family.length === 0 ? (
@@ -164,7 +180,10 @@ export function MotTool() {
 
       {synonyms.length > 0 && (
         <div className="mb-8">
-          <h2 className="mb-2 text-sm font-semibold tracking-wide text-gray-500 uppercase">Synonymes</h2>
+          <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold tracking-wide text-gray-500 uppercase">
+            <img src="/mascottes/synonymes.png" alt="" className="h-8 w-8 object-contain" />
+            Synonymes
+          </h2>
           <div className="flex flex-wrap gap-3">
             {synonyms.map((member) => (
               <WordChip key={member.lemmaId} member={member} />
@@ -175,7 +194,10 @@ export function MotTool() {
 
       {antonyms.length > 0 && (
         <div>
-          <h2 className="mb-2 text-sm font-semibold tracking-wide text-gray-500 uppercase">Contraires</h2>
+          <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold tracking-wide text-gray-500 uppercase">
+            <img src="/mascottes/antonymes.png" alt="" className="h-8 w-8 object-contain" />
+            Contraires
+          </h2>
           <div className="flex flex-wrap gap-3">
             {antonyms.map((member) => (
               <WordChip key={member.lemmaId} member={member} />

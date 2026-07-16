@@ -14,9 +14,18 @@ interface ToolLayoutProps {
   showBackToKeyboard?: boolean
   /** Masque le "← Retour" habituel — sur /clavier, remonter dans l'historique ne sert à rien. */
   hideBackButton?: boolean
+  /** Mascotte affichée à côté du titre (ex. fiche mot : icône de catégorie grammaticale). */
+  titleIcon?: ReactNode
 }
 
-export function ToolLayout({ title, description, children, showBackToKeyboard, hideBackButton }: ToolLayoutProps) {
+export function ToolLayout({
+  title,
+  description,
+  children,
+  showBackToKeyboard,
+  hideBackButton,
+  titleIcon,
+}: ToolLayoutProps) {
   const navigate = useNavigate()
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
@@ -38,7 +47,10 @@ export function ToolLayout({ title, description, children, showBackToKeyboard, h
           )}
         </div>
       )}
-      <h1 className="text-3xl font-semibold text-gray-900">{title}</h1>
+      <div className="flex items-center gap-3">
+        {titleIcon}
+        <h1 className="text-3xl font-semibold text-gray-900">{title}</h1>
+      </div>
       <p className="mt-1 mb-8 text-gray-500">{description}</p>
       {children}
     </div>
