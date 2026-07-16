@@ -127,7 +127,7 @@ export function MotTool() {
       showBackToKeyboard
       titleIcon={
         <div className="flex flex-col items-center gap-1">
-          <img src={CATEGORY_MASCOT[primary.category]} alt="" className="h-32 w-32 object-contain" />
+          <img src={CATEGORY_MASCOT[primary.category]} alt="" className="h-20 w-20 object-contain" />
           <span className="text-xs font-semibold tracking-wide text-gray-500 uppercase">
             {CATEGORY_LABEL[primary.category]}
           </span>
@@ -161,7 +161,7 @@ export function MotTool() {
 
       <div className="mb-6 rounded-2xl border-2 border-gray-200 bg-gray-50 p-5">
         <div className="mb-4 flex items-center gap-4">
-          <img src="/mascottes/famille.png" alt="" className="h-24 w-24 shrink-0 object-contain" />
+          <img src="/mascottes/famille.png" alt="" className="h-40 w-40 shrink-0 object-contain" />
           <h2 className="text-xl font-bold text-gray-800">Mots de la même famille</h2>
         </div>
         {family.length === 0 ? (
@@ -188,7 +188,7 @@ export function MotTool() {
       {synonyms.length > 0 && (
         <div className="mb-6 rounded-2xl border-2 border-amber-200 bg-amber-50 p-5">
           <div className="mb-4 flex items-center gap-4">
-            <img src="/mascottes/synonymes.png" alt="" className="h-24 w-24 shrink-0 object-contain" />
+            <img src="/mascottes/synonymes.png" alt="" className="h-40 w-40 shrink-0 object-contain" />
             <h2 className="text-xl font-bold text-gray-800">Synonymes</h2>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -202,7 +202,7 @@ export function MotTool() {
       {antonyms.length > 0 && (
         <div className="rounded-2xl border-2 border-blue-200 bg-blue-50 p-5">
           <div className="mb-4 flex items-center gap-4">
-            <img src="/mascottes/antonymes.png" alt="" className="h-24 w-24 shrink-0 object-contain" />
+            <img src="/mascottes/antonymes.png" alt="" className="h-40 w-40 shrink-0 object-contain" />
             <h2 className="text-xl font-bold text-gray-800">Contraires</h2>
           </div>
           <div className="flex flex-wrap gap-3">
