@@ -55,11 +55,23 @@ function indexRelations(words: LexiconWord[], type: RelationType): WordRelationI
   return index
 }
 
-/** Fusionne un index statique avec celui des ajouts (concatène, n'écrase pas). */
-function fusionner<T>(statique: Record<string, T[]>, ajouts: Record<string, T[]>): Record<string, T[]> {
+/**
+ * Fusionne un index statique avec celui des ajouts. Les entrées statiques
+ * dont le mot est repris par un ajout sont retirées plutôt que dupliquées :
+ * un mot ajouté à la main est toujours cliquable (sa propre fiche existe),
+ * alors qu'un même mot venu du lexique statique peut être un lien "latent"
+ * non cliquable — ex. "trouillard" figurait déjà comme famille de "trouille"
+ * dans word-families.json (Démonette) avant même d'être ajouté, mais marqué
+ * inLexicon:false puisqu'il n'était pas encore dans le lexique généré. Sans
+ * cette déduplication, le lien manuel créerait un second "trouillard",
+ * cliquable celui-là, à côté du premier.
+ */
+function fusionner<T extends { word: string }>(statique: Record<string, T[]>, ajouts: Record<string, T[]>) {
   const out: Record<string, T[]> = { ...statique }
   for (const [lemmaId, membres] of Object.entries(ajouts)) {
-    out[lemmaId] = [...(out[lemmaId] ?? []), ...membres]
+    const motsAjoutes = new Set(membres.map((m) => m.word))
+    const restant = (out[lemmaId] ?? []).filter((m) => !motsAjoutes.has(m.word))
+    out[lemmaId] = [...restant, ...membres]
   }
   return out
 }

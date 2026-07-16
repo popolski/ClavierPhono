@@ -117,4 +117,29 @@ describe('fusionnerFamilles', () => {
       { word: 'wapiti', category: 'nom', lemmaId: 'ajout:nom:wapiti', inLexicon: true },
     ])
   })
+
+  it('remplace un lien statique non cliquable par le même mot devenu ajout (pas de doublon)', () => {
+    // Cas réel : "trouillard" figurait déjà comme famille de "trouille" dans
+    // word-families.json (Démonette), mais non cliquable puisqu'absent du
+    // lexique généré. Une fois "trouillard" ajouté à la main ET relié à
+    // "trouille", il ne doit apparaître qu'UNE fois — la version cliquable.
+    const statique: WordFamilyIndex = {
+      'nom:trouille': [{ word: 'trouillard', category: 'adjectif', lemmaId: 'trouillard::adjectif', inLexicon: false }],
+    }
+    const trouillard = motAjoute({
+      id: 1,
+      mot: 'trouillard',
+      categorie: 'adjectif',
+      relations: {
+        synonyme: [],
+        antonyme: [],
+        famille: [{ lemmaId: 'nom:trouille', word: 'trouille', category: 'nom' }],
+      },
+    })
+    const index = fusionnerFamilles(statique, [trouillard])
+
+    expect(index['nom:trouille']).toEqual([
+      { word: 'trouillard', category: 'adjectif', lemmaId: 'ajout:adjectif:trouillard', inLexicon: true },
+    ])
+  })
 })
