@@ -1,0 +1,18 @@
+<?php
+// Copie ce fichier en "config.php" (à côté, même dossier) et remplis les
+// valeurs — config.php n'est jamais commité dans Git (voir .gitignore),
+// donc les identifiants de la base ne quittent jamais ton serveur OVH.
+
+// Base de données : identifiants visibles dans le manager OVH ->
+// "Bases de données" -> ta base -> "Se connecter" (ou "Informations").
+define('DB_HOST', 'xxxxxx.mysql.db'); // ex. celui fourni par OVH
+define('DB_NAME', 'xxxxxx');
+define('DB_USER', 'xxxxxx');
+define('DB_PASS', 'xxxxxx');
+
+// Jeton à usage unique pour créer le tout premier compte enseignante via
+// setup.php (voir server/README.md). Choisis une longue chaîne aléatoire
+// toi-même (ex. génère-la avec `openssl rand -hex 32` ou un gestionnaire de
+// mots de passe) — ne me la communique jamais, elle ne sert qu'entre ton
+// navigateur et ton serveur.
+define('SETUP_TOKEN', 'xxxxxx');

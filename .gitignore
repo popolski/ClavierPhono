@@ -39,3 +39,7 @@ scripts/output/
 
 .vercel
 .env*
+
+# Identifiants base de données + jeton de setup — jamais commités, restent
+# uniquement sur le serveur OVH (voir server/api/config.php.example)
+server/api/config.php

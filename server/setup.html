@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Créer le compte enseignante — Clic &amp; Mots</title>
+    <style>
+      body { font-family: sans-serif; max-width: 420px; margin: 4rem auto; padding: 0 1rem; }
+      label { display: block; margin-top: 1rem; font-weight: 600; }
+      input { width: 100%; padding: 0.5rem; margin-top: 0.25rem; box-sizing: border-box; }
+      button { margin-top: 1.5rem; padding: 0.6rem 1.2rem; }
+      #result { margin-top: 1rem; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <h1>Créer le compte enseignante</h1>
+    <p>À usage unique — supprime cette page et setup.php une fois le compte créé.</p>
+    <form id="f">
+      <label>Jeton de sécurité (SETUP_TOKEN de config.php)<input name="token" type="text" required /></label>
+      <label>Identifiant<input name="username" type="text" required /></label>
+      <label>Mot de passe (8 caractères minimum)<input name="motDePasse" type="password" required minlength="8" /></label>
+      <button type="submit">Créer le compte</button>
+    </form>
+    <p id="result"></p>
+    <script>
+      document.getElementById('f').addEventListener('submit', async (e) => {
+        e.preventDefault()
+        const body = Object.fromEntries(new FormData(e.target))
+        const res = await fetch('/clicmots/api/setup.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        })
+        const data = await res.json()
+        document.getElementById('result').textContent = res.ok
+          ? 'Compte créé ! Tu peux supprimer setup.html et api/setup.php maintenant.'
+          : 'Erreur : ' + data.error
+      })
+    </script>
+  </body>
+</html>
