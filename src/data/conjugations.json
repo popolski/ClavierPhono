@@ -1359,20 +1359,23 @@
       "elles": "complètent"
     },
     "futur": {
-      "je": "compléterai",
-      "tu": "compléteras",
-      "il": "complétera",
-      "elle": "complétera",
-      "on": "complétera",
-      "vous": "compléterez",
-      "ils": "compléteront",
-      "elles": "compléteront"
+      "je": "complèterai",
+      "tu": "complèteras",
+      "il": "complètera",
+      "elle": "complètera",
+      "on": "complètera",
+      "nous": "complèterons",
+      "vous": "complèterez",
+      "ils": "complèteront",
+      "elles": "complèteront"
     },
     "imparfait": {
       "je": "complétais",
+      "tu": "complétais",
       "il": "complétait",
       "elle": "complétait",
       "on": "complétait",
+      "nous": "complétions",
       "vous": "complétiez",
       "ils": "complétaient",
       "elles": "complétaient"
@@ -2423,16 +2426,24 @@
       "elles": "fêtent"
     },
     "futur": {
+      "je": "fêterai",
+      "tu": "fêteras",
       "il": "fêtera",
       "elle": "fêtera",
       "on": "fêtera",
-      "nous": "fêterons"
+      "nous": "fêterons",
+      "vous": "fêterez",
+      "ils": "fêteront",
+      "elles": "fêteront"
     },
     "imparfait": {
+      "je": "fêtais",
+      "tu": "fêtais",
       "il": "fêtait",
       "elle": "fêtait",
       "on": "fêtait",
       "nous": "fêtions",
+      "vous": "fêtiez",
       "ils": "fêtaient",
       "elles": "fêtaient"
     },
@@ -8272,18 +8283,34 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "tempête",
+      "tu": "tempêtes",
       "il": "tempête",
       "elle": "tempête",
       "on": "tempête",
+      "nous": "tempêtons",
+      "vous": "tempêtez",
       "ils": "tempêtent",
       "elles": "tempêtent"
     },
-    "futur": {},
+    "futur": {
+      "je": "tempêterai",
+      "tu": "tempêteras",
+      "il": "tempêtera",
+      "elle": "tempêtera",
+      "on": "tempêtera",
+      "nous": "tempêterons",
+      "vous": "tempêterez",
+      "ils": "tempêteront",
+      "elles": "tempêteront"
+    },
     "imparfait": {
       "je": "tempêtais",
+      "tu": "tempêtais",
       "il": "tempêtait",
       "elle": "tempêtait",
       "on": "tempêtait",
+      "nous": "tempêtions",
+      "vous": "tempêtiez",
       "ils": "tempêtaient",
       "elles": "tempêtaient"
     },
@@ -8785,9 +8812,12 @@
     },
     "futur": {
       "je": "rêverai",
+      "tu": "rêveras",
       "il": "rêvera",
       "elle": "rêvera",
       "on": "rêvera",
+      "nous": "rêverons",
+      "vous": "rêverez",
       "ils": "rêveront",
       "elles": "rêveront"
     },
@@ -11533,14 +11563,15 @@
       "elles": "préfèrent"
     },
     "futur": {
-      "je": "préférerai",
-      "tu": "préféreras",
-      "il": "préférera",
-      "elle": "préférera",
-      "on": "préférera",
-      "vous": "préférerez",
-      "ils": "préféreront",
-      "elles": "préféreront"
+      "je": "préfèrerai",
+      "tu": "préfèreras",
+      "il": "préfèrera",
+      "elle": "préfèrera",
+      "on": "préfèrera",
+      "nous": "préfèrerons",
+      "vous": "préfèrerez",
+      "ils": "préfèreront",
+      "elles": "préfèreront"
     },
     "imparfait": {
       "je": "préférais",
@@ -13484,15 +13515,15 @@
       "elles": "protègent"
     },
     "futur": {
-      "je": "protégerai",
-      "tu": "protégeras",
-      "il": "protégera",
-      "elle": "protégera",
-      "on": "protégera",
-      "nous": "protégerons",
-      "vous": "protégerez",
-      "ils": "protégeront",
-      "elles": "protégeront"
+      "je": "protègerai",
+      "tu": "protègeras",
+      "il": "protègera",
+      "elle": "protègera",
+      "on": "protègera",
+      "nous": "protègerons",
+      "vous": "protègerez",
+      "ils": "protègeront",
+      "elles": "protègeront"
     },
     "imparfait": {
       "je": "protégeais",
@@ -16798,7 +16829,15 @@
       "elles": "espèrent"
     },
     "futur": {
-      "je": "espérerai"
+      "je": "espèrerai",
+      "tu": "espèreras",
+      "il": "espèrera",
+      "elle": "espèrera",
+      "on": "espèrera",
+      "nous": "espèrerons",
+      "vous": "espèrerez",
+      "ils": "espèreront",
+      "elles": "espèreront"
     },
     "imparfait": {
       "je": "espérais",
@@ -17789,17 +17828,32 @@
       "il": "enquête",
       "elle": "enquête",
       "on": "enquête",
+      "nous": "enquêtons",
       "vous": "enquêtez",
       "ils": "enquêtent",
       "elles": "enquêtent"
     },
-    "futur": {},
+    "futur": {
+      "je": "enquêterai",
+      "tu": "enquêteras",
+      "il": "enquêtera",
+      "elle": "enquêtera",
+      "on": "enquêtera",
+      "nous": "enquêterons",
+      "vous": "enquêterez",
+      "ils": "enquêteront",
+      "elles": "enquêteront"
+    },
     "imparfait": {
       "je": "enquêtais",
       "tu": "enquêtais",
       "il": "enquêtait",
       "elle": "enquêtait",
-      "on": "enquêtait"
+      "on": "enquêtait",
+      "nous": "enquêtions",
+      "vous": "enquêtiez",
+      "ils": "enquêtaient",
+      "elles": "enquêtaient"
     },
     "passeCompose": {
       "je": "ai enquêté",
@@ -21118,21 +21172,25 @@
       "il": "repère",
       "elle": "repère",
       "on": "repère",
+      "nous": "repérons",
       "vous": "repérez",
       "ils": "repèrent",
       "elles": "repèrent"
     },
     "futur": {
-      "je": "repérerai",
-      "il": "repérera",
-      "elle": "repérera",
-      "on": "repérera",
-      "nous": "repérerons",
-      "ils": "repéreront",
-      "elles": "repéreront"
+      "je": "repèrerai",
+      "tu": "repèreras",
+      "il": "repèrera",
+      "elle": "repèrera",
+      "on": "repèrera",
+      "nous": "repèrerons",
+      "vous": "repèrerez",
+      "ils": "repèreront",
+      "elles": "repèreront"
     },
     "imparfait": {
       "je": "repérais",
+      "tu": "repérais",
       "il": "repérait",
       "elle": "repérait",
       "on": "repérait",
@@ -22321,14 +22379,15 @@
       "elles": "possèdent"
     },
     "futur": {
-      "je": "posséderai",
-      "tu": "posséderas",
-      "il": "possédera",
-      "elle": "possédera",
-      "on": "possédera",
-      "vous": "posséderez",
-      "ils": "posséderont",
-      "elles": "posséderont"
+      "je": "possèderai",
+      "tu": "possèderas",
+      "il": "possèdera",
+      "elle": "possèdera",
+      "on": "possèdera",
+      "nous": "possèderons",
+      "vous": "possèderez",
+      "ils": "possèderont",
+      "elles": "possèderont"
     },
     "imparfait": {
       "je": "possédais",
@@ -22464,17 +22523,19 @@
       "elles": "siègent"
     },
     "futur": {
-      "je": "siégerai",
-      "tu": "siégeras",
-      "il": "siégera",
-      "elle": "siégera",
-      "on": "siégera",
-      "nous": "siégerons",
-      "ils": "siégeront",
-      "elles": "siégeront"
+      "je": "siègerai",
+      "tu": "siègeras",
+      "il": "siègera",
+      "elle": "siègera",
+      "on": "siègera",
+      "nous": "siègerons",
+      "vous": "siègerez",
+      "ils": "siègeront",
+      "elles": "siègeront"
     },
     "imparfait": {
       "je": "siégeais",
+      "tu": "siégeais",
       "il": "siégeait",
       "elle": "siégeait",
       "on": "siégeait",
@@ -22558,12 +22619,15 @@
       "elles": "répètent"
     },
     "futur": {
-      "je": "répéterai",
-      "tu": "répéteras",
-      "il": "répétera",
-      "elle": "répétera",
-      "on": "répétera",
-      "vous": "répéterez"
+      "je": "répèterai",
+      "tu": "répèteras",
+      "il": "répètera",
+      "elle": "répètera",
+      "on": "répètera",
+      "nous": "répèterons",
+      "vous": "répèterez",
+      "ils": "répèteront",
+      "elles": "répèteront"
     },
     "imparfait": {
       "je": "répétais",
@@ -23074,13 +23138,15 @@
       "elles": "inquiètent"
     },
     "futur": {
-      "je": "inquiéterai",
-      "tu": "inquiéteras",
-      "il": "inquiétera",
-      "elle": "inquiétera",
-      "on": "inquiétera",
-      "ils": "inquiéteront",
-      "elles": "inquiéteront"
+      "je": "inquièterai",
+      "tu": "inquièteras",
+      "il": "inquiètera",
+      "elle": "inquiètera",
+      "on": "inquiètera",
+      "nous": "inquièterons",
+      "vous": "inquièterez",
+      "ils": "inquièteront",
+      "elles": "inquièteront"
     },
     "imparfait": {
       "je": "inquiétais",
@@ -24755,21 +24821,32 @@
       "il": "piège",
       "elle": "piège",
       "on": "piège",
+      "nous": "piégeons",
       "vous": "piégez",
       "ils": "piègent",
       "elles": "piègent"
     },
     "futur": {
-      "je": "piégerai",
-      "vous": "piégerez",
-      "ils": "piégeront",
-      "elles": "piégeront"
+      "je": "piègerai",
+      "tu": "piègeras",
+      "il": "piègera",
+      "elle": "piègera",
+      "on": "piègera",
+      "nous": "piègerons",
+      "vous": "piègerez",
+      "ils": "piègeront",
+      "elles": "piègeront"
     },
     "imparfait": {
       "je": "piégeais",
+      "tu": "piégeais",
       "il": "piégeait",
       "elle": "piégeait",
-      "on": "piégeait"
+      "on": "piégeait",
+      "nous": "piégions",
+      "vous": "piégiez",
+      "ils": "piégeaient",
+      "elles": "piégeaient"
     },
     "passeCompose": {
       "je": "ai piégé",
@@ -36842,15 +36919,35 @@
     "infinitif": "secréter",
     "auxiliaire": "avoir",
     "present": {
+      "je": "secrète",
       "tu": "secrètes",
       "il": "secrète",
       "elle": "secrète",
       "on": "secrète",
+      "nous": "secrétons",
+      "vous": "secrétez",
       "ils": "secrètent",
       "elles": "secrètent"
     },
-    "futur": {},
+    "futur": {
+      "je": "secrèterai",
+      "tu": "secrèteras",
+      "il": "secrètera",
+      "elle": "secrètera",
+      "on": "secrètera",
+      "nous": "secrèterons",
+      "vous": "secrèterez",
+      "ils": "secrèteront",
+      "elles": "secrèteront"
+    },
     "imparfait": {
+      "je": "secrétais",
+      "tu": "secrétais",
+      "il": "secrétait",
+      "elle": "secrétait",
+      "on": "secrétait",
+      "nous": "secrétions",
+      "vous": "secrétiez",
       "ils": "secrétaient",
       "elles": "secrétaient"
     },
@@ -38406,15 +38503,15 @@
       "elles": "récupèrent"
     },
     "futur": {
-      "je": "récupérerai",
-      "tu": "récupéreras",
-      "il": "récupérera",
-      "elle": "récupérera",
-      "on": "récupérera",
-      "nous": "récupérerons",
-      "vous": "récupérerez",
-      "ils": "récupéreront",
-      "elles": "récupéreront"
+      "je": "récupèrerai",
+      "tu": "récupèreras",
+      "il": "récupèrera",
+      "elle": "récupèrera",
+      "on": "récupèrera",
+      "nous": "récupèrerons",
+      "vous": "récupèrerez",
+      "ils": "récupèreront",
+      "elles": "récupèreront"
     },
     "imparfait": {
       "je": "récupérais",
@@ -38486,17 +38583,30 @@
       "il": "désespère",
       "elle": "désespère",
       "on": "désespère",
+      "nous": "désespérons",
       "vous": "désespérez",
       "ils": "désespèrent",
       "elles": "désespèrent"
     },
-    "futur": {},
+    "futur": {
+      "je": "désespèrerai",
+      "tu": "désespèreras",
+      "il": "désespèrera",
+      "elle": "désespèrera",
+      "on": "désespèrera",
+      "nous": "désespèrerons",
+      "vous": "désespèrerez",
+      "ils": "désespèreront",
+      "elles": "désespèreront"
+    },
     "imparfait": {
       "je": "désespérais",
+      "tu": "désespérais",
       "il": "désespérait",
       "elle": "désespérait",
       "on": "désespérait",
       "nous": "désespérions",
+      "vous": "désespériez",
       "ils": "désespéraient",
       "elles": "désespéraient"
     },
@@ -38719,12 +38829,15 @@
       "elles": "considèrent"
     },
     "futur": {
-      "je": "considérerai",
-      "tu": "considéreras",
-      "il": "considérera",
-      "elle": "considérera",
-      "on": "considérera",
-      "nous": "considérerons"
+      "je": "considèrerai",
+      "tu": "considèreras",
+      "il": "considèrera",
+      "elle": "considèrera",
+      "on": "considèrera",
+      "nous": "considèrerons",
+      "vous": "considèrerez",
+      "ils": "considèreront",
+      "elles": "considèreront"
     },
     "imparfait": {
       "je": "considérais",
@@ -39928,6 +40041,7 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "procède",
+      "tu": "procèdes",
       "il": "procède",
       "elle": "procède",
       "on": "procède",
@@ -39937,16 +40051,19 @@
       "elles": "procèdent"
     },
     "futur": {
-      "il": "procédera",
-      "elle": "procédera",
-      "on": "procédera",
-      "nous": "procéderons",
-      "vous": "procéderez",
-      "ils": "procéderont",
-      "elles": "procéderont"
+      "je": "procèderai",
+      "tu": "procèderas",
+      "il": "procèdera",
+      "elle": "procèdera",
+      "on": "procèdera",
+      "nous": "procèderons",
+      "vous": "procèderez",
+      "ils": "procèderont",
+      "elles": "procèderont"
     },
     "imparfait": {
       "je": "procédais",
+      "tu": "procédais",
       "il": "procédait",
       "elle": "procédait",
       "on": "procédait",
@@ -41082,15 +41199,35 @@
     "infinitif": "crêper",
     "auxiliaire": "avoir",
     "present": {
+      "je": "crêpe",
+      "tu": "crêpes",
       "il": "crêpe",
       "elle": "crêpe",
-      "on": "crêpe"
+      "on": "crêpe",
+      "nous": "crêpons",
+      "vous": "crêpez",
+      "ils": "crêpent",
+      "elles": "crêpent"
     },
-    "futur": {},
+    "futur": {
+      "je": "crêperai",
+      "tu": "crêperas",
+      "il": "crêpera",
+      "elle": "crêpera",
+      "on": "crêpera",
+      "nous": "crêperons",
+      "vous": "crêperez",
+      "ils": "crêperont",
+      "elles": "crêperont"
+    },
     "imparfait": {
+      "je": "crêpais",
+      "tu": "crêpais",
       "il": "crêpait",
       "elle": "crêpait",
       "on": "crêpait",
+      "nous": "crêpions",
+      "vous": "crêpiez",
       "ils": "crêpaient",
       "elles": "crêpaient"
     },
@@ -42684,6 +42821,7 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "précède",
+      "tu": "précèdes",
       "il": "précède",
       "elle": "précède",
       "on": "précède",
@@ -42693,16 +42831,24 @@
       "elles": "précèdent"
     },
     "futur": {
-      "je": "précéderai",
-      "il": "précédera",
-      "elle": "précédera",
-      "on": "précédera"
+      "je": "précèderai",
+      "tu": "précèderas",
+      "il": "précèdera",
+      "elle": "précèdera",
+      "on": "précèdera",
+      "nous": "précèderons",
+      "vous": "précèderez",
+      "ils": "précèderont",
+      "elles": "précèderont"
     },
     "imparfait": {
       "je": "précédais",
+      "tu": "précédais",
       "il": "précédait",
       "elle": "précédait",
       "on": "précédait",
+      "nous": "précédions",
+      "vous": "précédiez",
       "ils": "précédaient",
       "elles": "précédaient"
     },
@@ -42769,14 +42915,38 @@
     "infinitif": "oxygéner",
     "auxiliaire": "avoir",
     "present": {
+      "je": "oxygène",
+      "tu": "oxygènes",
       "il": "oxygène",
       "elle": "oxygène",
       "on": "oxygène",
+      "nous": "oxygénons",
+      "vous": "oxygénez",
       "ils": "oxygènent",
       "elles": "oxygènent"
     },
-    "futur": {},
-    "imparfait": {},
+    "futur": {
+      "je": "oxygènerai",
+      "tu": "oxygèneras",
+      "il": "oxygènera",
+      "elle": "oxygènera",
+      "on": "oxygènera",
+      "nous": "oxygènerons",
+      "vous": "oxygènerez",
+      "ils": "oxygèneront",
+      "elles": "oxygèneront"
+    },
+    "imparfait": {
+      "je": "oxygénais",
+      "tu": "oxygénais",
+      "il": "oxygénait",
+      "elle": "oxygénait",
+      "on": "oxygénait",
+      "nous": "oxygénions",
+      "vous": "oxygéniez",
+      "ils": "oxygénaient",
+      "elles": "oxygénaient"
+    },
     "passeCompose": {
       "je": "ai oxygéné",
       "tu": "as oxygéné",
@@ -42842,19 +43012,34 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "quête",
+      "tu": "quêtes",
       "il": "quête",
       "elle": "quête",
       "on": "quête",
+      "nous": "quêtons",
+      "vous": "quêtez",
       "ils": "quêtent",
       "elles": "quêtent"
     },
-    "futur": {},
+    "futur": {
+      "je": "quêterai",
+      "tu": "quêteras",
+      "il": "quêtera",
+      "elle": "quêtera",
+      "on": "quêtera",
+      "nous": "quêterons",
+      "vous": "quêterez",
+      "ils": "quêteront",
+      "elles": "quêteront"
+    },
     "imparfait": {
       "je": "quêtais",
       "tu": "quêtais",
       "il": "quêtait",
       "elle": "quêtait",
       "on": "quêtait",
+      "nous": "quêtions",
+      "vous": "quêtiez",
       "ils": "quêtaient",
       "elles": "quêtaient"
     },
@@ -43786,10 +43971,12 @@
     },
     "futur": {
       "je": "gênerai",
+      "tu": "gêneras",
       "il": "gênera",
       "elle": "gênera",
       "on": "gênera",
       "nous": "gênerons",
+      "vous": "gênerez",
       "ils": "gêneront",
       "elles": "gêneront"
     },
@@ -43799,6 +43986,7 @@
       "il": "gênait",
       "elle": "gênait",
       "on": "gênait",
+      "nous": "gênions",
       "vous": "gêniez",
       "ils": "gênaient",
       "elles": "gênaient"
@@ -46061,11 +46249,22 @@
       "il": "apprête",
       "elle": "apprête",
       "on": "apprête",
+      "nous": "apprêtons",
       "vous": "apprêtez",
       "ils": "apprêtent",
       "elles": "apprêtent"
     },
-    "futur": {},
+    "futur": {
+      "je": "apprêterai",
+      "tu": "apprêteras",
+      "il": "apprêtera",
+      "elle": "apprêtera",
+      "on": "apprêtera",
+      "nous": "apprêterons",
+      "vous": "apprêterez",
+      "ils": "apprêteront",
+      "elles": "apprêteront"
+    },
     "imparfait": {
       "je": "apprêtais",
       "tu": "apprêtais",
@@ -48690,15 +48889,15 @@
       "elles": "libèrent"
     },
     "futur": {
-      "je": "libérerai",
-      "tu": "libéreras",
-      "il": "libérera",
-      "elle": "libérera",
-      "on": "libérera",
-      "nous": "libérerons",
-      "vous": "libérerez",
-      "ils": "libéreront",
-      "elles": "libéreront"
+      "je": "libèrerai",
+      "tu": "libèreras",
+      "il": "libèrera",
+      "elle": "libèrera",
+      "on": "libèrera",
+      "nous": "libèrerons",
+      "vous": "libèrerez",
+      "ils": "libèreront",
+      "elles": "libèreront"
     },
     "imparfait": {
       "je": "libérais",
@@ -49064,22 +49263,34 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "digère",
+      "tu": "digères",
       "il": "digère",
       "elle": "digère",
       "on": "digère",
       "nous": "digérons",
+      "vous": "digérez",
       "ils": "digèrent",
       "elles": "digèrent"
     },
     "futur": {
-      "il": "digérera",
-      "elle": "digérera",
-      "on": "digérera"
+      "je": "digèrerai",
+      "tu": "digèreras",
+      "il": "digèrera",
+      "elle": "digèrera",
+      "on": "digèrera",
+      "nous": "digèrerons",
+      "vous": "digèrerez",
+      "ils": "digèreront",
+      "elles": "digèreront"
     },
     "imparfait": {
+      "je": "digérais",
+      "tu": "digérais",
       "il": "digérait",
       "elle": "digérait",
       "on": "digérait",
+      "nous": "digérions",
+      "vous": "digériez",
       "ils": "digéraient",
       "elles": "digéraient"
     },
@@ -50537,17 +50748,35 @@
     "infinitif": "grêler",
     "auxiliaire": "avoir",
     "present": {
+      "je": "grêle",
+      "tu": "grêles",
       "il": "grêle",
       "elle": "grêle",
       "on": "grêle",
+      "nous": "grêlons",
+      "vous": "grêlez",
       "ils": "grêlent",
       "elles": "grêlent"
     },
-    "futur": {},
+    "futur": {
+      "je": "grêlerai",
+      "tu": "grêleras",
+      "il": "grêlera",
+      "elle": "grêlera",
+      "on": "grêlera",
+      "nous": "grêlerons",
+      "vous": "grêlerez",
+      "ils": "grêleront",
+      "elles": "grêleront"
+    },
     "imparfait": {
+      "je": "grêlais",
+      "tu": "grêlais",
       "il": "grêlait",
       "elle": "grêlait",
       "on": "grêlait",
+      "nous": "grêlions",
+      "vous": "grêliez",
       "ils": "grêlaient",
       "elles": "grêlaient"
     },
@@ -52404,17 +52633,34 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "bêle",
+      "tu": "bêles",
       "il": "bêle",
       "elle": "bêle",
       "on": "bêle",
+      "nous": "bêlons",
+      "vous": "bêlez",
       "ils": "bêlent",
       "elles": "bêlent"
     },
-    "futur": {},
+    "futur": {
+      "je": "bêlerai",
+      "tu": "bêleras",
+      "il": "bêlera",
+      "elle": "bêlera",
+      "on": "bêlera",
+      "nous": "bêlerons",
+      "vous": "bêlerez",
+      "ils": "bêleront",
+      "elles": "bêleront"
+    },
     "imparfait": {
+      "je": "bêlais",
+      "tu": "bêlais",
       "il": "bêlait",
       "elle": "bêlait",
       "on": "bêlait",
+      "nous": "bêlions",
+      "vous": "bêliez",
       "ils": "bêlaient",
       "elles": "bêlaient"
     },
@@ -52589,16 +52835,23 @@
       "elles": "accélèrent"
     },
     "futur": {
-      "tu": "accéléreras",
-      "il": "accélérera",
-      "elle": "accélérera",
-      "on": "accélérera"
+      "je": "accélèrerai",
+      "tu": "accélèreras",
+      "il": "accélèrera",
+      "elle": "accélèrera",
+      "on": "accélèrera",
+      "nous": "accélèrerons",
+      "vous": "accélèrerez",
+      "ils": "accélèreront",
+      "elles": "accélèreront"
     },
     "imparfait": {
       "je": "accélérais",
+      "tu": "accélérais",
       "il": "accélérait",
       "elle": "accélérait",
       "on": "accélérait",
+      "nous": "accélérions",
       "vous": "accélériez",
       "ils": "accéléraient",
       "elles": "accéléraient"
@@ -52619,19 +52872,34 @@
     "infinitif": "téter",
     "auxiliaire": "avoir",
     "present": {
+      "je": "tète",
+      "tu": "tètes",
       "il": "tète",
       "elle": "tète",
       "on": "tète",
+      "nous": "tétons",
+      "vous": "tétez",
       "ils": "tètent",
       "elles": "tètent"
     },
-    "futur": {},
+    "futur": {
+      "je": "tèterai",
+      "tu": "tèteras",
+      "il": "tètera",
+      "elle": "tètera",
+      "on": "tètera",
+      "nous": "tèterons",
+      "vous": "tèterez",
+      "ils": "tèteront",
+      "elles": "tèteront"
+    },
     "imparfait": {
       "je": "tétais",
       "tu": "tétais",
       "il": "tétait",
       "elle": "tétait",
       "on": "tétait",
+      "nous": "tétions",
       "vous": "tétiez",
       "ils": "tétaient",
       "elles": "tétaient"
@@ -54205,22 +54473,34 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "reflète",
+      "tu": "reflètes",
       "il": "reflète",
       "elle": "reflète",
       "on": "reflète",
       "nous": "reflétons",
+      "vous": "reflétez",
       "ils": "reflètent",
       "elles": "reflètent"
     },
     "futur": {
-      "il": "reflétera",
-      "elle": "reflétera",
-      "on": "reflétera"
+      "je": "reflèterai",
+      "tu": "reflèteras",
+      "il": "reflètera",
+      "elle": "reflètera",
+      "on": "reflètera",
+      "nous": "reflèterons",
+      "vous": "reflèterez",
+      "ils": "reflèteront",
+      "elles": "reflèteront"
     },
     "imparfait": {
+      "je": "reflétais",
+      "tu": "reflétais",
       "il": "reflétait",
       "elle": "reflétait",
       "on": "reflétait",
+      "nous": "reflétions",
+      "vous": "reflétiez",
       "ils": "reflétaient",
       "elles": "reflétaient"
     },
@@ -54491,9 +54771,12 @@
     },
     "futur": {
       "je": "mêlerai",
+      "tu": "mêleras",
       "il": "mêlera",
       "elle": "mêlera",
       "on": "mêlera",
+      "nous": "mêlerons",
+      "vous": "mêlerez",
       "ils": "mêleront",
       "elles": "mêleront"
     },
@@ -55515,6 +55798,7 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "opère",
+      "tu": "opères",
       "il": "opère",
       "elle": "opère",
       "on": "opère",
@@ -55524,15 +55808,15 @@
       "elles": "opèrent"
     },
     "futur": {
-      "je": "opérerai",
-      "tu": "opéreras",
-      "il": "opérera",
-      "elle": "opérera",
-      "on": "opérera",
-      "nous": "opérerons",
-      "vous": "opérerez",
-      "ils": "opéreront",
-      "elles": "opéreront"
+      "je": "opèrerai",
+      "tu": "opèreras",
+      "il": "opèrera",
+      "elle": "opèrera",
+      "on": "opèrera",
+      "nous": "opèrerons",
+      "vous": "opèrerez",
+      "ils": "opèreront",
+      "elles": "opèreront"
     },
     "imparfait": {
       "je": "opérais",
@@ -56784,15 +57068,34 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "désaltère",
+      "tu": "désaltères",
       "il": "désaltère",
       "elle": "désaltère",
-      "on": "désaltère"
+      "on": "désaltère",
+      "nous": "désaltérons",
+      "vous": "désaltérez",
+      "ils": "désaltèrent",
+      "elles": "désaltèrent"
     },
-    "futur": {},
+    "futur": {
+      "je": "désaltèrerai",
+      "tu": "désaltèreras",
+      "il": "désaltèrera",
+      "elle": "désaltèrera",
+      "on": "désaltèrera",
+      "nous": "désaltèrerons",
+      "vous": "désaltèrerez",
+      "ils": "désaltèreront",
+      "elles": "désaltèreront"
+    },
     "imparfait": {
+      "je": "désaltérais",
+      "tu": "désaltérais",
       "il": "désaltérait",
       "elle": "désaltérait",
       "on": "désaltérait",
+      "nous": "désaltérions",
+      "vous": "désaltériez",
       "ils": "désaltéraient",
       "elles": "désaltéraient"
     },
@@ -58291,14 +58594,21 @@
       "il": "interprète",
       "elle": "interprète",
       "on": "interprète",
+      "nous": "interprétons",
       "vous": "interprétez",
       "ils": "interprètent",
       "elles": "interprètent"
     },
     "futur": {
-      "il": "interprétera",
-      "elle": "interprétera",
-      "on": "interprétera"
+      "je": "interprèterai",
+      "tu": "interprèteras",
+      "il": "interprètera",
+      "elle": "interprètera",
+      "on": "interprètera",
+      "nous": "interprèterons",
+      "vous": "interprèterez",
+      "ils": "interprèteront",
+      "elles": "interprèteront"
     },
     "imparfait": {
       "je": "interprétais",
@@ -58306,6 +58616,8 @@
       "il": "interprétait",
       "elle": "interprétait",
       "on": "interprétait",
+      "nous": "interprétions",
+      "vous": "interprétiez",
       "ils": "interprétaient",
       "elles": "interprétaient"
     },
@@ -58326,6 +58638,7 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "cède",
+      "tu": "cèdes",
       "il": "cède",
       "elle": "cède",
       "on": "cède",
@@ -58335,15 +58648,15 @@
       "elles": "cèdent"
     },
     "futur": {
-      "je": "céderai",
-      "tu": "céderas",
-      "il": "cédera",
-      "elle": "cédera",
-      "on": "cédera",
-      "nous": "céderons",
-      "vous": "céderez",
-      "ils": "céderont",
-      "elles": "céderont"
+      "je": "cèderai",
+      "tu": "cèderas",
+      "il": "cèdera",
+      "elle": "cèdera",
+      "on": "cèdera",
+      "nous": "cèderons",
+      "vous": "cèderez",
+      "ils": "cèderont",
+      "elles": "cèderont"
     },
     "imparfait": {
       "je": "cédais",
@@ -58717,17 +59030,34 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "aère",
+      "tu": "aères",
       "il": "aère",
       "elle": "aère",
       "on": "aère",
       "nous": "aérons",
-      "vous": "aérez"
+      "vous": "aérez",
+      "ils": "aèrent",
+      "elles": "aèrent"
     },
-    "futur": {},
+    "futur": {
+      "je": "aèrerai",
+      "tu": "aèreras",
+      "il": "aèrera",
+      "elle": "aèrera",
+      "on": "aèrera",
+      "nous": "aèrerons",
+      "vous": "aèrerez",
+      "ils": "aèreront",
+      "elles": "aèreront"
+    },
     "imparfait": {
+      "je": "aérais",
+      "tu": "aérais",
       "il": "aérait",
       "elle": "aérait",
       "on": "aérait",
+      "nous": "aérions",
+      "vous": "aériez",
       "ils": "aéraient",
       "elles": "aéraient"
     },
@@ -59142,13 +59472,24 @@
       "elles": "énumèrent"
     },
     "futur": {
-      "je": "énumérerai"
+      "je": "énumèrerai",
+      "tu": "énumèreras",
+      "il": "énumèrera",
+      "elle": "énumèrera",
+      "on": "énumèrera",
+      "nous": "énumèrerons",
+      "vous": "énumèrerez",
+      "ils": "énumèreront",
+      "elles": "énumèreront"
     },
     "imparfait": {
       "je": "énumérais",
+      "tu": "énumérais",
       "il": "énumérait",
       "elle": "énumérait",
       "on": "énumérait",
+      "nous": "énumérions",
+      "vous": "énumériez",
       "ils": "énuméraient",
       "elles": "énuméraient"
     },
@@ -60123,7 +60464,15 @@
       "elles": "exagèrent"
     },
     "futur": {
-      "nous": "exagérerons"
+      "je": "exagèrerai",
+      "tu": "exagèreras",
+      "il": "exagèrera",
+      "elle": "exagèrera",
+      "on": "exagèrera",
+      "nous": "exagèrerons",
+      "vous": "exagèrerez",
+      "ils": "exagèreront",
+      "elles": "exagèreront"
     },
     "imparfait": {
       "je": "exagérais",
@@ -60132,6 +60481,7 @@
       "elle": "exagérait",
       "on": "exagérait",
       "nous": "exagérions",
+      "vous": "exagériez",
       "ils": "exagéraient",
       "elles": "exagéraient"
     },
@@ -61311,10 +61661,15 @@
       "elles": "suggèrent"
     },
     "futur": {
-      "je": "suggérerai",
-      "il": "suggérera",
-      "elle": "suggérera",
-      "on": "suggérera"
+      "je": "suggèrerai",
+      "tu": "suggèreras",
+      "il": "suggèrera",
+      "elle": "suggèrera",
+      "on": "suggèrera",
+      "nous": "suggèrerons",
+      "vous": "suggèrerez",
+      "ils": "suggèreront",
+      "elles": "suggèreront"
     },
     "imparfait": {
       "je": "suggérais",
@@ -62017,17 +62372,24 @@
       "elles": "accèdent"
     },
     "futur": {
-      "je": "accéderai",
-      "tu": "accéderas",
-      "il": "accédera",
-      "elle": "accédera",
-      "on": "accédera"
+      "je": "accèderai",
+      "tu": "accèderas",
+      "il": "accèdera",
+      "elle": "accèdera",
+      "on": "accèdera",
+      "nous": "accèderons",
+      "vous": "accèderez",
+      "ils": "accèderont",
+      "elles": "accèderont"
     },
     "imparfait": {
       "je": "accédais",
+      "tu": "accédais",
       "il": "accédait",
       "elle": "accédait",
       "on": "accédait",
+      "nous": "accédions",
+      "vous": "accédiez",
       "ils": "accédaient",
       "elles": "accédaient"
     },
@@ -63123,15 +63485,15 @@
       "elles": "révèlent"
     },
     "futur": {
-      "je": "révélerai",
-      "tu": "révéleras",
-      "il": "révélera",
-      "elle": "révélera",
-      "on": "révélera",
-      "nous": "révélerons",
-      "vous": "révélerez",
-      "ils": "révéleront",
-      "elles": "révéleront"
+      "je": "révèlerai",
+      "tu": "révèleras",
+      "il": "révèlera",
+      "elle": "révèlera",
+      "on": "révèlera",
+      "nous": "révèlerons",
+      "vous": "révèlerez",
+      "ils": "révèleront",
+      "elles": "révèleront"
     },
     "imparfait": {
       "je": "révélais",
@@ -63139,6 +63501,7 @@
       "il": "révélait",
       "elle": "révélait",
       "on": "révélait",
+      "nous": "révélions",
       "vous": "révéliez",
       "ils": "révélaient",
       "elles": "révélaient"
@@ -63794,17 +64157,35 @@
     "infinitif": "réverbérer",
     "auxiliaire": "avoir",
     "present": {
+      "je": "réverbère",
+      "tu": "réverbères",
       "il": "réverbère",
       "elle": "réverbère",
       "on": "réverbère",
+      "nous": "réverbérons",
+      "vous": "réverbérez",
       "ils": "réverbèrent",
       "elles": "réverbèrent"
     },
-    "futur": {},
+    "futur": {
+      "je": "réverbèrerai",
+      "tu": "réverbèreras",
+      "il": "réverbèrera",
+      "elle": "réverbèrera",
+      "on": "réverbèrera",
+      "nous": "réverbèrerons",
+      "vous": "réverbèrerez",
+      "ils": "réverbèreront",
+      "elles": "réverbèreront"
+    },
     "imparfait": {
+      "je": "réverbérais",
+      "tu": "réverbérais",
       "il": "réverbérait",
       "elle": "réverbérait",
       "on": "réverbérait",
+      "nous": "réverbérions",
+      "vous": "réverbériez",
       "ils": "réverbéraient",
       "elles": "réverbéraient"
     },
@@ -67370,15 +67751,21 @@
       "il": "embête",
       "elle": "embête",
       "on": "embête",
+      "nous": "embêtons",
       "vous": "embêter",
       "ils": "embêtent",
       "elles": "embêtent"
     },
     "futur": {
       "je": "embêterai",
+      "tu": "embêteras",
       "il": "embêtera",
       "elle": "embêtera",
-      "on": "embêtera"
+      "on": "embêtera",
+      "nous": "embêterons",
+      "vous": "embêterez",
+      "ils": "embêteront",
+      "elles": "embêteront"
     },
     "imparfait": {
       "je": "embêtais",
@@ -67386,6 +67773,8 @@
       "il": "embêtait",
       "elle": "embêtait",
       "on": "embêtait",
+      "nous": "embêtions",
+      "vous": "embêtiez",
       "ils": "embêtaient",
       "elles": "embêtaient"
     },
@@ -68244,23 +68633,34 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "insère",
+      "tu": "insères",
       "il": "insère",
       "elle": "insère",
       "on": "insère",
+      "nous": "insérons",
       "vous": "insérez",
       "ils": "insèrent",
       "elles": "insèrent"
     },
     "futur": {
-      "il": "insérera",
-      "elle": "insérera",
-      "on": "insérera",
-      "nous": "insérerons"
+      "je": "insèrerai",
+      "tu": "insèreras",
+      "il": "insèrera",
+      "elle": "insèrera",
+      "on": "insèrera",
+      "nous": "insèrerons",
+      "vous": "insèrerez",
+      "ils": "insèreront",
+      "elles": "insèreront"
     },
     "imparfait": {
+      "je": "insérais",
+      "tu": "insérais",
       "il": "insérait",
       "elle": "insérait",
       "on": "insérait",
+      "nous": "insérions",
+      "vous": "insériez",
       "ils": "inséraient",
       "elles": "inséraient"
     },
@@ -68967,19 +69367,35 @@
     "infinitif": "proférer",
     "auxiliaire": "avoir",
     "present": {
+      "je": "profère",
+      "tu": "profères",
       "il": "profère",
       "elle": "profère",
       "on": "profère",
+      "nous": "proférons",
       "vous": "proférez",
       "ils": "profèrent",
       "elles": "profèrent"
     },
-    "futur": {},
+    "futur": {
+      "je": "profèrerai",
+      "tu": "profèreras",
+      "il": "profèrera",
+      "elle": "profèrera",
+      "on": "profèrera",
+      "nous": "profèrerons",
+      "vous": "profèrerez",
+      "ils": "profèreront",
+      "elles": "profèreront"
+    },
     "imparfait": {
+      "je": "proférais",
+      "tu": "proférais",
       "il": "proférait",
       "elle": "proférait",
       "on": "proférait",
       "nous": "proférions",
+      "vous": "profériez",
       "ils": "proféraient",
       "elles": "proféraient"
     },
@@ -70294,27 +70710,34 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "succède",
+      "tu": "succèdes",
       "il": "succède",
       "elle": "succède",
       "on": "succède",
+      "nous": "succédons",
+      "vous": "succédez",
       "ils": "succèdent",
       "elles": "succèdent"
     },
     "futur": {
-      "je": "succéderai",
-      "tu": "succéderas",
-      "il": "succédera",
-      "elle": "succédera",
-      "on": "succédera",
-      "vous": "succéderez",
-      "ils": "succéderont",
-      "elles": "succéderont"
+      "je": "succèderai",
+      "tu": "succèderas",
+      "il": "succèdera",
+      "elle": "succèdera",
+      "on": "succèdera",
+      "nous": "succèderons",
+      "vous": "succèderez",
+      "ils": "succèderont",
+      "elles": "succèderont"
     },
     "imparfait": {
+      "je": "succédais",
+      "tu": "succédais",
       "il": "succédait",
       "elle": "succédait",
       "on": "succédait",
       "nous": "succédions",
+      "vous": "succédiez",
       "ils": "succédaient",
       "elles": "succédaient"
     },
@@ -71287,17 +71710,36 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "modère",
+      "tu": "modères",
       "il": "modère",
       "elle": "modère",
-      "on": "modère"
+      "on": "modère",
+      "nous": "modérons",
+      "vous": "modérez",
+      "ils": "modèrent",
+      "elles": "modèrent"
     },
     "futur": {
-      "tu": "modéreras"
+      "je": "modèrerai",
+      "tu": "modèreras",
+      "il": "modèrera",
+      "elle": "modèrera",
+      "on": "modèrera",
+      "nous": "modèrerons",
+      "vous": "modèrerez",
+      "ils": "modèreront",
+      "elles": "modèreront"
     },
     "imparfait": {
+      "je": "modérais",
+      "tu": "modérais",
       "il": "modérait",
       "elle": "modérait",
-      "on": "modérait"
+      "on": "modérait",
+      "nous": "modérions",
+      "vous": "modériez",
+      "ils": "modéraient",
+      "elles": "modéraient"
     },
     "passeCompose": {
       "je": "ai modéré",
@@ -73232,22 +73674,34 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "abrège",
+      "tu": "abrèges",
       "il": "abrège",
       "elle": "abrège",
       "on": "abrège",
+      "nous": "abrégeons",
+      "vous": "abrégez",
       "ils": "abrègent",
       "elles": "abrègent"
     },
     "futur": {
-      "je": "abrégerai",
-      "il": "abrégera",
-      "elle": "abrégera",
-      "on": "abrégera"
+      "je": "abrègerai",
+      "tu": "abrègeras",
+      "il": "abrègera",
+      "elle": "abrègera",
+      "on": "abrègera",
+      "nous": "abrègerons",
+      "vous": "abrègerez",
+      "ils": "abrègeront",
+      "elles": "abrègeront"
     },
     "imparfait": {
+      "je": "abrégeais",
+      "tu": "abrégeais",
       "il": "abrégeait",
       "elle": "abrégeait",
       "on": "abrégeait",
+      "nous": "abrégions",
+      "vous": "abrégiez",
       "ils": "abrégeaient",
       "elles": "abrégeaient"
     },
@@ -73668,6 +74122,7 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "transfère",
+      "tu": "transfères",
       "il": "transfère",
       "elle": "transfère",
       "on": "transfère",
@@ -73677,15 +74132,15 @@
       "elles": "transfèrent"
     },
     "futur": {
-      "je": "transférerai",
-      "tu": "transféreras",
-      "il": "transférera",
-      "elle": "transférera",
-      "on": "transférera",
-      "nous": "transférerons",
-      "vous": "transférerez",
-      "ils": "transféreront",
-      "elles": "transféreront"
+      "je": "transfèrerai",
+      "tu": "transfèreras",
+      "il": "transfèrera",
+      "elle": "transfèrera",
+      "on": "transfèrera",
+      "nous": "transfèrerons",
+      "vous": "transfèrerez",
+      "ils": "transfèreront",
+      "elles": "transfèreront"
     },
     "imparfait": {
       "je": "transférais",
@@ -73693,6 +74148,7 @@
       "il": "transférait",
       "elle": "transférait",
       "on": "transférait",
+      "nous": "transférions",
       "vous": "transfériez",
       "ils": "transféraient",
       "elles": "transféraient"
@@ -74891,23 +75347,34 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "allège",
+      "tu": "allèges",
       "il": "allège",
       "elle": "allège",
       "on": "allège",
+      "nous": "allégeons",
       "vous": "allégez",
       "ils": "allègent",
       "elles": "allègent"
     },
     "futur": {
-      "il": "allégera",
-      "elle": "allégera",
-      "on": "allégera"
+      "je": "allègerai",
+      "tu": "allègeras",
+      "il": "allègera",
+      "elle": "allègera",
+      "on": "allègera",
+      "nous": "allègerons",
+      "vous": "allègerez",
+      "ils": "allègeront",
+      "elles": "allègeront"
     },
     "imparfait": {
       "je": "allégeais",
+      "tu": "allégeais",
       "il": "allégeait",
       "elle": "allégeait",
       "on": "allégeait",
+      "nous": "allégions",
+      "vous": "allégiez",
       "ils": "allégeaient",
       "elles": "allégeaient"
     },
@@ -80742,20 +81209,30 @@
       "il": "emmêle",
       "elle": "emmêle",
       "on": "emmêle",
+      "nous": "emmêlons",
+      "vous": "emmêlez",
       "ils": "emmêlent",
       "elles": "emmêlent"
     },
     "futur": {
+      "je": "emmêlerai",
+      "tu": "emmêleras",
       "il": "emmêlera",
       "elle": "emmêlera",
       "on": "emmêlera",
+      "nous": "emmêlerons",
+      "vous": "emmêlerez",
       "ils": "emmêleront",
       "elles": "emmêleront"
     },
     "imparfait": {
+      "je": "emmêlais",
+      "tu": "emmêlais",
       "il": "emmêlait",
       "elle": "emmêlait",
       "on": "emmêlait",
+      "nous": "emmêlions",
+      "vous": "emmêliez",
       "ils": "emmêlaient",
       "elles": "emmêlaient"
     },
@@ -82273,12 +82750,24 @@
       "ils": "entêtent",
       "elles": "entêtent"
     },
-    "futur": {},
+    "futur": {
+      "je": "entêterai",
+      "tu": "entêteras",
+      "il": "entêtera",
+      "elle": "entêtera",
+      "on": "entêtera",
+      "nous": "entêterons",
+      "vous": "entêterez",
+      "ils": "entêteront",
+      "elles": "entêteront"
+    },
     "imparfait": {
       "je": "entêtais",
+      "tu": "entêtais",
       "il": "entêtait",
       "elle": "entêtait",
       "on": "entêtait",
+      "nous": "entêtions",
       "vous": "entêtiez",
       "ils": "entêtaient",
       "elles": "entêtaient"
@@ -83324,15 +83813,32 @@
       "il": "galère",
       "elle": "galère",
       "on": "galère",
+      "nous": "galérons",
+      "vous": "galérez",
       "ils": "galèrent",
       "elles": "galèrent"
     },
-    "futur": {},
+    "futur": {
+      "je": "galèrerai",
+      "tu": "galèreras",
+      "il": "galèrera",
+      "elle": "galèrera",
+      "on": "galèrera",
+      "nous": "galèrerons",
+      "vous": "galèrerez",
+      "ils": "galèreront",
+      "elles": "galèreront"
+    },
     "imparfait": {
       "je": "galérais",
+      "tu": "galérais",
       "il": "galérait",
       "elle": "galérait",
-      "on": "galérait"
+      "on": "galérait",
+      "nous": "galérions",
+      "vous": "galériez",
+      "ils": "galéraient",
+      "elles": "galéraient"
     },
     "passeCompose": {
       "je": "ai galéré",
@@ -86670,22 +87176,48 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "vocifère",
+      "tu": "vocifères",
       "il": "vocifère",
       "elle": "vocifère",
       "on": "vocifère",
+      "nous": "vociférons",
+      "vous": "vociférez",
       "ils": "vocifèrent",
       "elles": "vocifèrent"
     },
-    "futur": {},
+    "futur": {
+      "je": "vocifèrerai",
+      "tu": "vocifèreras",
+      "il": "vocifèrera",
+      "elle": "vocifèrera",
+      "on": "vocifèrera",
+      "nous": "vocifèrerons",
+      "vous": "vocifèrerez",
+      "ils": "vocifèreront",
+      "elles": "vocifèreront"
+    },
     "imparfait": {
       "je": "vociférais",
+      "tu": "vociférais",
       "il": "vociférait",
       "elle": "vociférait",
       "on": "vociférait",
+      "nous": "vociférions",
+      "vous": "vocifériez",
       "ils": "vociféraient",
       "elles": "vociféraient"
     },
-    "passeCompose": {}
+    "passeCompose": {
+      "je": "ai vociféré",
+      "tu": "as vociféré",
+      "il": "a vociféré",
+      "elle": "a vociféré",
+      "on": "a vociféré",
+      "nous": "avons vociféré",
+      "vous": "avez vociféré",
+      "ils": "ont vociféré",
+      "elles": "ont vociféré"
+    }
   },
   "braquer": {
     "infinitif": "braquer",
@@ -86884,23 +87416,34 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "exaspère",
+      "tu": "exaspères",
       "il": "exaspère",
       "elle": "exaspère",
       "on": "exaspère",
+      "nous": "exaspérons",
       "vous": "exaspérez",
       "ils": "exaspèrent",
       "elles": "exaspèrent"
     },
     "futur": {
-      "il": "exaspérera",
-      "elle": "exaspérera",
-      "on": "exaspérera"
+      "je": "exaspèrerai",
+      "tu": "exaspèreras",
+      "il": "exaspèrera",
+      "elle": "exaspèrera",
+      "on": "exaspèrera",
+      "nous": "exaspèrerons",
+      "vous": "exaspèrerez",
+      "ils": "exaspèreront",
+      "elles": "exaspèreront"
     },
     "imparfait": {
       "je": "exaspérais",
+      "tu": "exaspérais",
       "il": "exaspérait",
       "elle": "exaspérait",
       "on": "exaspérait",
+      "nous": "exaspérions",
+      "vous": "exaspériez",
       "ils": "exaspéraient",
       "elles": "exaspéraient"
     },
@@ -87372,19 +87915,36 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "démêle",
+      "tu": "démêles",
       "il": "démêle",
       "elle": "démêle",
       "on": "démêle",
+      "nous": "démêlons",
+      "vous": "démêlez",
       "ils": "démêlent",
       "elles": "démêlent"
     },
-    "futur": {},
+    "futur": {
+      "je": "démêlerai",
+      "tu": "démêleras",
+      "il": "démêlera",
+      "elle": "démêlera",
+      "on": "démêlera",
+      "nous": "démêlerons",
+      "vous": "démêlerez",
+      "ils": "démêleront",
+      "elles": "démêleront"
+    },
     "imparfait": {
       "je": "démêlais",
+      "tu": "démêlais",
       "il": "démêlait",
       "elle": "démêlait",
       "on": "démêlait",
-      "nous": "démêlions"
+      "nous": "démêlions",
+      "vous": "démêliez",
+      "ils": "démêlaient",
+      "elles": "démêlaient"
     },
     "passeCompose": {
       "je": "ai démêlé",
@@ -90328,12 +90888,37 @@
     "auxiliaire": "avoir",
     "present": {
       "je": "écrème",
+      "tu": "écrèmes",
       "il": "écrème",
       "elle": "écrème",
-      "on": "écrème"
+      "on": "écrème",
+      "nous": "écrémons",
+      "vous": "écrémez",
+      "ils": "écrèment",
+      "elles": "écrèment"
     },
-    "futur": {},
-    "imparfait": {},
+    "futur": {
+      "je": "écrèmerai",
+      "tu": "écrèmeras",
+      "il": "écrèmera",
+      "elle": "écrèmera",
+      "on": "écrèmera",
+      "nous": "écrèmerons",
+      "vous": "écrèmerez",
+      "ils": "écrèmeront",
+      "elles": "écrèmeront"
+    },
+    "imparfait": {
+      "je": "écrémais",
+      "tu": "écrémais",
+      "il": "écrémait",
+      "elle": "écrémait",
+      "on": "écrémait",
+      "nous": "écrémions",
+      "vous": "écrémiez",
+      "ils": "écrémaient",
+      "elles": "écrémaient"
+    },
     "passeCompose": {
       "je": "ai écrémé",
       "tu": "as écrémé",

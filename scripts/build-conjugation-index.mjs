@@ -209,6 +209,49 @@ function isRiskyErStem(stem) {
   return false
 }
 
+// Radical en [éèê] + une seule consonne finale : céder, espérer, compléter,
+// préférer, protéger, régler… ("famille de céder"). Sous-ensemble
+// d'isRiskyErStem exclu de regularErForms() (radical variable), mais dont
+// l'alternance est en fait parfaitement régulière et peut être générée :
+// radical "faible" (é, non accentué) devant une terminaison prononcée,
+// radical "fort" (è) devant une terminaison à e muet — et depuis les
+// rectifications de l'orthographe de 1990, radical "fort" (è) au
+// futur/conditionnel pour TOUTE la famille (je cèderai, j'allègerai) au lieu
+// du é traditionnel. Contrairement à -eler/-eter, il n'y a pas d'exception
+// notable ici (pas d'équivalent appeler/jeter à doublement de consonne).
+function isCederStyleStem(stem) {
+  return /[éèê][bcdfghjklmnpqrstvwxz]$/i.test(stem)
+}
+
+function cederStyleForms(infinitif) {
+  if (!/er$/.test(infinitif) || infinitif === 'aller') return null
+  const stem = infinitif.slice(0, -2)
+  if (!isCederStyleStem(stem)) return null
+  const isGer = /g$/.test(stem) // protéger -> protégeons, protégeais (e devant a/o)
+  const isCer = /c$/.test(stem) // rapiécer -> rapiéçons, rapiéçais (ç devant a/o)
+  const stemAO = isGer ? stem + 'e' : isCer ? stem.slice(0, -1) + 'ç' : stem
+  const startsAO = (ending) => /^[ao]/.test(ending)
+
+  // Radical fort : seul le dernier é/è/ê (juste avant la consonne finale) se
+  // transforme en è — les é plus tôt dans le mot (référer, préférer) restent
+  // é (je réfère, pas *rèfère).
+  const accent = stem[stem.length - 2]
+  const strongAccent = accent === 'é' ? 'è' : accent === 'É' ? 'È' : accent
+  const stemStrong = stem.slice(0, -2) + strongAccent + stem.slice(-1)
+
+  const present = {}
+  const imparfait = {}
+  const futur = {}
+  for (const p of PERSONS) {
+    const strongPersons = p === '1s' || p === '2s' || p === '3s' || p === '3p'
+    present[p] = (strongPersons ? stemStrong : startsAO(PRESENT_ENDINGS[p]) ? stemAO : stem) + PRESENT_ENDINGS[p]
+    imparfait[p] = (startsAO(IMPARFAIT_ENDINGS[p]) ? stemAO : stem) + IMPARFAIT_ENDINGS[p]
+    futur[p] = stemStrong + 'er' + FUTUR_ENDINGS[p] // rectifications 1990 : è au futur/conditionnel
+  }
+  const participe = { ms: stem + 'é', fs: stem + 'ée', mp: stem + 'és', fp: stem + 'ées' }
+  return { present, imparfait, futur, participe }
+}
+
 function regularErForms(infinitif) {
   if (!/er$/.test(infinitif) || infinitif === 'aller') return null
   const stem = infinitif.slice(0, -2)
@@ -231,56 +274,24 @@ function regularErForms(infinitif) {
 }
 
 function fillMissingRegularForms(v) {
-  const gen = regularErForms(v.infinitif)
+  const cederGen = cederStyleForms(v.infinitif)
+  const gen = regularErForms(v.infinitif) ?? cederGen
   if (!gen) return
   for (const p of PERSONS) {
     if (!v.present[p]) v.present[p] = gen.present[p]
-    if (!v.futur[p]) v.futur[p] = gen.futur[p]
     if (!v.imparfait[p]) v.imparfait[p] = gen.imparfait[p]
+  }
+  if (cederGen) {
+    // Rectifications de 1990 : le futur/conditionnel en è remplace même les
+    // formes traditionnelles (é) déjà attestées par Lexique383 pour cette
+    // famille — contrairement au présent/imparfait/participe, inchangés par
+    // la réforme, où on ne comble que les trous.
+    for (const p of PERSONS) v.futur[p] = cederGen.futur[p]
+  } else {
+    for (const p of PERSONS) if (!v.futur[p]) v.futur[p] = gen.futur[p]
   }
   for (const slot of ['ms', 'fs', 'mp', 'fp']) {
     if (!v.participe[slot]) v.participe[slot] = gen.participe[slot]
-  }
-}
-
-// Rustines au cas par cas pour des verbes réguliers mais exclus de
-// regularErForms() (radical à alternance è/é, famille céder/espérer) : la
-// génération automatique reste hors de portée pour toute cette famille (voir
-// isRiskyErStem), mais on peut combler les trous mot par mot quand un
-// enseignant en signale un. Ne comble que les cases vides, ne remplace
-// jamais une forme attestée par Lexique383 — SAUF `futurOverride`, qui
-// remplace aussi les formes attestées : Lexique383 code le futur de cette
-// famille en orthographe traditionnelle (é), mais les rectifications de
-// l'orthographe de 1990 remplacent l'accent aigu par un accent grave au
-// futur/conditionnel pour tout le modèle "céder" (je cèderai, j'allègerai —
-// https://dictionnaire.lerobert.com/guide/rectifications-de-l-orthographe-de-1990-regles),
-// et c'est cette graphie qu'on choisit d'enseigner ici.
-const MANUAL_VERB_FORMS = {
-  rouspéter: {
-    present: { '1p': 'rouspétons' },
-    futurOverride: {
-      '1s': 'rouspèterai',
-      '2s': 'rouspèteras',
-      '3s': 'rouspètera',
-      '1p': 'rouspèterons',
-      '2p': 'rouspèterez',
-      '3p': 'rouspèteront',
-    },
-    imparfait: { '2s': 'rouspétais', '1p': 'rouspétions', '2p': 'rouspétiez' },
-    participe: { ms: 'rouspété', fs: 'rouspétée', mp: 'rouspétés', fp: 'rouspétées' },
-  },
-}
-
-function applyManualForms(v, lemme) {
-  const manual = MANUAL_VERB_FORMS[lemme]
-  if (!manual) return
-  for (const p of PERSONS) {
-    if (manual.present?.[p] && !v.present[p]) v.present[p] = manual.present[p]
-    if (manual.futurOverride?.[p]) v.futur[p] = manual.futurOverride[p]
-    if (manual.imparfait?.[p] && !v.imparfait[p]) v.imparfait[p] = manual.imparfait[p]
-  }
-  for (const slot of ['ms', 'fs', 'mp', 'fp']) {
-    if (manual.participe?.[slot] && !v.participe[slot]) v.participe[slot] = manual.participe[slot]
   }
 }
 
@@ -290,7 +301,6 @@ for (const lemme of reachableVerbs) {
   const v = byLemma.get(lemme)
   if (!v || !v.infinitif) continue
   fillMissingRegularForms(v)
-  applyManualForms(v, lemme)
   const isEtre = ETRE_VERBS.has(lemme)
   output[lemme] = {
     infinitif: v.infinitif,
