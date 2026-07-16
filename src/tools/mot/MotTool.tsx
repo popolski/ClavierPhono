@@ -160,7 +160,7 @@ export function MotTool() {
       )}
 
       <div className="mb-6 flex items-center gap-5 rounded-2xl border-2 border-gray-200 bg-gray-50 p-5">
-        <img src="/mascottes/famille.png" alt="" className="h-32 w-32 shrink-0 object-contain" />
+        <img src="/mascottes/famille.png" alt="" className="h-auto w-64 shrink-0 object-contain" />
         <div className="min-w-0 flex-1">
           <h2 className="mb-3 text-xl font-bold text-gray-800">Mots de la même famille</h2>
           {family.length === 0 ? (
@@ -187,7 +187,7 @@ export function MotTool() {
 
       {synonyms.length > 0 && (
         <div className="mb-6 flex items-center gap-5 rounded-2xl border-2 border-amber-200 bg-amber-50 p-5">
-          <img src="/mascottes/synonymes.png" alt="" className="h-32 w-32 shrink-0 object-contain" />
+          <img src="/mascottes/synonymes.png" alt="" className="h-auto w-64 shrink-0 object-contain" />
           <div className="min-w-0 flex-1">
             <h2 className="mb-3 text-xl font-bold text-gray-800">Synonymes</h2>
             <div className="flex flex-wrap gap-3">
@@ -201,7 +201,7 @@ export function MotTool() {
 
       {antonyms.length > 0 && (
         <div className="flex items-center gap-5 rounded-2xl border-2 border-blue-200 bg-blue-50 p-5">
-          <img src="/mascottes/antonymes.png" alt="" className="h-32 w-32 shrink-0 object-contain" />
+          <img src="/mascottes/antonymes.png" alt="" className="h-auto w-32 shrink-0 object-contain" />
           <div className="min-w-0 flex-1">
             <h2 className="mb-3 text-xl font-bold text-gray-800">Contraires</h2>
             <div className="flex flex-wrap gap-3">
