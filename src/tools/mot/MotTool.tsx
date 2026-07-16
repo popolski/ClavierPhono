@@ -123,9 +123,16 @@ export function MotTool() {
   return (
     <ToolLayout
       title={primary.word}
-      description={CATEGORY_LABEL[primary.category]}
+      description=""
       showBackToKeyboard
-      titleIcon={<img src={CATEGORY_MASCOT[primary.category]} alt="" className="h-16 w-16 object-contain" />}
+      titleIcon={
+        <div className="flex flex-col items-center gap-1">
+          <img src={CATEGORY_MASCOT[primary.category]} alt="" className="h-20 w-20 object-contain" />
+          <span className="text-xs font-semibold tracking-wide text-gray-500 uppercase">
+            {CATEGORY_LABEL[primary.category]}
+          </span>
+        </div>
+      }
     >
       {otherForms.length > 0 && (
         <div className="mb-8">
@@ -152,11 +159,11 @@ export function MotTool() {
         </div>
       )}
 
-      <div className="mb-8">
-        <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold tracking-wide text-gray-500 uppercase">
-          <img src="/mascottes/famille.png" alt="" className="h-8 w-8 object-contain" />
-          Mots de la même famille
-        </h2>
+      <div className="mb-6 rounded-2xl border-2 border-gray-200 bg-gray-50 p-5">
+        <div className="mb-4 flex items-center gap-4">
+          <img src="/mascottes/famille.png" alt="" className="h-16 w-16 shrink-0 object-contain" />
+          <h2 className="text-xl font-bold text-gray-800">Mots de la même famille</h2>
+        </div>
         {family.length === 0 ? (
           <p className="text-gray-400">Aucun mot de la même famille trouvé dans notre lexique.</p>
         ) : (
@@ -179,11 +186,11 @@ export function MotTool() {
       </div>
 
       {synonyms.length > 0 && (
-        <div className="mb-8">
-          <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold tracking-wide text-gray-500 uppercase">
-            <img src="/mascottes/synonymes.png" alt="" className="h-8 w-8 object-contain" />
-            Synonymes
-          </h2>
+        <div className="mb-6 rounded-2xl border-2 border-amber-200 bg-amber-50 p-5">
+          <div className="mb-4 flex items-center gap-4">
+            <img src="/mascottes/synonymes.png" alt="" className="h-16 w-16 shrink-0 object-contain" />
+            <h2 className="text-xl font-bold text-gray-800">Synonymes</h2>
+          </div>
           <div className="flex flex-wrap gap-3">
             {synonyms.map((member) => (
               <WordChip key={member.lemmaId} member={member} />
@@ -193,11 +200,11 @@ export function MotTool() {
       )}
 
       {antonyms.length > 0 && (
-        <div>
-          <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold tracking-wide text-gray-500 uppercase">
-            <img src="/mascottes/antonymes.png" alt="" className="h-8 w-8 object-contain" />
-            Contraires
-          </h2>
+        <div className="rounded-2xl border-2 border-blue-200 bg-blue-50 p-5">
+          <div className="mb-4 flex items-center gap-4">
+            <img src="/mascottes/antonymes.png" alt="" className="h-16 w-16 shrink-0 object-contain" />
+            <h2 className="text-xl font-bold text-gray-800">Contraires</h2>
+          </div>
           <div className="flex flex-wrap gap-3">
             {antonyms.map((member) => (
               <WordChip key={member.lemmaId} member={member} />
