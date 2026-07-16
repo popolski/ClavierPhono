@@ -10,7 +10,7 @@ const MotTool = lazy(() => import('./tools/mot/MotTool').then((m) => ({ default:
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <div className="min-h-screen">
         <Suspense fallback={<div className="p-10 text-center text-gray-400">Chargement…</div>}>
           <Routes>

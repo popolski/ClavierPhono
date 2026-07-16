@@ -5,6 +5,7 @@ import { loadWordIndex } from '../../lib/wordIndex'
 import { loadWordFamilies } from '../../lib/wordFamilies'
 import { loadWordSynonyms, loadWordAntonyms } from '../../lib/wordSynonyms'
 import { pickPrimaryForm } from '../clavier/clavierLogic'
+import { assetUrl } from '../../lib/assetUrl'
 import type {
   WordCategory,
   WordEntry,
@@ -127,7 +128,7 @@ export function MotTool() {
       showBackToKeyboard
       titleIcon={
         <div className="flex flex-col items-center gap-1">
-          <img src={CATEGORY_MASCOT[primary.category]} alt="" className="h-20 w-20 object-contain" />
+          <img src={assetUrl(CATEGORY_MASCOT[primary.category])} alt="" className="h-20 w-20 object-contain" />
           <span className="text-xs font-semibold tracking-wide text-gray-500 uppercase">
             {CATEGORY_LABEL[primary.category]}
           </span>
@@ -161,7 +162,7 @@ export function MotTool() {
 
       <div className="mb-6 flex items-stretch gap-4">
         <div className="flex w-48 shrink-0 items-center justify-center rounded-2xl border-2 border-gray-200 bg-gray-50 p-4">
-          <img src="/mascottes/famille.png" alt="" className="h-auto w-full object-contain" />
+          <img src={assetUrl('/mascottes/famille.png')} alt="" className="h-auto w-full object-contain" />
         </div>
         <div className="min-w-0 flex-1 rounded-2xl border-2 border-gray-200 bg-gray-50 p-5">
           <h2 className="mb-3 text-xl font-bold text-gray-800">Mots de la même famille</h2>
@@ -190,7 +191,7 @@ export function MotTool() {
       {synonyms.length > 0 && (
         <div className="mb-6 flex items-stretch gap-4">
           <div className="flex w-48 shrink-0 items-center justify-center rounded-2xl border-2 border-amber-200 bg-amber-50 p-4">
-            <img src="/mascottes/synonymes.png" alt="" className="h-auto w-full object-contain" />
+            <img src={assetUrl('/mascottes/synonymes.png')} alt="" className="h-auto w-full object-contain" />
           </div>
           <div className="min-w-0 flex-1 rounded-2xl border-2 border-amber-200 bg-amber-50 p-5">
             <h2 className="mb-3 text-xl font-bold text-gray-800">Synonymes</h2>
@@ -206,7 +207,7 @@ export function MotTool() {
       {antonyms.length > 0 && (
         <div className="flex items-stretch gap-4">
           <div className="flex w-48 shrink-0 items-center justify-center rounded-2xl border-2 border-blue-200 bg-blue-50 p-4">
-            <img src="/mascottes/antonymes.png" alt="" className="h-auto w-full max-w-32 object-contain" />
+            <img src={assetUrl('/mascottes/antonymes.png')} alt="" className="h-auto w-full max-w-32 object-contain" />
           </div>
           <div className="min-w-0 flex-1 rounded-2xl border-2 border-blue-200 bg-blue-50 p-5">
             <h2 className="mb-3 text-xl font-bold text-gray-800">Contraires</h2>

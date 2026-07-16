@@ -1,4 +1,5 @@
 import type { Phoneme, PhonemeId } from '../types/phonetics'
+import { assetUrl } from '../lib/assetUrl'
 
 interface PhonemeTileProps {
   phoneme: Phoneme
@@ -41,7 +42,7 @@ export function PhonemeTile({ phoneme, disabled, onSelect, onShowInfo }: Phoneme
         </div>
         {primary?.exampleImage && (
           <img
-            src={primary.exampleImage}
+            src={assetUrl(primary.exampleImage)}
             alt={primary.exampleWord}
             className={`h-10 w-10 shrink-0 object-contain ${disabled ? 'opacity-30 grayscale' : ''}`}
           />

@@ -1,5 +1,6 @@
 import { useNavigate, Link } from 'react-router-dom'
 import type { ReactNode } from 'react'
+import { assetUrl } from '../lib/assetUrl'
 
 interface ToolLayoutProps {
   title: string
@@ -31,7 +32,7 @@ export function ToolLayout({
     <div className="mx-auto max-w-5xl px-4 py-8">
       <div className="mb-6 flex items-center justify-between gap-4">
         <Link to="/" className="shrink-0">
-          <img src="/logo.png" alt="Clic &amp; Mots" className="h-8 w-auto" />
+          <img src={assetUrl('/logo.png')} alt="Clic &amp; Mots" className="h-8 w-auto" />
         </Link>
         {(!hideBackButton || showBackToKeyboard) && (
           <div className="flex items-center gap-4">

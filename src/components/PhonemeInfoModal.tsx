@@ -1,4 +1,5 @@
 import type { Phoneme } from '../types/phonetics'
+import { assetUrl } from '../lib/assetUrl'
 
 interface PhonemeInfoModalProps {
   phoneme: Phoneme
@@ -33,7 +34,7 @@ export function PhonemeInfoModal({ phoneme, onClose }: PhonemeInfoModalProps) {
               {phoneme.gestureImages.map((src) => (
                 <img
                   key={src}
-                  src={src}
+                  src={assetUrl(src)}
                   alt={`Geste Borel-Maisonny — ${phoneme.displaySymbol}`}
                   className="h-28 w-28 rounded-xl border border-gray-100 bg-gray-50 object-contain p-1"
                 />
