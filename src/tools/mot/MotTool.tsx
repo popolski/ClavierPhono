@@ -33,7 +33,7 @@ const categoryStyles: Record<WordCategory, string> = {
 // grammaticale), utilisées comme repère visuel à côté du titre du mot.
 const CATEGORY_MASCOT: Record<WordCategory, string> = {
   nom: '/mascottes/nom.png',
-  adjectif: '/mascottes/adjectif.jpg',
+  adjectif: '/mascottes/adjectif.png',
   verbe: '/mascottes/verbe.png',
   invariable: '/mascottes/invariable.png',
   adverbe: '/mascottes/adverbe.png',
@@ -159,56 +159,56 @@ export function MotTool() {
         </div>
       )}
 
-      <div className="mb-6 rounded-2xl border-2 border-gray-200 bg-gray-50 p-5">
-        <div className="mb-4 flex items-center gap-4">
-          <img src="/mascottes/famille.png" alt="" className="h-40 w-40 shrink-0 object-contain" />
-          <h2 className="text-xl font-bold text-gray-800">Mots de la même famille</h2>
+      <div className="mb-6 flex items-center gap-5 rounded-2xl border-2 border-gray-200 bg-gray-50 p-5">
+        <img src="/mascottes/famille.png" alt="" className="h-32 w-32 shrink-0 object-contain" />
+        <div className="min-w-0 flex-1">
+          <h2 className="mb-3 text-xl font-bold text-gray-800">Mots de la même famille</h2>
+          {family.length === 0 ? (
+            <p className="text-gray-400">Aucun mot de la même famille trouvé dans notre lexique.</p>
+          ) : (
+            <div className="flex flex-wrap gap-3">
+              {family.map((member) =>
+                member.inLexicon ? (
+                  <WordChip key={member.lemmaId} member={member} />
+                ) : (
+                  // Mot scolaire (Manulex) mais sous le seuil de fréquence du
+                  // lexique principal : pas de fiche à ouvrir, affiché quand
+                  // même à titre indicatif (ex. "maisonnette").
+                  <div key={member.lemmaId} className={`rounded-lg border px-4 py-2 opacity-70 ${categoryStyles[member.category]}`}>
+                    <div className="text-xs opacity-70">{CATEGORY_LABEL[member.category]}</div>
+                    <div className="text-xl font-medium">{member.word}</div>
+                  </div>
+                ),
+              )}
+            </div>
+          )}
         </div>
-        {family.length === 0 ? (
-          <p className="text-gray-400">Aucun mot de la même famille trouvé dans notre lexique.</p>
-        ) : (
-          <div className="flex flex-wrap gap-3">
-            {family.map((member) =>
-              member.inLexicon ? (
-                <WordChip key={member.lemmaId} member={member} />
-              ) : (
-                // Mot scolaire (Manulex) mais sous le seuil de fréquence du
-                // lexique principal : pas de fiche à ouvrir, affiché quand
-                // même à titre indicatif (ex. "maisonnette").
-                <div key={member.lemmaId} className={`rounded-lg border px-4 py-2 opacity-70 ${categoryStyles[member.category]}`}>
-                  <div className="text-xs opacity-70">{CATEGORY_LABEL[member.category]}</div>
-                  <div className="text-xl font-medium">{member.word}</div>
-                </div>
-              ),
-            )}
-          </div>
-        )}
       </div>
 
       {synonyms.length > 0 && (
-        <div className="mb-6 rounded-2xl border-2 border-amber-200 bg-amber-50 p-5">
-          <div className="mb-4 flex items-center gap-4">
-            <img src="/mascottes/synonymes.png" alt="" className="h-40 w-40 shrink-0 object-contain" />
-            <h2 className="text-xl font-bold text-gray-800">Synonymes</h2>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            {synonyms.map((member) => (
-              <WordChip key={member.lemmaId} member={member} />
-            ))}
+        <div className="mb-6 flex items-center gap-5 rounded-2xl border-2 border-amber-200 bg-amber-50 p-5">
+          <img src="/mascottes/synonymes.png" alt="" className="h-32 w-32 shrink-0 object-contain" />
+          <div className="min-w-0 flex-1">
+            <h2 className="mb-3 text-xl font-bold text-gray-800">Synonymes</h2>
+            <div className="flex flex-wrap gap-3">
+              {synonyms.map((member) => (
+                <WordChip key={member.lemmaId} member={member} />
+              ))}
+            </div>
           </div>
         </div>
       )}
 
       {antonyms.length > 0 && (
-        <div className="rounded-2xl border-2 border-blue-200 bg-blue-50 p-5">
-          <div className="mb-4 flex items-center gap-4">
-            <img src="/mascottes/antonymes.png" alt="" className="h-40 w-40 shrink-0 object-contain" />
-            <h2 className="text-xl font-bold text-gray-800">Contraires</h2>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            {antonyms.map((member) => (
-              <WordChip key={member.lemmaId} member={member} />
-            ))}
+        <div className="flex items-center gap-5 rounded-2xl border-2 border-blue-200 bg-blue-50 p-5">
+          <img src="/mascottes/antonymes.png" alt="" className="h-32 w-32 shrink-0 object-contain" />
+          <div className="min-w-0 flex-1">
+            <h2 className="mb-3 text-xl font-bold text-gray-800">Contraires</h2>
+            <div className="flex flex-wrap gap-3">
+              {antonyms.map((member) => (
+                <WordChip key={member.lemmaId} member={member} />
+              ))}
+            </div>
           </div>
         </div>
       )}
