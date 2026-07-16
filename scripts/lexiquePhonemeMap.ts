@@ -24,13 +24,15 @@ export interface PhonemePattern {
 export const multiCharPatterns: PhonemePattern[] = [
   { match: 'w5', id: 'oin' }, // coin, loin, point -> kw5, lw5, pw5
   { match: '8i', id: 'ui' }, // huit, lui, pluie, fruit -> 8it, l8i, pl8i, fR8i
-  { match: 'ks', id: 'x' }, // taxi -> taksi
-  { match: 'gz', id: 'x' }, // xylophone, xénophobe -> gzilofOn, gzenofOb (x prononcé /gz/)
   // Quand un [i] voyelle précède immédiatement le yod, ils forment la graphie
   // "ill" (fille = f+ij -> f+ill, brillant = bR+ij+@ -> b+r+ill+an). C'est le
   // seul cas où le yod se code sur la touche "ill".
   { match: 'ij', id: 'ill' }, // fille -> fij, brillant -> bRij@
 ]
+// 'ks'/'gz' -> 'x' ne sont volontairement PAS dans multiCharPatterns : ce
+// motif apparaît aussi par pure coïncidence de syllabes sans rapport avec la
+// lettre "x" (zigzag = zi-gz-ag, "gz" à la jointure zig/zag). Décidé au cas
+// par cas dans decodePhon() selon l'orthographe réelle (contient un "x").
 
 // Symboles voyelles/nasales de Lexique383 : servent à savoir si un yod [j] ou
 // un [w] est suivi d'une voyelle (yod -> touche "i", ex. avion = a-v-i-on ;
@@ -113,6 +115,27 @@ export function decodePhon(phon: string, ortho: string): string[] {
       continue
     }
     const ch = phon[i]
+    // 'ks'/'gz' -> touche "x", mais seulement quand ce son vient vraiment de
+    // la lettre "x" (taxi, xylophone). Sans ce garde-fou sur l'orthographe,
+    // "gz" matche aussi la jointure de syllabe de "zig-zag" (zi-gz-ag), qui
+    // n'a aucun rapport avec la lettre x.
+    if ((ch === 'k' && phon[i + 1] === 's') || (ch === 'g' && phon[i + 1] === 'z')) {
+      if (ortho.toLowerCase().includes('x')) {
+        result.push('x')
+        i += 2
+        continue
+      }
+    }
+    // Yod [j] précédé de [u] (le son "ou") : quand l'orthographe s'écrit
+    // vraiment "ouill" (fouiller, agenouiller, andouille, grenouille,
+    // brouillard...), le yod forme la graphie "ill" avec ce qui précède,
+    // exactement comme "i"+yod plus haut — sans ce cas, "fouiller" (fuje)
+    // ressort en f-ou-i-e au lieu de f-ou-ill-e.
+    if (ch === 'j' && phon[i - 1] === 'u' && ortho.toLowerCase().includes('ouill')) {
+      result.push('ill')
+      i += 1
+      continue
+    }
     // Yod [j] : touche "i" s'il est suivi d'une voyelle (avion = a-v-i-on,
     // illusion = i-l-u-z-i-on, chien = ch-i-in), touche "ill" sinon, c.-à-d.
     // yod final ou devant une consonne (paille = p-a-ill, réveil = r-é-v-è-ill).

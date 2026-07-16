@@ -243,12 +243,41 @@ function fillMissingRegularForms(v) {
   }
 }
 
+// Rustines au cas par cas pour des verbes réguliers mais exclus de
+// regularErForms() (radical à alternance è/é, famille céder/espérer) : la
+// génération automatique reste hors de portée pour toute cette famille (voir
+// isRiskyErStem), mais on peut combler les trous mot par mot quand un
+// enseignant en signale un. Ne comble que les cases vides, ne remplace
+// jamais une forme attestée par Lexique383.
+const MANUAL_VERB_FORMS = {
+  rouspéter: {
+    present: { '1p': 'rouspétons' },
+    futur: { '1s': 'rouspéterai', '2s': 'rouspéteras', '1p': 'rouspéterons', '2p': 'rouspéterez', '3p': 'rouspéteront' },
+    imparfait: { '2s': 'rouspétais', '1p': 'rouspétions', '2p': 'rouspétiez' },
+    participe: { ms: 'rouspété', fs: 'rouspétée', mp: 'rouspétés', fp: 'rouspétées' },
+  },
+}
+
+function applyManualForms(v, lemme) {
+  const manual = MANUAL_VERB_FORMS[lemme]
+  if (!manual) return
+  for (const p of PERSONS) {
+    if (manual.present?.[p] && !v.present[p]) v.present[p] = manual.present[p]
+    if (manual.futur?.[p] && !v.futur[p]) v.futur[p] = manual.futur[p]
+    if (manual.imparfait?.[p] && !v.imparfait[p]) v.imparfait[p] = manual.imparfait[p]
+  }
+  for (const slot of ['ms', 'fs', 'mp', 'fp']) {
+    if (manual.participe?.[slot] && !v.participe[slot]) v.participe[slot] = manual.participe[slot]
+  }
+}
+
 // --- Sortie -------------------------------------------------------------------
 const output = {}
 for (const lemme of reachableVerbs) {
   const v = byLemma.get(lemme)
   if (!v || !v.infinitif) continue
   fillMissingRegularForms(v)
+  applyManualForms(v, lemme)
   const isEtre = ETRE_VERBS.has(lemme)
   output[lemme] = {
     infinitif: v.infinitif,
