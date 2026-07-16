@@ -4,7 +4,7 @@ Clavier phonétique gratuit pour aider les élèves du CP au CM2 à trouver
 l'orthographe des mots qu'ils veulent écrire — un équivalent libre du
 "Clavier Métalo" payant, conçu pour une classe primaire.
 
-**En ligne : [clavierphono.vercel.app](https://clavierphono.vercel.app)**
+**En ligne : [www.cours-vandewalle.fr/clicmots](https://www.cours-vandewalle.fr/clicmots/)**
 
 ## Fonctionnement
 
@@ -18,7 +18,10 @@ même famille, synonymes et contraires. Les verbes ont en plus un conjugueur
 ## Stack technique
 
 React 19 + TypeScript + Vite + Tailwind CSS 4 + react-router-dom, 100% côté
-client (aucun serveur, aucune base de données). Déployé sur Vercel.
+client (aucun serveur, aucune base de données). Déployé sur un hébergement
+mutualisé OVH, dans le sous-dossier `/clicmots/` — `npm run build` produit
+le dossier `dist/` à uploader tel quel en FTP (le fichier `.htaccess` inclus
+gère le routage côté client).
 
 ```bash
 npm install
