@@ -30,12 +30,33 @@ export interface Student {
   created_at: string
 }
 
+export type RelationType = 'synonyme' | 'antonyme' | 'famille'
+
+export interface RelationTarget {
+  lemmaId: string
+  word: string
+  category: 'nom' | 'adjectif' | 'verbe' | 'adverbe' | 'invariable'
+}
+
+/** Tableau de conjugaison généré côté serveur (api/conjugaison.php). */
+export interface AddedConjugation {
+  infinitif: string
+  auxiliaire: 'avoir' | 'être'
+  present: Record<string, string>
+  futur: Record<string, string>
+  imparfait: Record<string, string>
+  passeCompose: Record<string, string>
+}
+
 export interface LexiconWord {
   id: number
   mot: string
   categorie: 'nom' | 'adjectif' | 'verbe' | 'adverbe' | 'invariable'
   phonemes: string[]
   genre: 'm' | 'f' | null
+  /** null si le verbe n'est pas régulier (non générable), ou si ce n'est pas un verbe. */
+  conjugaison?: AddedConjugation | null
+  relations?: Record<RelationType, RelationTarget[]>
 }
 
 export const api = {
@@ -61,8 +82,29 @@ export const api = {
 
   listLexicon: () => request<{ words: LexiconWord[] }>('lexicon.php'),
 
-  addWord: (word: Omit<LexiconWord, 'id'>) =>
-    request<{ id: number }>('lexicon.php', { method: 'POST', body: JSON.stringify(word) }),
+  addWord: (word: Pick<LexiconWord, 'mot' | 'categorie' | 'phonemes' | 'genre'>) =>
+    request<{ id: number; conjugaisonGeneree: boolean }>('lexicon.php', {
+      method: 'POST',
+      body: JSON.stringify(word),
+    }),
 
   deleteWord: (id: number) => request<{ ok: true }>(`lexicon.php?id=${id}`, { method: 'DELETE' }),
+
+  addRelation: (wordId: number, type: RelationType, target: RelationTarget) =>
+    request<{ ok: true }>('relations.php', {
+      method: 'POST',
+      body: JSON.stringify({
+        wordId,
+        type,
+        targetLemmaId: target.lemmaId,
+        targetWord: target.word,
+        targetCategory: target.category,
+      }),
+    }),
+
+  deleteRelation: (wordId: number, type: RelationType, targetLemmaId: string) =>
+    request<{ ok: true }>(
+      `relations.php?wordId=${wordId}&type=${type}&targetLemmaId=${encodeURIComponent(targetLemmaId)}`,
+      { method: 'DELETE' },
+    ),
 }

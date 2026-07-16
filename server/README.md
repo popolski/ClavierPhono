@@ -12,7 +12,9 @@ dans `/clicmots/api/` sur le même hébergement OVH. Nécessite PHP 8.x
    user et le mot de passe.
 2. **Tables** : ouvre phpMyAdmin/Adminer depuis le manager OVH sur cette
    base, et exécute le contenu de [`schema.sql`](./schema.sql) (colle-le
-   dans l'onglet SQL, "Exécuter").
+   dans l'onglet SQL, "Exécuter"), puis celui de
+   [`schema-v2.sql`](./schema-v2.sql) (conjugaison générée + relations
+   saisies à la main ; sans risque si relancé).
 3. **Config** : copie `api/config.php.example` en `api/config.php`, remplis
    `DB_HOST`/`DB_NAME`/`DB_USER`/`DB_PASS` avec les infos de l'étape 1, et
    choisis un `SETUP_TOKEN` — une longue chaîne aléatoire à toi (par
@@ -54,6 +56,28 @@ dans `/clicmots/api/` sur le même hébergement OVH. Nécessite PHP 8.x
 | GET | `/api/students.php` | enseignante | liste des élèves |
 | POST | `/api/students.php` | enseignante | `{prenom, motDePasse}` → crée un élève |
 | DELETE | `/api/students.php?id=` | enseignante | supprime un élève |
-| GET | `/api/lexicon.php` | connecté | liste des mots ajoutés |
+| GET | `/api/lexicon.php` | connecté | mots ajoutés, avec conjugaison et relations |
 | POST | `/api/lexicon.php` | enseignante | `{mot, categorie, genre?, phonemes}` |
-| DELETE | `/api/lexicon.php?id=` | enseignante | supprime un mot ajouté |
+| DELETE | `/api/lexicon.php?id=` | enseignante | supprime un mot ajouté (et ses relations) |
+| POST | `/api/relations.php` | enseignante | `{wordId, type, targetLemmaId, targetWord, targetCategory}` |
+| DELETE | `/api/relations.php?wordId=&type=&targetLemmaId=` | enseignante | retire une relation |
+
+## Conjugaison des verbes ajoutés
+
+`api/conjugaison.php` génère le tableau (4 temps × 9 personnes) à l'ajout
+d'un verbe, et le stocke en base. C'est un port de la logique de
+`scripts/build-conjugation-index.mjs` : mêmes règles, mêmes exclusions —
+les deux sorties ont été comparées verbe à verbe (1571 identiques sur 1572
+comparables) et doivent le rester si l'une des deux évolue.
+
+Un verbe dont la conjugaison n'est pas déterministe (irrégulier, -yer,
+-eler/-eter) ne reçoit **aucun** tableau, volontairement : mieux vaut pas
+de conjugaison qu'une orthographe inventée montrée à un enfant.
+
+## Relations (synonymes / contraires / famille)
+
+Elles ne sont pas déductibles pour un mot ajouté : Démonette et JeuxDeMots
+ne le connaissent pas, et ces bases (~400 Mo) ne sont pas embarquées — elles
+ne servent qu'au build. L'enseignante les saisit donc à la main, en piochant
+dans le lexique existant. Elles sont symétriques : déclarer "wapiti"
+synonyme de "cerf" fait aussi apparaître "wapiti" sur la fiche de "cerf".

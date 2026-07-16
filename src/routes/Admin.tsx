@@ -3,6 +3,7 @@ import { ToolLayout } from '../components/ToolLayout'
 import { api } from '../lib/api'
 import type { LexiconWord, Student } from '../lib/api'
 import { phonemes } from '../lib/phonemes'
+import { RelationsEditor } from './RelationsEditor'
 
 type Categorie = LexiconWord['categorie']
 
@@ -130,12 +131,18 @@ function SectionMots() {
   const [sequence, setSequence] = useState<string[]>([])
   const [erreur, setErreur] = useState<string | null>(null)
   const [enCours, setEnCours] = useState(false)
+  /** Id du mot dont le panneau de relations est déplié (un seul à la fois). */
+  const [ouvert, setOuvert] = useState<number | null>(null)
 
-  useEffect(() => {
-    api
+  function rafraichir() {
+    return api
       .listLexicon()
       .then((r) => setWords(r.words))
       .catch(() => setWords([]))
+  }
+
+  useEffect(() => {
+    rafraichir()
   }, [])
 
   async function ajouter(event: React.FormEvent) {
@@ -153,8 +160,7 @@ function SectionMots() {
         genre: categorie === 'nom' && genre !== '' ? genre : null,
         phonemes: sequence,
       })
-      const r = await api.listLexicon()
-      setWords(r.words)
+      await rafraichir()
       setMot('')
       setSequence([])
       setGenre('')
@@ -168,8 +174,7 @@ function SectionMots() {
   async function supprimer(word: LexiconWord) {
     if (!confirm(`Supprimer le mot « ${word.mot} » ?`)) return
     await api.deleteWord(word.id)
-    const r = await api.listLexicon()
-    setWords(r.words)
+    await rafraichir()
   }
 
   return (
@@ -276,21 +281,48 @@ function SectionMots() {
       ) : words.length === 0 ? (
         <p className="text-gray-400">Aucun mot ajouté pour l'instant.</p>
       ) : (
-        <ul className="flex flex-wrap gap-3">
-          {words.map((w) => (
-            <li key={w.id} className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-2">
-              <span className="text-lg font-medium">{w.mot}</span>
-              <span className="text-xs text-gray-500">{CATEGORIES.find((c) => c.value === w.categorie)?.label}</span>
-              <button
-                type="button"
-                onClick={() => supprimer(w)}
-                aria-label={`Supprimer ${w.mot}`}
-                className="text-sm text-gray-400 hover:text-red-600"
-              >
-                ✕
-              </button>
-            </li>
-          ))}
+        <ul className="flex flex-col gap-3">
+          {words.map((w) => {
+            const nbRelations =
+              (w.relations?.synonyme.length ?? 0) +
+              (w.relations?.antonyme.length ?? 0) +
+              (w.relations?.famille.length ?? 0)
+            return (
+              <li key={w.id} className="rounded-lg border border-gray-200 bg-white p-3">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="text-lg font-medium">{w.mot}</span>
+                  <span className="text-xs text-gray-500">
+                    {CATEGORIES.find((c) => c.value === w.categorie)?.label}
+                  </span>
+                  {w.categorie === 'verbe' && (
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-xs ${
+                        w.conjugaison ? 'bg-green-50 text-green-800' : 'bg-gray-100 text-gray-500'
+                      }`}
+                    >
+                      {w.conjugaison ? '✓ conjugaison générée' : 'verbe irrégulier : pas de conjugaison'}
+                    </span>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setOuvert(ouvert === w.id ? null : w.id)}
+                    className="text-sm text-brand-700 hover:underline"
+                  >
+                    {ouvert === w.id ? 'Fermer' : `Synonymes, contraires, famille${nbRelations ? ` (${nbRelations})` : ''}`}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => supprimer(w)}
+                    aria-label={`Supprimer ${w.mot}`}
+                    className="ml-auto text-sm text-gray-400 hover:text-red-600"
+                  >
+                    ✕
+                  </button>
+                </div>
+                {ouvert === w.id && <RelationsEditor word={w} onChange={rafraichir} />}
+              </li>
+            )
+          })}
         </ul>
       )}
     </section>

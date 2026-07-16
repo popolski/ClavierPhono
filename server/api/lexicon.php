@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/conjugaison.php';
 configureSession();
 $user = requireAuth(); // élève ou enseignante : tout le monde peut lire les mots ajoutés
 
@@ -7,10 +8,30 @@ $db = getDb();
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET') {
-    $stmt = $db->query('SELECT id, mot, categorie, phonemes, genre FROM lexicon_additions ORDER BY mot');
+    $stmt = $db->query('SELECT id, mot, categorie, phonemes, genre, conjugaison FROM lexicon_additions ORDER BY mot');
     $rows = $stmt->fetchAll();
+
+    // Relations de tous les mots en une requête (plutôt qu'une par mot).
+    $rel = $db->query(
+        'SELECT word_id, type, target_lemma_id, target_word, target_category FROM lexicon_relations',
+    )->fetchAll();
+    $relationsParMot = [];
+    foreach ($rel as $r) {
+        $relationsParMot[$r['word_id']][$r['type']][] = [
+            'lemmaId' => $r['target_lemma_id'],
+            'word' => $r['target_word'],
+            'category' => $r['target_category'],
+        ];
+    }
+
     foreach ($rows as &$row) {
         $row['phonemes'] = json_decode($row['phonemes'], true);
+        $row['conjugaison'] = $row['conjugaison'] !== null ? json_decode($row['conjugaison'], true) : null;
+        $row['relations'] = [
+            'synonyme' => $relationsParMot[$row['id']]['synonyme'] ?? [],
+            'antonyme' => $relationsParMot[$row['id']]['antonyme'] ?? [],
+            'famille' => $relationsParMot[$row['id']]['famille'] ?? [],
+        ];
     }
     jsonResponse(200, ['words' => $rows]);
 }
@@ -53,12 +74,29 @@ if ($method === 'POST') {
         }
     }
 
-    $stmt = $db->prepare(
-        'INSERT INTO lexicon_additions (mot, categorie, phonemes, genre, created_by) VALUES (?, ?, ?, ?, ?)',
-    );
-    $stmt->execute([$mot, $categorie, json_encode($phonemes), $genre, $user['id']]);
+    // Conjugaison calculée à l'ajout, une fois pour toutes. null si le verbe
+    // n'est pas régulier (ou si ce n'est pas un verbe) : mieux vaut pas de
+    // tableau qu'un tableau inventé.
+    $conjugaison = $categorie === 'verbe' ? genererConjugaison($mot) : null;
 
-    jsonResponse(201, ['id' => (int) $db->lastInsertId()]);
+    $stmt = $db->prepare(
+        'INSERT INTO lexicon_additions (mot, categorie, phonemes, genre, conjugaison, created_by)
+         VALUES (?, ?, ?, ?, ?, ?)',
+    );
+    $stmt->execute([
+        $mot,
+        $categorie,
+        json_encode($phonemes),
+        $genre,
+        $conjugaison !== null ? json_encode($conjugaison, JSON_UNESCAPED_UNICODE) : null,
+        $user['id'],
+    ]);
+
+    jsonResponse(201, [
+        'id' => (int) $db->lastInsertId(),
+        // Permet à l'interface de dire si la conjugaison a pu être générée.
+        'conjugaisonGeneree' => $conjugaison !== null,
+    ]);
 }
 
 if ($method === 'DELETE') {

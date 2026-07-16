@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ToolLayout } from '../../components/ToolLayout'
-import { estMotAjoute, loadWordIndex } from '../../lib/wordIndex'
+import { loadWordIndex } from '../../lib/wordIndex'
+import { estMotAjoute, loadAddedWords } from '../../lib/addedLexicon'
 import { loadWordFamilies } from '../../lib/wordFamilies'
 import { loadWordSynonyms, loadWordAntonyms } from '../../lib/wordSynonyms'
 import { pickPrimaryForm } from '../clavier/clavierLogic'
@@ -83,18 +84,28 @@ export function MotTool() {
   const [family, setFamily] = useState<WordFamilyMember[] | null>(null)
   const [synonyms, setSynonyms] = useState<WordRelationMember[] | null>(null)
   const [antonyms, setAntonyms] = useState<WordRelationMember[] | null>(null)
+  // Verbes ajoutés à la main ayant reçu une conjugaison générée : eux seuls
+  // méritent un lien vers le conjugueur (les irréguliers n'en ont pas).
+  const [verbesAjoutesConjugables, setVerbesAjoutesConjugables] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     let cancelled = false
-    Promise.all([loadWordIndex(), loadWordFamilies(), loadWordSynonyms(), loadWordAntonyms()]).then(
-      ([index, families, syn, anto]) => {
-        if (cancelled) return
-        setForms(index.filter((e) => e.lemmaId === lemmaId))
-        setFamily(families[lemmaId ?? ''] ?? [])
-        setSynonyms(syn[lemmaId ?? ''] ?? [])
-        setAntonyms(anto[lemmaId ?? ''] ?? [])
-      },
-    )
+    Promise.all([
+      loadWordIndex(),
+      loadWordFamilies(),
+      loadWordSynonyms(),
+      loadWordAntonyms(),
+      loadAddedWords(),
+    ]).then(([index, families, syn, anto, ajoutes]) => {
+      if (cancelled) return
+      setForms(index.filter((e) => e.lemmaId === lemmaId))
+      setFamily(families[lemmaId ?? ''] ?? [])
+      setSynonyms(syn[lemmaId ?? ''] ?? [])
+      setAntonyms(anto[lemmaId ?? ''] ?? [])
+      setVerbesAjoutesConjugables(
+        new Set(ajoutes.filter((w) => w.categorie === 'verbe' && w.conjugaison).map((w) => w.mot)),
+      )
+    })
     return () => {
       cancelled = true
     }
@@ -120,6 +131,12 @@ export function MotTool() {
   const otherForms = forms.filter((f) => f !== primary && !ROLES_HIDDEN_FROM_FICHE.includes(f.formRole))
   const hasBothGenders = forms.some((f) => f.genre === 'm') && forms.some((f) => f.genre === 'f')
   const style = categoryStyles[primary.category]
+  // Un mot du lexique généré a toujours son tableau (les verbes sans
+  // infinitif attesté sont filtrés par la condition formRole plus bas) ; un
+  // mot ajouté n'en a un que si sa conjugaison a pu être générée.
+  const peutConjuguer = estMotAjoute(primary.lemmaId)
+    ? verbesAjoutesConjugables.has(primary.word)
+    : true
 
   return (
     <ToolLayout
@@ -149,13 +166,13 @@ export function MotTool() {
         </div>
       )}
 
-      {/* Le lien n'a de sens que si la forme principale est bien l'infinitif :
-          les tableaux sont indexés par infinitif. Une poignée de verbes rares
-          (étoiler, poêler...) n'ont pas d'infinitif attesté dans Lexique383 —
-          leur fiche retombe sur le participe passé, et le lien menait alors à
-          un "verbe introuvable". Idem pour un verbe ajouté à la main, dont la
-          conjugaison n'est pas générée au build. */}
-      {primary.category === 'verbe' && primary.formRole === 'infinitif' && !estMotAjoute(primary.lemmaId) && (
+      {/* Le lien n'a de sens que si la forme principale est bien l'infinitif
+          (les tableaux sont indexés par infinitif) ET qu'un tableau existe
+          vraiment. Deux cas sans tableau : les verbes rares sans infinitif
+          attesté dans Lexique383 (étoiler, poêler... — leur fiche retombe sur
+          le participe passé), et les verbes ajoutés à la main dont la
+          conjugaison n'a pas pu être générée (irréguliers). */}
+      {primary.category === 'verbe' && primary.formRole === 'infinitif' && peutConjuguer && (
         <div className="mb-8">
           <Link
             to={`/conjugueur/${encodeURIComponent(primary.word)}`}
