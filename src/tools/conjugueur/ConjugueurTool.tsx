@@ -107,7 +107,14 @@ export function ConjugueurTool() {
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
-        <div className="flex flex-col gap-3">
+        {/* ml-auto + w-fit : la colonne se rétrécit à la largeur de son
+            contenu puis se colle au bord droit de sa cellule de grille (donc
+            de la mascotte), sans quoi elle reste plaquée à gauche de la page
+            et laisse un vide asymétrique avant la mascotte (bug signalé —
+            l'espace ne se voyait quasi pas côté pluriel, énorme côté
+            singulier). PersonRow garde son alignement interne pronom/verbe
+            intact, seul le bloc entier se déplace. */}
+        <div className="ml-auto flex w-fit flex-col gap-3">
           {PERSONNES_SINGULIER.map((personne) => (
             <PersonRow key={personne} personne={personne} form={styled[personne]} />
           ))}
