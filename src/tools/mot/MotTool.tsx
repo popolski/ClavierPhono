@@ -189,7 +189,7 @@ export function MotTool() {
         speechSupported() && (
           <button
             type="button"
-            onClick={() => speak(primary.word)}
+            onClick={() => speak(primary.word, { category: primary.category, lemmaId: primary.lemmaId })}
             aria-label={`Écouter « ${primary.word} »`}
             className="rounded-full p-2 text-2xl leading-none text-gray-500 hover:bg-black/10 active:scale-95"
           >

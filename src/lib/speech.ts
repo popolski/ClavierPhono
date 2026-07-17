@@ -1,12 +1,18 @@
-// Synthèse vocale native du navigateur (window.speechSynthesis) : gratuite,
-// aucune dépendance externe, adaptée à la lecture de vrais mots (contrairement
-// aux sons isolés du clavier — "ill", "oin"… n'existent pas comme mots, donc
-// pas de TTS pour eux, voir la discussion produit).
+// Prononciation des mots : fichiers mp3 pré-générés (Google Cloud TTS,
+// fr-FR-Neural2-A — voir scripts/generate-word-audio.mjs) en priorité, avec
+// repli sur window.speechSynthesis si le fichier n'existe pas encore (mot
+// ajouté par l'enseignant après la dernière génération, par ex.). Neural2-A a
+// été choisi après comparaison : window.speechSynthesis (et Azure Neural
+// testé en parallèle) avalent les schwas de mots comme "chevauchée"
+// ("ch'vauchée"), problème absent sur Neural2-A.
 //
-// Piège classique : getVoices() renvoie souvent un tableau vide au tout
-// premier appel, le temps que le navigateur charge la liste — il faut
-// attendre l'événement voiceschanged plutôt que d'utiliser la voix par
-// défaut (parfois anglaise) immédiatement.
+// Piège classique de speechSynthesis : getVoices() renvoie souvent un
+// tableau vide au tout premier appel, le temps que le navigateur charge la
+// liste — il faut attendre l'événement voiceschanged plutôt que d'utiliser
+// la voix par défaut (parfois anglaise) immédiatement.
+import type { WordCategory } from '../types/phonetics'
+import { assetUrl } from './assetUrl'
+
 let frenchVoicePromise: Promise<SpeechSynthesisVoice | null> | null = null
 
 function loadFrenchVoice(): Promise<SpeechSynthesisVoice | null> {
@@ -29,21 +35,59 @@ function loadFrenchVoice(): Promise<SpeechSynthesisVoice | null> {
 }
 
 export function speechSupported(): boolean {
-  return typeof window !== 'undefined' && 'speechSynthesis' in window
+  return (typeof Audio !== 'undefined') || (typeof window !== 'undefined' && 'speechSynthesis' in window)
 }
 
-/** Prononce un mot à voix haute. Sans effet si la synthèse vocale n'est pas disponible. */
-export async function speak(text: string): Promise<void> {
-  if (!speechSupported()) return
+// Même schéma de nom que generate-word-audio.mjs : {mot}_{categorie}_{lemme}.mp3.
+function audioFileName(word: string, category: WordCategory, lemmaId: string): string {
+  const lemme = lemmaId.split(':')[1] ?? lemmaId
+  return `${word}_${category}_${lemme}.mp3`
+}
 
-  // Coupe toute lecture en cours : cliquer un 2e mot pendant que le 1er se
-  // prononce encore doit interrompre le 1er, pas les faire chevaucher.
-  window.speechSynthesis.cancel()
+let currentAudio: HTMLAudioElement | null = null
 
+/** Tente de jouer le fichier pré-généré ; résout à false s'il n'existe pas (404/erreur réseau). */
+function tryPlayAudioFile(word: string, category: WordCategory, lemmaId: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    const audio = new Audio(assetUrl(`/audio/mots/${audioFileName(word, category, lemmaId)}`))
+    currentAudio = audio
+    audio.addEventListener('canplaythrough', () => {
+      audio.play()
+      resolve(true)
+    }, { once: true })
+    audio.addEventListener('error', () => resolve(false), { once: true })
+  })
+}
+
+async function speakWithBrowserVoice(text: string): Promise<void> {
+  if (!(typeof window !== 'undefined' && 'speechSynthesis' in window)) return
   const utterance = new SpeechSynthesisUtterance(text)
   utterance.lang = 'fr-FR'
   const voice = await loadFrenchVoice()
   if (voice) utterance.voice = voice
-
   window.speechSynthesis.speak(utterance)
+}
+
+/**
+ * Prononce un mot à voix haute : fichier pré-généré si `category`/`lemmaId`
+ * sont fournis et que le fichier existe, sinon repli sur la synthèse vocale
+ * du navigateur. Sans effet si aucune des deux méthodes n'est disponible.
+ */
+export async function speak(word: string, info?: { category: WordCategory; lemmaId: string }): Promise<void> {
+  // Coupe toute lecture en cours : cliquer un 2e mot pendant que le 1er se
+  // prononce encore doit interrompre le 1er, pas les faire chevaucher.
+  if (currentAudio) {
+    currentAudio.pause()
+    currentAudio = null
+  }
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    window.speechSynthesis.cancel()
+  }
+
+  if (info) {
+    const played = await tryPlayAudioFile(word, info.category, info.lemmaId)
+    if (played) return
+  }
+
+  await speakWithBrowserVoice(word)
 }

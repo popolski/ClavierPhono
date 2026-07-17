@@ -43,3 +43,8 @@ scripts/output/
 # Identifiants base de données + jeton de setup — jamais commités, restent
 # uniquement sur le serveur OVH (voir server/api/config.php.example)
 server/api/config.php
+
+# Fichiers audio TTS pré-générés (scripts/generate-word-audio.mjs) : ~230 Mo,
+# transmis directement par FTP vers le serveur, jamais commités (alourdirait
+# le dépôt à chaque clone). Régénérables à tout moment via le script.
+public/audio/

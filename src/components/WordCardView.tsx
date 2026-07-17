@@ -57,7 +57,7 @@ export function WordCardView({ card }: WordCardViewProps) {
             type="button"
             onClick={(e) => {
               e.preventDefault()
-              speak(primary.word)
+              speak(primary.word, { category: card.category, lemmaId: card.lemmaId })
             }}
             aria-label={`Écouter « ${primary.word} »`}
             className="shrink-0 rounded-full p-1 text-xl leading-none hover:bg-black/10 active:scale-95"
