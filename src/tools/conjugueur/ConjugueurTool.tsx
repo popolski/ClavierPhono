@@ -106,29 +106,32 @@ export function ConjugueurTool() {
         ))}
       </div>
 
-      {/* Grid pur (1fr/auto/1fr) laissait le trio entier plaqué à gauche de
-          la page, avec un grand vide à droite — l'ensemble n'était jamais
-          centré comme un bloc, seulement les colonnes entre elles (bug
-          signalé, capture "trop tassé"). Flex + justify-center à la place :
-          le trio singulier/mascotte/pluriel se comporte comme un seul bloc,
-          centré dans la page ; gap-12 aère largement de chaque côté de la
-          mascotte, comme demandé. */}
-      <div className="mt-6 grid grid-cols-1 gap-y-6 sm:flex sm:flex-row sm:items-center sm:justify-center sm:gap-12">
-        <div className="flex flex-col gap-3">
-          {PERSONNES_SINGULIER.map((personne) => (
-            <PersonRow key={personne} personne={personne} form={styled[personne]} />
-          ))}
-        </div>
+      {/* Les deux tentatives précédentes (mascotte entre les colonnes, puis
+          trio centré) déplaçaient le tableau lui-même, ce qui le désaligne du
+          reste de la page (titre/onglets, eux, restent au bord gauche) — la
+          consigne est de garder EXACTEMENT le tableau original (grid-cols-2
+          d'origine, inchangé ci-dessous) et de placer la mascotte à sa
+          gauche, dans une colonne à part. Taille alignée sur celle des
+          cartouches de résultats (WordCardView, h-10 w-10) — la précédente
+          (h-40) était jugée trop grande. */}
+      <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">
         {/* Masquée sur mobile : la place manque une fois les colonnes empilées. */}
         <img
           src={assetUrl(TENSE_MASCOT[tense])}
           alt=""
-          className="hidden h-40 w-40 shrink-0 object-contain sm:block"
+          className="hidden h-10 w-10 shrink-0 object-contain sm:block"
         />
-        <div className="flex flex-col gap-3">
-          {PERSONNES_PLURIEL.map((personne) => (
-            <PersonRow key={personne} personne={personne} form={styled[personne]} />
-          ))}
+        <div className="grid flex-1 grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+          <div className="flex flex-col gap-3">
+            {PERSONNES_SINGULIER.map((personne) => (
+              <PersonRow key={personne} personne={personne} form={styled[personne]} />
+            ))}
+          </div>
+          <div className="flex flex-col gap-3">
+            {PERSONNES_PLURIEL.map((personne) => (
+              <PersonRow key={personne} personne={personne} form={styled[personne]} />
+            ))}
+          </div>
         </div>
       </div>
     </ToolLayout>
