@@ -27,11 +27,14 @@ l'orthographe correspondante apparaît.
 - **Prononciation audio** : chaque mot peut être écouté à voix haute (voix
   Google Cloud Neural2 pré-générée, choisie pour sa fidélité aux syllabes
   muettes du français — contrairement à la synthèse vocale des navigateurs).
+  Les 33 sons du clavier ont eux aussi leur propre enregistrement (voix de
+  l'enseignante), écoutable depuis la fiche de chaque son.
 - **Mascottes par catégorie grammaticale** (nom, adjectif, verbe, adverbe) et
   par temps de conjugaison, pour un repérage visuel immédiat.
 - **Espace enseignant** : gestion des comptes élèves, ajout de mots absents
-  du lexique (avec conjugaison et prononciation générées automatiquement) et
-  saisie des relations lexicales (synonymes/contraires/famille).
+  du lexique avec prononciation générée automatiquement et conjugaison
+  proposée en aperçu (base de ~7000 verbes, tous groupes confondus) avant
+  validation, et saisie des relations lexicales (synonymes/contraires/famille).
 
 ## Stack technique
 
@@ -42,10 +45,16 @@ fichier `.htaccess` inclus gère le routage côté client).
 
 **Backend** : PHP 8 + MySQL (voir [`server/README.md`](./server/README.md)),
 pour l'authentification (élèves + enseignant) et l'espace enseignant —
-gestion des comptes élèves, ajout de mots absents du lexique avec conjugaison
-et prononciation (Google Cloud Text-to-Speech) générées automatiquement pour
-les verbes réguliers, et relations (synonymes/contraires/famille) saisies à
-la main. Hébergé à côté du site sur le même mutualisé OVH.
+gestion des comptes élèves, ajout de mots absents du lexique avec
+prononciation (Google Cloud Text-to-Speech) générée automatiquement, et
+relations (synonymes/contraires/famille) saisies à la main. Hébergé à côté
+du site sur le même mutualisé OVH.
+
+**Conjugaison des verbes ajoutés** : générée côté client via
+[`conjugation-fr`](https://www.npmjs.com/package/conjugation-fr) (base
+Verbiste, ~7000 verbes, tous groupes) dans le formulaire d'ajout, affichée en
+aperçu avant validation. Repli sur un générateur PHP maison (déterministe,
+limité aux -er réguliers "sûrs") si le verbe est absent de cette base.
 
 **Audio** : les ~27 000 mots du lexique statique ont leur prononciation
 pré-générée une fois pour toutes (`scripts/generate-word-audio.mjs`, voix
