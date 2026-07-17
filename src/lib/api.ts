@@ -91,7 +91,7 @@ export const api = {
       femininPhonemes?: string[]
     },
   ) =>
-    request<{ id: number; conjugaisonGeneree: boolean }>('lexicon.php', {
+    request<{ id: number; conjugaisonGeneree: boolean; audioGeneree: boolean }>('lexicon.php', {
       method: 'POST',
       body: JSON.stringify(word),
     }),

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/conjugaison.php';
+require_once __DIR__ . '/tts.php';
 configureSession();
 $user = requireAuth(); // élève ou enseignant : tout le monde peut lire les mots ajoutés
 
@@ -119,10 +120,16 @@ if ($method === 'POST') {
         $user['id'],
     ]);
 
+    // Le lemme d'un mot fraîchement ajouté est le mot lui-même (voir
+    // lemmaIdAjout côté client : "ajout:{categorie}:{mot}") — le nom de
+    // fichier généré ici doit correspondre à ce que le client reconstruit.
+    $audioGeneree = genererAudioMot($mot, $categorie, $mot);
+
     jsonResponse(201, [
         'id' => (int) $db->lastInsertId(),
         // Permet à l'interface de dire si la conjugaison a pu être générée.
         'conjugaisonGeneree' => $conjugaison !== null,
+        'audioGeneree' => $audioGeneree,
     ]);
 }
 

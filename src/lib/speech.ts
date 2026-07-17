@@ -39,8 +39,13 @@ export function speechSupported(): boolean {
 }
 
 // Même schéma de nom que generate-word-audio.mjs : {mot}_{categorie}_{lemme}.mp3.
+// Le dernier segment de lemmaId, pas le 2e : le lexique statique a des
+// lemmaId à 2 segments ("verbe:accueillir"), mais un mot ajouté par
+// l'enseignant en a 3 ("ajout:verbe:motXYZ", voir lemmaIdAjout) — prendre
+// l'avant-dernier segment donnerait la catégorie au lieu du mot.
 function audioFileName(word: string, category: WordCategory, lemmaId: string): string {
-  const lemme = lemmaId.split(':')[1] ?? lemmaId
+  const segments = lemmaId.split(':')
+  const lemme = segments[segments.length - 1] ?? lemmaId
   return `${word}_${category}_${lemme}.mp3`
 }
 

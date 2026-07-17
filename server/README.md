@@ -21,6 +21,13 @@ dans `/clicmots/api/` sur le même hébergement OVH. Nécessite PHP 8.x
    exemple générée avec `openssl rand -hex 32` dans un terminal, ou avec ton
    gestionnaire de mots de passe). Ce fichier ne doit **jamais** être commité
    dans Git (déjà dans `.gitignore`).
+
+   Optionnel : `GOOGLE_TTS_API_KEY` génère automatiquement la prononciation
+   d'un mot ajouté par l'enseignant (Google Cloud Console -> "API et
+   services" -> "Identifiants" -> "Créer des identifiants" -> "Clé API",
+   puis restreins-la à l'API "Cloud Text-to-Speech" uniquement). Laissée
+   vide, l'ajout de mot fonctionne quand même — seule la prononciation
+   retombe sur la synthèse vocale du navigateur (voir `api/tts.php`).
 4. **Upload FTP** : envoie tout le dossier `server/` sur OVH, dans
    `/clicmots/api-src/` par exemple, PUIS place le contenu du sous-dossier
    `api/` dans `/clicmots/api/` (à la racine de `/clicmots/`, à côté du site

@@ -16,3 +16,15 @@ define('DB_PASS', 'xxxxxx');
 // mots de passe) — ne me la communique jamais, elle ne sert qu'entre ton
 // navigateur et ton serveur.
 define('SETUP_TOKEN', 'xxxxxx');
+
+// Clé API Google Cloud Text-to-Speech (restreinte à cette seule API dans la
+// console Google Cloud : "API et services" -> "Identifiants" -> "Créer des
+// identifiants" -> "Clé API", puis "Restreindre la clé" -> API Cloud
+// Text-to-Speech uniquement). Sert à générer automatiquement le mp3 d'un mot
+// ajouté par l'enseignant (voir lexicon.php et tts.php) — distincte de la clé
+// de compte de service utilisée pour la génération en masse initiale
+// (scripts/generate-word-audio.mjs), une clé API simple suffit ici pour un
+// appel REST direct depuis PHP. Laisse vide ('') pour désactiver : le mot
+// reste ajoutable, seule la prononciation retombera sur la synthèse du
+// navigateur (comportement déjà prévu côté client).
+define('GOOGLE_TTS_API_KEY', '');
