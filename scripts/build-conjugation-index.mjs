@@ -345,7 +345,17 @@ function appliquerFormesRegulieres(v) {
 const output = {}
 for (const lemme of reachableVerbs) {
   const v = byLemma.get(lemme)
-  if (!v || !v.infinitif) continue
+  if (!v) continue
+  if (!v.infinitif) {
+    // Verbe rare sans aucune ligne "inf" attestée dans Lexique383 (ex.
+    // "pointiller" : seules des formes conjuguées y figurent). Si le lemme
+    // est un -er régulier déterministe (regularErForms le confirme), son
+    // orthographe fait foi pour l'infinitif — c'est la définition même du
+    // lemme chez Lexique383 — et le tableau entier peut être généré sans
+    // attestation, comme pour n'importe quel autre -er régulier.
+    if (regularErForms(lemme)) v.infinitif = lemme
+    else continue
+  }
   appliquerFormesRegulieres(v)
   const isEtre = ETRE_VERBS.has(lemme)
   output[lemme] = {
