@@ -106,20 +106,23 @@ export function ConjugueurTool() {
         ))}
       </div>
 
-      {/* Les deux tentatives précédentes (mascotte entre les colonnes, puis
-          trio centré) déplaçaient le tableau lui-même, ce qui le désaligne du
+      {/* Les tentatives précédentes (mascotte entre les colonnes, puis trio
+          centré) déplaçaient le tableau lui-même, ce qui le désaligne du
           reste de la page (titre/onglets, eux, restent au bord gauche) — la
           consigne est de garder EXACTEMENT le tableau original (grid-cols-2
           d'origine, inchangé ci-dessous) et de placer la mascotte à sa
-          gauche, dans une colonne à part. Taille alignée sur celle des
-          cartouches de résultats (WordCardView, h-10 w-10) — la précédente
-          (h-40) était jugée trop grande. */}
-      <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">
+          gauche, dans une colonne à part. Taille alignée sur celle du titre
+          de la fiche mot (MotTool, h-20 w-20) — ni la h-10 des cartouches de
+          résultats (jugée trop petite), ni la h-40 initiale (trop grande).
+          items-start plutôt que items-center : la mascotte doit rester en
+          haut, sous les onglets de temps, pas centrée sur toute la hauteur
+          du tableau (qui compte 5 lignes côté singulier). */}
+      <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
         {/* Masquée sur mobile : la place manque une fois les colonnes empilées. */}
         <img
           src={assetUrl(TENSE_MASCOT[tense])}
           alt=""
-          className="hidden h-10 w-10 shrink-0 object-contain sm:block"
+          className="hidden h-20 w-20 shrink-0 object-contain sm:block"
         />
         <div className="grid flex-1 grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div className="flex flex-col gap-3">
