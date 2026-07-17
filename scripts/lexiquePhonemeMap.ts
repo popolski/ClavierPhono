@@ -94,7 +94,7 @@ export const singleCharMap: Record<string, string> = {
 //    phonemes.json).
 //  - écrit "oua" (ouate, douane) ou avec un vrai "w" (wapiti) -> décomposé en
 //    deux touches OU + [voyelle], comme "oui" (jamais fusionné) — c'est ainsi
-//    que l'enseignante l'enseigne : le "w"/"ou" est son propre son, combiné
+//    que l'enseignant l'enseigne : le "w"/"ou" est son propre son, combiné
 //    ensuite à la voyelle qui suit, peu importe la lettre affichée.
 // Lexique383 code le son [wa] de façon identique ("wa") dans tous les cas ;
 // seule l'orthographe permet de trancher, d'où le paramètre `ortho`.

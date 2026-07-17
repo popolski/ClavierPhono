@@ -72,7 +72,7 @@ function requireTeacher(): array
 {
     $user = requireAuth();
     if ($user['role'] !== 'teacher') {
-        jsonResponse(403, ['error' => 'Réservé à l\'enseignante']);
+        jsonResponse(403, ['error' => 'Réservé à l\'enseignant']);
     }
     return $user;
 }

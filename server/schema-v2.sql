@@ -13,7 +13,7 @@
 ALTER TABLE lexicon_additions
   ADD COLUMN conjugaison JSON DEFAULT NULL;
 
--- Relations saisies par l'enseignante pour un mot ajouté : elles ne peuvent
+-- Relations saisies par l'enseignant pour un mot ajouté : elles ne peuvent
 -- pas être déduites (Démonette/JeuxDeMots ne connaissent pas ces mots, et ces
 -- bases ne sont pas embarquées dans le site de toute façon).
 -- La cible est un mot du lexique généré (target_lemma_id = "nom:cerf") ou un

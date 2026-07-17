@@ -1,6 +1,6 @@
 <?php
 // Relations (synonymes / contraires / mots de la même famille) rattachées à
-// la main par l'enseignante à un mot qu'elle a ajouté. Ces mots étant absents
+// la main par l'enseignant à un mot qu'elle a ajouté. Ces mots étant absents
 // des bases lexicales, aucune relation ne peut être déduite automatiquement.
 require_once __DIR__ . '/auth.php';
 configureSession();
@@ -48,7 +48,7 @@ if ($method === 'POST') {
     // Même règle que le lexique généré (build-word-synonyms.mjs) : un
     // synonyme/contraire ne relie que des mots de même catégorie grammaticale
     // — un nom n'a pour synonymes que des noms. Évite les rapprochements
-    // bizarres que l'enseignante avait justement signalés.
+    // bizarres que l'enseignant avait justement signalés.
     //
     // "famille" n'a PAS cette contrainte : dans le lexique généré, 75% des
     // liens de famille changent de catégorie (trouille/nom, trouillard/

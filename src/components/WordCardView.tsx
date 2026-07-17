@@ -6,7 +6,7 @@ interface WordCardViewProps {
   card: WordCard
 }
 
-// Couleurs choisies par l'enseignante (Feuille de route 2 consignes) : nom=bleu,
+// Couleurs choisies par l'enseignant (Feuille de route 2 consignes) : nom=bleu,
 // adjectif=violet, verbe=rouge foncé, invariable=rouge clair, adverbe=orange.
 const categoryStyles: Record<WordCategory, string> = {
   nom: 'bg-blue-50 text-blue-900 border-blue-200',

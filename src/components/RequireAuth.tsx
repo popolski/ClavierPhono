@@ -4,7 +4,7 @@ import { useAuth } from '../lib/authContext'
 
 interface RequireAuthProps {
   children: ReactNode
-  /** Restreint en plus à l'enseignante (espace d'administration). */
+  /** Restreint en plus à l'enseignant (espace d'administration). */
   teacherOnly?: boolean
 }
 

@@ -35,7 +35,7 @@
 // Sortie :
 //   src/data/words-clavier2.json    — le lexique, prêt à être importé par l'app
 //   scripts/output/words-review.csv — même contenu en CSV (UTF-8 BOM, Excel/LibreOffice)
-//     pour une relecture finale, allégée, par l'enseignante.
+//     pour une relecture finale, allégée, par l'enseignant.
 //
 // Lancé à la main : node scripts/build-word-index.mjs
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
@@ -397,4 +397,4 @@ const byCategory = {}
 for (const e of wordIndex) byCategory[e.category] = (byCategory[e.category] || 0) + 1
 console.log('Répartition par catégorie:', byCategory)
 console.log('\nÉcrit: src/data/words-clavier2.json')
-console.log('Écrit: scripts/output/words-review.csv (pour relecture par l\'enseignante)')
+console.log('Écrit: scripts/output/words-review.csv (pour relecture par l\'enseignant)')

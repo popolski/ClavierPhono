@@ -21,7 +21,7 @@ if ($identifiant === '' || $motDePasse === '') {
 
 $db = getDb();
 
-// On essaie d'abord la table enseignante (compte unique), puis les élèves —
+// On essaie d'abord la table enseignant (compte unique), puis les élèves —
 // même message d'erreur générique dans les deux cas pour ne pas révéler
 // quels identifiants existent.
 $stmt = $db->prepare('SELECT id, username AS label, password_hash FROM teachers WHERE username = ?');

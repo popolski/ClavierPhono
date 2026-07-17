@@ -131,7 +131,7 @@ function buildIndex(dirName) {
       // catégorie supprime ces fuites de sens à la racine — au prix de 3,9%
       // des mots qui perdent leurs synonymes (5,4% leurs contraires), très
       // majoritairement ces entrées douteuses dont les relations étaient
-      // fausses de toute façon. Remarque de l'enseignante à l'usage.
+      // fausses de toute façon. Remarque de l'enseignant à l'usage.
       const entry2 = entries2.find((e) => e.category === entry1.category)
       if (!entry2) continue
       if (entry1.lemmaId === entry2.lemmaId) continue

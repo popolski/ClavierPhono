@@ -1,7 +1,7 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 
 // Le vrai lexique fait ~8 Mo : on le remplace par deux entrées, seule la
-// fusion avec les mots ajoutés par l'enseignante est testée ici.
+// fusion avec les mots ajoutés par l'enseignant est testée ici.
 vi.mock('../data/words-clavier2.json', () => ({
   default: [
     {
@@ -20,7 +20,7 @@ vi.mock('../data/words-clavier2.json', () => ({
 const listLexicon = vi.fn()
 vi.mock('./api', () => ({ api: { listLexicon: () => listLexicon() } }))
 
-describe('loadWordIndex : fusion des mots ajoutés par l’enseignante', () => {
+describe('loadWordIndex : fusion des mots ajoutés par l’enseignant', () => {
   beforeEach(() => {
     // loadWordIndex met son résultat en cache dans un module-level `cached` :
     // sans reset, le 2e test relirait le résultat du 1er.

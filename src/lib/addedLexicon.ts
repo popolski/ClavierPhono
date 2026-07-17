@@ -2,7 +2,7 @@ import { api } from './api'
 import type { LexiconWord, RelationType } from './api'
 import type { WordFamilyIndex, WordRelationIndex } from '../types/phonetics'
 
-/** Préfixe des lemmaId issus de l'espace enseignante. */
+/** Préfixe des lemmaId issus de l'espace enseignant. */
 export const LEMMA_PREFIXE_AJOUT = 'ajout:'
 
 export function estMotAjoute(lemmaId: string): boolean {
@@ -16,7 +16,7 @@ export function lemmaIdAjout(mot: string, categorie: string): string {
 let cached: Promise<LexiconWord[]> | null = null
 
 /**
- * Mots ajoutés par l'enseignante (base MySQL). Mis en cache : lexique,
+ * Mots ajoutés par l'enseignant (base MySQL). Mis en cache : lexique,
  * familles, synonymes, contraires et conjugaisons en ont tous besoin, et une
  * seule requête doit suffire.
  *
@@ -34,7 +34,7 @@ export function loadAddedWords(): Promise<LexiconWord[]> {
 }
 
 /**
- * Index des relations d'un type donné, dans les DEUX sens : si l'enseignante
+ * Index des relations d'un type donné, dans les DEUX sens : si l'enseignant
  * déclare "wapiti" synonyme de "cerf", la fiche de "cerf" doit aussi proposer
  * "wapiti" — la synonymie est symétrique, et elle ne va pas saisir la
  * relation deux fois.

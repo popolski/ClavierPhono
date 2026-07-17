@@ -44,7 +44,7 @@ function App() {
                 }
               />
               <Route
-                path="/enseignante"
+                path="/enseignant"
                 element={
                   <RequireAuth teacherOnly>
                     <Admin />

@@ -1,4 +1,4 @@
-// Convertit la base EQOL (fournie en xlsx par l'enseignante, source :
+// Convertit la base EQOL (fournie en xlsx par l'enseignant, source :
 // appligogiques.com/eqol) en CSV UTF-8, pour être lue par
 // build-word-index.mjs sans dépendance xlsx au moment du build principal.
 //

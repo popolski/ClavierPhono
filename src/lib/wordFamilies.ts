@@ -6,7 +6,7 @@ let cached: Promise<WordFamilyIndex> | null = null
 /**
  * Charge src/data/word-families.json (Démonette croisé avec notre lexique) en
  * lazy import, fusionné avec les "mots de la même famille" saisis à la main
- * par l'enseignante pour ses propres mots (voir addedLexicon).
+ * par l'enseignant pour ses propres mots (voir addedLexicon).
  */
 export function loadWordFamilies(): Promise<WordFamilyIndex> {
   if (!cached) {

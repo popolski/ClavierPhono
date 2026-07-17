@@ -1,4 +1,4 @@
--- Schéma de la base "espace enseignante" (comptes élèves + mots ajoutés au
+-- Schéma de la base "espace enseignant" (comptes élèves + mots ajoutés au
 -- lexique). À exécuter une fois dans phpMyAdmin (OVH manager -> Bases de
 -- données -> Adminer/phpMyAdmin) sur la base créée pour ce projet.
 --
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS students (
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Mots ajoutés manuellement par l'enseignante, absents du lexique généré.
+-- Mots ajoutés manuellement par l'enseignant, absents du lexique généré.
 -- "phonemes" stocke la séquence sous forme JSON (ex. ["b","a","t","o"]),
 -- même format que src/data/words-clavier2.json, pour rester compatible avec
 -- le décodage phonétique déjà utilisé côté site.

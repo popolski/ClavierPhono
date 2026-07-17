@@ -6,7 +6,7 @@ let cachedAntonyms: Promise<WordRelationIndex> | null = null
 
 /**
  * Charge src/data/word-synonyms.json (JeuxDeMots croisé avec notre lexique) en
- * lazy import, fusionné avec les synonymes saisis à la main par l'enseignante
+ * lazy import, fusionné avec les synonymes saisis à la main par l'enseignant
  * pour ses propres mots (voir addedLexicon).
  */
 export function loadWordSynonyms(): Promise<WordRelationIndex> {

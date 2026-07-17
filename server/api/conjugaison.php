@@ -1,6 +1,6 @@
 <?php
 // Génération de la conjugaison d'un verbe régulier du 1er groupe, pour les
-// verbes ajoutés à la main par l'enseignante (absents de Lexique383, donc
+// verbes ajoutés à la main par l'enseignant (absents de Lexique383, donc
 // absents des tableaux générés au build).
 //
 // Port fidèle de la logique de scripts/build-conjugation-index.mjs

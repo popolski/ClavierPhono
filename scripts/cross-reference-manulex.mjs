@@ -56,7 +56,7 @@ for (const e of absentButFrequent) {
   console.log(`  ${e.word} (${e.category}, freqLivres=${e.frequency})`)
 }
 
-// CSV enrichi pour la relecture par l'enseignante.
+// CSV enrichi pour la relecture par l'enseignant.
 const csvHeader = 'mot;categorie;role;famille;freq_livres;vu_manulex;manulex_sfi_cp_cm2\n'
 const csvRows = enriched
   .map(

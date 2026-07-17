@@ -29,7 +29,7 @@
 // base (shareRadical), quelle que soit la raison du rapprochement Démonette.
 //
 // Prérequis : third_party/demonette/lexemes.csv (fichier "lexemes.csv" du
-// dossier Démonext fourni par l'enseignante, non versionné).
+// dossier Démonext fourni par l'enseignant, non versionné).
 //
 // Lancé à la main, après build-word-index.mjs : node scripts/build-word-families.mjs
 import { readFileSync, writeFileSync } from 'node:fs'

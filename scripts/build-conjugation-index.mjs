@@ -166,7 +166,7 @@ const avoir = byLemma.get('avoir')
 const etre = byLemma.get('être')
 
 // 9 personnes explicites (je/tu/il/elle/on/nous/vous/ils/elles), comme sur
-// la maquette de l'enseignante — pas les 6 cases grammaticales 1s/2s/3s/1p/
+// la maquette de l'enseignant — pas les 6 cases grammaticales 1s/2s/3s/1p/
 // 2p/3p, car "il"/"elle" partagent la même forme conjuguée au présent/futur/
 // imparfait mais PAS au passé composé avec l'auxiliaire "être"
 // ("il est allé" vs "elle est allée").

@@ -1,7 +1,7 @@
 <?php
-// Crée le compte enseignante initial. Protégé par SETUP_TOKEN (défini dans
+// Crée le compte enseignant initial. Protégé par SETUP_TOKEN (défini dans
 // config.php, connu de toi seul) — utilisable une seule fois : refuse si un
-// compte enseignante existe déjà. Supprime ce fichier (ou renomme-le) une
+// compte enseignant existe déjà. Supprime ce fichier (ou renomme-le) une
 // fois le compte créé, par précaution supplémentaire.
 require_once __DIR__ . '/auth.php';
 configureSession();
@@ -22,7 +22,7 @@ if (!hash_equals(SETUP_TOKEN, $token)) {
 $db = getDb();
 $existing = $db->query('SELECT COUNT(*) FROM teachers')->fetchColumn();
 if ((int) $existing > 0) {
-    jsonResponse(409, ['error' => 'Un compte enseignante existe déjà']);
+    jsonResponse(409, ['error' => 'Un compte enseignant existe déjà']);
 }
 
 if ($username === '' || mb_strlen($username) > 100) {

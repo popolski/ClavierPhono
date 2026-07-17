@@ -1,6 +1,6 @@
-# Backend "espace enseignante" (PHP + MySQL, OVH)
+# Backend "espace enseignant" (PHP + MySQL, OVH)
 
-API pour l'authentification (élèves + enseignante), la gestion des comptes
+API pour l'authentification (élèves + enseignant), la gestion des comptes
 élèves, et l'ajout de mots au lexique — hébergée à côté du site statique,
 dans `/clicmots/api/` sur le même hébergement OVH. Nécessite PHP 8.x
 (`password_hash`) et une base MySQL.
@@ -27,13 +27,13 @@ dans `/clicmots/api/` sur le même hébergement OVH. Nécessite PHP 8.x
    déployé) — c'est ce chemin `/clicmots/api/...` que le frontend appelle.
    `setup.html` peut rester où tu veux (ex. directement dans `/clicmots/`),
    tu n'en as besoin qu'une fois.
-5. **Créer le compte enseignante** : ouvre `setup.html` dans ton navigateur
+5. **Créer le compte enseignant** : ouvre `setup.html` dans ton navigateur
    (ex. `https://www.cours-vandewalle.fr/clicmots/setup.html`), remplis le
    jeton (celui mis dans `config.php`), un identifiant et un mot de passe
    pour ta compagne. Une fois le compte créé, **supprime** `setup.html` et
    `api/setup.php` du serveur (sécurité : empêche quiconque de retenter la
    création d'un compte, même si ça échouerait de toute façon tant qu'un
-   compte enseignante existe déjà).
+   compte enseignant existe déjà).
 
 ## Sécurité
 
@@ -53,14 +53,14 @@ dans `/clicmots/api/` sur le même hébergement OVH. Nécessite PHP 8.x
 | POST | `/api/login.php` | public | `{identifiant, motDePasse}` → session |
 | POST | `/api/logout.php` | connecté | détruit la session |
 | GET | `/api/session.php` | public | état de connexion actuel |
-| GET | `/api/students.php` | enseignante | liste des élèves |
-| POST | `/api/students.php` | enseignante | `{prenom, motDePasse}` → crée un élève |
-| DELETE | `/api/students.php?id=` | enseignante | supprime un élève |
+| GET | `/api/students.php` | enseignant | liste des élèves |
+| POST | `/api/students.php` | enseignant | `{prenom, motDePasse}` → crée un élève |
+| DELETE | `/api/students.php?id=` | enseignant | supprime un élève |
 | GET | `/api/lexicon.php` | connecté | mots ajoutés, avec conjugaison et relations |
-| POST | `/api/lexicon.php` | enseignante | `{mot, categorie, genre?, phonemes}` |
-| DELETE | `/api/lexicon.php?id=` | enseignante | supprime un mot ajouté (et ses relations) |
-| POST | `/api/relations.php` | enseignante | `{wordId, type, targetLemmaId, targetWord, targetCategory}` |
-| DELETE | `/api/relations.php?wordId=&type=&targetLemmaId=` | enseignante | retire une relation |
+| POST | `/api/lexicon.php` | enseignant | `{mot, categorie, genre?, phonemes}` |
+| DELETE | `/api/lexicon.php?id=` | enseignant | supprime un mot ajouté (et ses relations) |
+| POST | `/api/relations.php` | enseignant | `{wordId, type, targetLemmaId, targetWord, targetCategory}` |
+| DELETE | `/api/relations.php?wordId=&type=&targetLemmaId=` | enseignant | retire une relation |
 
 ## Conjugaison des verbes ajoutés
 
@@ -78,6 +78,6 @@ de conjugaison qu'une orthographe inventée montrée à un enfant.
 
 Elles ne sont pas déductibles pour un mot ajouté : Démonette et JeuxDeMots
 ne le connaissent pas, et ces bases (~400 Mo) ne sont pas embarquées — elles
-ne servent qu'au build. L'enseignante les saisit donc à la main, en piochant
+ne servent qu'au build. L'enseignant les saisit donc à la main, en piochant
 dans le lexique existant. Elles sont symétriques : déclarer "wapiti"
 synonyme de "cerf" fait aussi apparaître "wapiti" sur la fiche de "cerf".

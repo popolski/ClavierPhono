@@ -69,7 +69,7 @@ Améliorée (CAA).
 ## Gestes Borel-Maisonny
 
 Les illustrations des gestes Borel-Maisonny affichées dans la fiche de
-chaque son proviennent d'un kit pédagogique acheté par l'enseignante à
+chaque son proviennent d'un kit pédagogique acheté par l'enseignant à
 l'origine du projet, pour un usage en classe.
 
 ## Réutilisation

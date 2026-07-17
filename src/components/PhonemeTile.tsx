@@ -8,7 +8,7 @@ interface PhonemeTileProps {
   onShowInfo: (id: PhonemeId) => void
 }
 
-// Repris de la photo du vrai Clavier Métalo fournie par l'enseignante :
+// Repris de la photo du vrai Clavier Métalo fournie par l'enseignant :
 // graphie principale en GRAND en haut, jusqu'à 2 graphies secondaires plus
 // PETITES en dessous (pas la même taille — une tentative précédente les
 // mettait toutes à la même taille "sur le modèle du Métalo", mais en

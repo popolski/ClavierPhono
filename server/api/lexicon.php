@@ -2,7 +2,7 @@
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/conjugaison.php';
 configureSession();
-$user = requireAuth(); // élève ou enseignante : tout le monde peut lire les mots ajoutés
+$user = requireAuth(); // élève ou enseignant : tout le monde peut lire les mots ajoutés
 
 $db = getDb();
 $method = $_SERVER['REQUEST_METHOD'];
@@ -42,7 +42,7 @@ if ($method === 'GET') {
 
 if ($method === 'POST') {
     if ($user['role'] !== 'teacher') {
-        jsonResponse(403, ['error' => 'Réservé à l\'enseignante']);
+        jsonResponse(403, ['error' => 'Réservé à l\'enseignant']);
     }
 
     // Séquence de touches valides du clavier phonétique (src/data/phonemes.json)
@@ -128,7 +128,7 @@ if ($method === 'POST') {
 
 if ($method === 'DELETE') {
     if ($user['role'] !== 'teacher') {
-        jsonResponse(403, ['error' => 'Réservé à l\'enseignante']);
+        jsonResponse(403, ['error' => 'Réservé à l\'enseignant']);
     }
     $id = (int) ($_GET['id'] ?? 0);
     if ($id <= 0) {
