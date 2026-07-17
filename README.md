@@ -4,7 +4,7 @@ Clic & Mots est un assistant d'écriture phonologique pour l'école primaire
 qui permet aux élèves de retrouver l'orthographe d'un mot à partir de ses
 sons, puis d'en explorer la prononciation, les formes grammaticales, la
 conjugaison et les relations lexicales. Gratuit, conçu pour une classe du CP
-au CM2 — un équivalent libre du "Clavier Métalo" payant.
+au CM2.
 
 **En ligne : [www.cours-vandewalle.fr/clicmots](https://www.cours-vandewalle.fr/clicmots/)**
 
