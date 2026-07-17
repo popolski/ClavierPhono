@@ -9,7 +9,7 @@ import { buildPhonemeTrie, getMatches, getViableNextPhonemes, groupIntoCards } f
 import type { PhonemeTrieNode } from './clavierLogic'
 import { loadWordIndex } from '../../lib/wordIndex'
 import { phonemes } from '../../lib/phonemes'
-import type { PhonemeId } from '../../types/phonetics'
+import type { PhonemeId, WordEntry } from '../../types/phonetics'
 
 export function ClavierTool() {
   // La séquence vit dans l'URL (?seq=ch,ou,e,t), pas dans un simple useState :
@@ -23,6 +23,7 @@ export function ClavierTool() {
   }, [searchParams])
   const [infoPhonemeId, setInfoPhonemeId] = useState<PhonemeId | null>(null)
   const [trie, setTrie] = useState<PhonemeTrieNode | null>(null)
+  const [words, setWords] = useState<WordEntry[] | null>(null)
   // Les résultats restent cachés tant qu'on ne les demande pas explicitement
   // (comme le bouton "résultats" du vrai Clavier Métalo) — avec 32 000 mots,
   // tout afficher dès le premier son cliqué est illisible. Se recache dès
@@ -32,8 +33,11 @@ export function ClavierTool() {
 
   useEffect(() => {
     let cancelled = false
-    loadWordIndex().then((words) => {
-      if (!cancelled) setTrie(buildPhonemeTrie(words))
+    loadWordIndex().then((loaded) => {
+      if (!cancelled) {
+        setTrie(buildPhonemeTrie(loaded))
+        setWords(loaded)
+      }
     })
     return () => {
       cancelled = true
@@ -47,8 +51,8 @@ export function ClavierTool() {
     [trie, sequence],
   )
   const cards = useMemo(
-    () => (!trie || sequence.length === 0 ? [] : groupIntoCards(getMatches(trie, sequence))),
-    [trie, sequence],
+    () => (!trie || sequence.length === 0 ? [] : groupIntoCards(getMatches(trie, sequence), words ?? undefined)),
+    [trie, sequence, words],
   )
 
   const infoPhoneme = infoPhonemeId ? phonemesById.get(infoPhonemeId) : undefined

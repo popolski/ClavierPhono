@@ -100,8 +100,18 @@ const FORM_ROLE_ORDER: WordFormRole[] = [
  * Groups matched entries by word family (lemmaId) into cards, matching the
  * original tool's results page — one card per word, its inflected forms
  * shown together rather than as separate results.
+ *
+ * `fullIndex` (le lexique complet, pas seulement les entrées qui ont matché
+ * la recherche) sert à retrouver l'infinitif d'un verbe même quand la
+ * recherche phonétique ne l'a pas matché. Un verbe conjugué peut avoir des
+ * phonèmes très différents de son infinitif (ex. "halète" = a-l-e-t, contre
+ * "haleter" = a-l-eu-t-e — la prononciation du "e" change) : sans ce
+ * repêchage, pickPrimaryForm ne trouve aucune forme "infinitif" parmi les
+ * entrées matchées et retombe sur la forme conjuguée trouvée, qui s'affiche
+ * alors à tort comme le mot de la tuile (et fausse aussi le calcul du groupe
+ * verbal, basé sur la terminaison de l'infinitif).
  */
-export function groupIntoCards(entries: WordEntry[]): WordCard[] {
+export function groupIntoCards(entries: WordEntry[], fullIndex?: WordEntry[]): WordCard[] {
   const byLemma = new Map<string, WordEntry[]>()
   for (const entry of entries) {
     const forms = byLemma.get(entry.lemmaId)
@@ -112,12 +122,26 @@ export function groupIntoCards(entries: WordEntry[]): WordCard[] {
     }
   }
 
-  const cards: WordCard[] = Array.from(byLemma.values()).map((forms) => ({
-    lemmaId: forms[0].lemmaId,
-    category: forms[0].category,
-    forms: [...forms].sort((a, b) => FORM_ROLE_ORDER.indexOf(a.formRole) - FORM_ROLE_ORDER.indexOf(b.formRole)),
-    frequency: Math.max(...forms.map((f) => f.frequency)),
-  }))
+  const infinitifByLemma = new Map<string, WordEntry>()
+  if (fullIndex) {
+    for (const e of fullIndex) {
+      if (e.category === 'verbe' && e.formRole === 'infinitif') infinitifByLemma.set(e.lemmaId, e)
+    }
+  }
+
+  const cards: WordCard[] = Array.from(byLemma.values()).map((matchedForms) => {
+    let forms = matchedForms
+    if (forms[0].category === 'verbe' && !forms.some((f) => f.formRole === 'infinitif')) {
+      const infinitif = infinitifByLemma.get(forms[0].lemmaId)
+      if (infinitif) forms = [infinitif, ...forms]
+    }
+    return {
+      lemmaId: forms[0].lemmaId,
+      category: forms[0].category,
+      forms: [...forms].sort((a, b) => FORM_ROLE_ORDER.indexOf(a.formRole) - FORM_ROLE_ORDER.indexOf(b.formRole)),
+      frequency: Math.max(...matchedForms.map((f) => f.frequency)),
+    }
+  })
 
   return cards.sort((a, b) => b.frequency - a.frequency)
 }

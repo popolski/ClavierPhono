@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ToolLayout } from '../../components/ToolLayout'
 import { loadWordIndex } from '../../lib/wordIndex'
@@ -6,6 +6,8 @@ import { estMotAjoute, loadAddedWords } from '../../lib/addedLexicon'
 import { loadWordFamilies } from '../../lib/wordFamilies'
 import { loadWordSynonyms, loadWordAntonyms } from '../../lib/wordSynonyms'
 import { pickPrimaryForm } from '../clavier/clavierLogic'
+import { verbGroup } from '../conjugueur/conjugueurLogic'
+import { loadConjugations } from '../../lib/conjugations'
 import { assetUrl } from '../../lib/assetUrl'
 import { speak, speechSupported } from '../../lib/speech'
 import type {
@@ -70,6 +72,27 @@ function formLabel(f: WordEntry, hasBothGenders: boolean): string {
   return FORM_ROLE_LABEL[f.formRole] ?? f.formRole
 }
 
+/** « (1er groupe) » sous le mot de la fiche — null tant que non déterminé/non applicable. */
+function useGroupeVerbe(word: string, category?: WordCategory): string | null {
+  const [groupe, setGroupe] = useState<string | null>(null)
+  useEffect(() => {
+    if (category !== 'verbe' || !word) {
+      setGroupe(null)
+      return
+    }
+    let annule = false
+    loadConjugations().then((index) => {
+      if (annule) return
+      const g = verbGroup(word, index[word]?.present.nous)
+      setGroupe(g === '1er' ? '1er groupe' : g === '2e' ? '2e groupe' : '3e groupe')
+    })
+    return () => {
+      annule = true
+    }
+  }, [word, category])
+  return groupe
+}
+
 function WordChip({ member }: { member: WordRelationMember }) {
   return (
     <Link
@@ -115,6 +138,12 @@ export function MotTool() {
     }
   }, [lemmaId])
 
+  const primaryMemo = useMemo(
+    () => (forms && forms.length > 0 ? pickPrimaryForm(forms) : undefined),
+    [forms],
+  )
+  const groupe = useGroupeVerbe(primaryMemo?.word ?? '', primaryMemo?.category)
+
   if (!forms || !family || !synonyms || !antonyms) {
     return (
       <ToolLayout title="Fiche mot" description="Chargement…" showBackToKeyboard>
@@ -123,7 +152,7 @@ export function MotTool() {
     )
   }
 
-  const primary = forms.length > 0 ? pickPrimaryForm(forms) : undefined
+  const primary = primaryMemo
   if (!primary) {
     return (
       <ToolLayout title="Fiche mot" description="Mot introuvable" showBackToKeyboard>
@@ -145,7 +174,7 @@ export function MotTool() {
   return (
     <ToolLayout
       title={primary.word}
-      description=""
+      description={groupe ? `(${groupe})` : ''}
       showBackToKeyboard
       titleIcon={
         <div className="flex flex-col items-center gap-1">

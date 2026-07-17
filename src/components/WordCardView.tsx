@@ -1,9 +1,6 @@
-import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { WordCard, WordCategory } from '../types/phonetics'
 import { pickPrimaryForm } from '../tools/clavier/clavierLogic'
-import { verbGroup } from '../tools/conjugueur/conjugueurLogic'
-import { loadConjugations } from '../lib/conjugations'
 import { assetUrl } from '../lib/assetUrl'
 import { speak, speechSupported } from '../lib/speech'
 
@@ -35,34 +32,13 @@ const CATEGORY_MASCOT: Record<WordCategory, string> = {
   adverbe: '/mascottes/adverbe.png',
 }
 
-/** « (1er groupe) » à côté d'un verbe dans les résultats — null tant que non déterminé/non applicable. */
-function useGroupeVerbe(word: string, category: WordCategory): string | null {
-  const [groupe, setGroupe] = useState<string | null>(null)
-  useEffect(() => {
-    if (category !== 'verbe') {
-      setGroupe(null)
-      return
-    }
-    let annule = false
-    loadConjugations().then((index) => {
-      if (annule) return
-      const g = verbGroup(word, index[word]?.present.nous)
-      setGroupe(g === '1er' ? '1er groupe' : g === '2e' ? '2e groupe' : '3e groupe')
-    })
-    return () => {
-      annule = true
-    }
-  }, [word, category])
-  return groupe
-}
-
 export function WordCardView({ card }: WordCardViewProps) {
   const style = categoryStyles[card.category]
   // Forme "de base" affichée dans les résultats — les autres formes (pluriel,
   // féminin, participe passé) n'apparaissent que dans la fiche mot (tuile
-  // cliquable), pour ne pas surcharger la liste de résultats.
+  // cliquable), pour ne pas surcharger la liste de résultats. Le groupe
+  // verbal n'est affiché que sur la fiche mot elle-même (MotTool), pas ici.
   const primary = pickPrimaryForm(card.forms)
-  const groupe = useGroupeVerbe(primary.word, card.category)
 
   return (
     <div className={`relative flex items-center justify-between gap-2 rounded-lg border px-4 py-2 shadow-sm transition hover:shadow-md ${style}`}>
@@ -73,10 +49,9 @@ export function WordCardView({ card }: WordCardViewProps) {
           l'un dans l'autre = HTML invalide), d'où cette séparation en
           calque plutôt qu'une imbrication directe. */}
       <Link to={`/mot/${encodeURIComponent(card.lemmaId)}`} className="absolute inset-0" aria-label={primary.word} />
-      <div className="flex min-w-0 items-center gap-2">
-        <span className="truncate text-2xl font-medium">{primary.word}</span>
-        {groupe && <span className="shrink-0 text-sm opacity-70">({groupe})</span>}
-        {/* Juste à côté du mot, pas groupé avec la mascotte à droite. */}
+      <span className="min-w-0 truncate text-2xl font-medium">{primary.word}</span>
+      {/* Haut-parleur juste à côté de la mascotte, à droite. */}
+      <div className="relative z-10 flex shrink-0 items-center gap-1">
         {speechSupported() && (
           <button
             type="button"
@@ -85,17 +60,13 @@ export function WordCardView({ card }: WordCardViewProps) {
               speak(primary.word)
             }}
             aria-label={`Écouter « ${primary.word} »`}
-            className="relative z-10 shrink-0 rounded-full p-1 text-xl leading-none hover:bg-black/10 active:scale-95"
+            className="shrink-0 rounded-full p-1 text-xl leading-none hover:bg-black/10 active:scale-95"
           >
             🔊
           </button>
         )}
+        <img src={assetUrl(CATEGORY_MASCOT[card.category])} alt="" className="h-10 w-10 shrink-0 object-contain" />
       </div>
-      <img
-        src={assetUrl(CATEGORY_MASCOT[card.category])}
-        alt=""
-        className="relative z-10 h-10 w-10 shrink-0 object-contain"
-      />
     </div>
   )
 }
