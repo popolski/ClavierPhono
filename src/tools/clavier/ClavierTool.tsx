@@ -29,7 +29,13 @@ export function ClavierTool() {
   // tout afficher dès le premier son cliqué est illisible. Se recache dès
   // qu'on ajoute/retire un son, pour ne montrer les résultats que quand la
   // séquence est vraiment celle qu'on veut consulter.
-  const [resultsRevealed, setResultsRevealed] = useState(false)
+  //
+  // Vit dans l'URL (?resultats=1), comme la séquence elle-même : cliquer un
+  // mot quitte cette page (fiche mot), ce qui démonte le composant — un
+  // simple useState retombait à false au retour (bouton "Retour", pas
+  // "Retour au clavier"), obligeant à recliquer "Voir les mots" à chaque
+  // fois alors que la recherche était toujours la même.
+  const resultsRevealed = searchParams.get('resultats') === '1'
 
   useEffect(() => {
     let cancelled = false
@@ -62,8 +68,12 @@ export function ClavierTool() {
     // replace (pas push) : chaque son cliqué ne doit pas créer une entrée
     // d'historique séparée, sinon "Précédent" du navigateur n'irait retirer
     // qu'un seul phonème à la fois au lieu de sortir du clavier.
+    // resultats retiré : changer la séquence invalide les résultats affichés.
     setSearchParams(next.length > 0 ? { seq: next.join(',') } : {}, { replace: true })
-    setResultsRevealed(false)
+  }
+
+  function revealResults() {
+    setSearchParams(sequence.length > 0 ? { seq: sequence.join(','), resultats: '1' } : {}, { replace: true })
   }
 
   return (
@@ -88,7 +98,7 @@ export function ClavierTool() {
               {cards.length > 0 ? (
                 <button
                   type="button"
-                  onClick={() => setResultsRevealed(true)}
+                  onClick={revealResults}
                   className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-6 py-3 text-lg font-medium text-white shadow-sm hover:bg-brand-700 active:scale-95"
                 >
                   🔍 Voir les mots
