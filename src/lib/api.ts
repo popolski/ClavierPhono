@@ -89,6 +89,8 @@ export const api = {
     word: Pick<LexiconWord, 'mot' | 'categorie' | 'phonemes' | 'genre'> & {
       femininMot?: string
       femininPhonemes?: string[]
+      /** Conjugaison trouvée côté client (conjugation-fr), vérifiée visuellement avant envoi — voir Admin.tsx. */
+      conjugaison?: AddedConjugation
     },
   ) =>
     request<{ id: number; conjugaisonGeneree: boolean; audioGeneree: boolean }>('lexicon.php', {

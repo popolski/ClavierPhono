@@ -55,6 +55,45 @@ if ($method === 'POST') {
     ];
     $validCategories = ['nom', 'adjectif', 'verbe', 'adverbe', 'invariable'];
 
+    // Le client envoie un tableau déjà calculé (conjugation-fr) et vérifié
+    // visuellement par l'enseignante — on ne le régénère pas, mais on ne lui
+    // fait pas non plus une confiance aveugle : structure et personnes
+    // attendues, sinon on retombe sur le générateur PHP (voir plus bas).
+    function validerConjugaisonEnvoyee(mixed $conjugaison): ?array
+    {
+        if (!is_array($conjugaison)) {
+            return null;
+        }
+        $personnes = ['je', 'tu', 'il', 'elle', 'on', 'nous', 'vous', 'ils', 'elles'];
+        $temps = ['present', 'futur', 'imparfait', 'passeCompose'];
+
+        if (!is_string($conjugaison['infinitif'] ?? null)) {
+            return null;
+        }
+        if (!in_array($conjugaison['auxiliaire'] ?? null, ['avoir', 'être'], true)) {
+            return null;
+        }
+        foreach ($temps as $t) {
+            if (!is_array($conjugaison[$t] ?? null)) {
+                return null;
+            }
+            foreach ($personnes as $p) {
+                if (!is_string($conjugaison[$t][$p] ?? null)) {
+                    return null;
+                }
+            }
+        }
+
+        return [
+            'infinitif' => $conjugaison['infinitif'],
+            'auxiliaire' => $conjugaison['auxiliaire'],
+            'present' => array_intersect_key($conjugaison['present'], array_flip($personnes)),
+            'futur' => array_intersect_key($conjugaison['futur'], array_flip($personnes)),
+            'imparfait' => array_intersect_key($conjugaison['imparfait'], array_flip($personnes)),
+            'passeCompose' => array_intersect_key($conjugaison['passeCompose'], array_flip($personnes)),
+        ];
+    }
+
     function validerSequence(array $validIds, mixed $phonemes, string $label): array
     {
         if (!is_array($phonemes) || count($phonemes) === 0) {
@@ -99,10 +138,18 @@ if ($method === 'POST') {
         $femininPhonemes = validerSequence($validPhonemeIds, $body['femininPhonemes'] ?? null, 'féminin');
     }
 
-    // Conjugaison calculée à l'ajout, une fois pour toutes. null si le verbe
-    // n'est pas régulier (ou si ce n'est pas un verbe) : mieux vaut pas de
+    // Conjugaison calculée à l'ajout, une fois pour toutes. Le client peut
+    // avoir déjà trouvé un tableau via conjugation-fr (base ~7000 verbes,
+    // bien plus large que le générateur PHP ci-dessous limité aux -er
+    // réguliers "sûrs") et l'enseignante l'a vérifié visuellement avant
+    // l'envoi (voir Admin.tsx) — on lui fait confiance s'il est bien formé.
+    // Sinon, repli sur le générateur PHP déterministe. null si aucun des
+    // deux n'aboutit (ou si ce n'est pas un verbe) : mieux vaut pas de
     // tableau qu'un tableau inventé.
-    $conjugaison = $categorie === 'verbe' ? genererConjugaison($mot) : null;
+    $conjugaison = $categorie === 'verbe' ? validerConjugaisonEnvoyee($body['conjugaison'] ?? null) : null;
+    if ($conjugaison === null && $categorie === 'verbe') {
+        $conjugaison = genererConjugaison($mot);
+    }
 
     $stmt = $db->prepare(
         'INSERT INTO lexicon_additions

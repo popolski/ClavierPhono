@@ -4,6 +4,8 @@ import { api } from '../lib/api'
 import type { LexiconWord, Student } from '../lib/api'
 import { phonemes } from '../lib/phonemes'
 import { RelationsEditor } from './RelationsEditor'
+import type { VerbConjugation } from '../lib/conjugations'
+import { PERSONNES_SINGULIER, PERSONNES_PLURIEL, PRONOMS } from '../tools/conjugueur/conjugueurLogic'
 
 type Categorie = LexiconWord['categorie']
 
@@ -173,6 +175,37 @@ function SequencePicker({
   )
 }
 
+/**
+ * Aperçu de la conjugaison générée automatiquement (conjugation-fr, voir
+ * src/lib/externalConjugation.ts) — l'enseignante valide visuellement avant
+ * d'ajouter le mot, seul filet de sécurité puisque cette base couvre aussi
+ * des verbes irréguliers que le générateur PHP (déterministe uniquement)
+ * n'aurait jamais osé conjuguer seul.
+ */
+function ConjugaisonPreview({ conjugaison }: { conjugaison: VerbConjugation }) {
+  return (
+    <div className="mt-3 rounded-lg border border-amber-300 bg-white/60 p-3">
+      <p className="mb-2 text-sm font-semibold text-green-800">
+        ✓ Conjugaison trouvée (auxiliaire « {conjugaison.auxiliaire} ») — vérifie qu'elle est correcte :
+      </p>
+      <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm sm:grid-cols-4">
+        {(['present', 'imparfait', 'futur', 'passeCompose'] as const).map((temps) => (
+          <div key={temps}>
+            <div className="mb-1 text-xs font-semibold tracking-wide text-gray-500 uppercase">
+              {temps === 'present' ? 'Présent' : temps === 'imparfait' ? 'Imparfait' : temps === 'futur' ? 'Futur' : 'Passé composé'}
+            </div>
+            {[...PERSONNES_SINGULIER, ...PERSONNES_PLURIEL].map((p) => (
+              <div key={p} className="text-gray-700">
+                {PRONOMS[p]} {conjugaison[temps][p]}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function SectionMots() {
   const [words, setWords] = useState<LexiconWord[] | null>(null)
   const [mot, setMot] = useState('')
@@ -185,6 +218,26 @@ function SectionMots() {
   const [enCours, setEnCours] = useState(false)
   /** Id du mot dont le panneau de relations est déplié (un seul à la fois). */
   const [ouvert, setOuvert] = useState<number | null>(null)
+  // undefined = pas encore cherché/en cours, null = verbe non trouvé dans conjugation-fr.
+  const [conjugaisonPreview, setConjugaisonPreview] = useState<VerbConjugation | null | undefined>(undefined)
+
+  useEffect(() => {
+    if (categorie !== 'verbe' || mot.trim() === '') {
+      setConjugaisonPreview(undefined)
+      return
+    }
+    let annule = false
+    // Débounce : pas la peine de recalculer à chaque frappe.
+    const timer = setTimeout(() => {
+      import('../lib/externalConjugation').then(({ genererConjugaisonExterne }) => {
+        if (!annule) setConjugaisonPreview(genererConjugaisonExterne(mot.trim()))
+      })
+    }, 300)
+    return () => {
+      annule = true
+      clearTimeout(timer)
+    }
+  }, [mot, categorie])
 
   function rafraichir() {
     return api
@@ -218,6 +271,7 @@ function SectionMots() {
         ...(categorie === 'adjectif' && femininMot.trim() !== ''
           ? { femininMot: femininMot.trim(), femininPhonemes: femininSequence }
           : {}),
+        ...(categorie === 'verbe' && conjugaisonPreview ? { conjugaison: conjugaisonPreview } : {}),
       })
       await rafraichir()
       setMot('')
@@ -225,6 +279,7 @@ function SectionMots() {
       setGenre('')
       setFemininMot('')
       setFemininSequence([])
+      setConjugaisonPreview(undefined)
     } catch (e) {
       setErreur(e instanceof Error ? e.message : 'Une erreur est survenue')
     } finally {
@@ -291,6 +346,18 @@ function SectionMots() {
         <div className="mt-4">
           <SequencePicker label="Les sons du mot" sequence={sequence} onChange={setSequence} />
         </div>
+
+        {categorie === 'verbe' && mot.trim() !== '' && (
+          conjugaisonPreview ? (
+            <ConjugaisonPreview conjugaison={conjugaisonPreview} />
+          ) : (
+            <p className="mt-3 rounded-lg border border-amber-300 bg-white/60 p-3 text-sm text-gray-600">
+              {conjugaisonPreview === null
+                ? 'Conjugaison non trouvée automatiquement pour ce verbe — il sera ajouté sans tableau de conjugaison.'
+                : 'Recherche de la conjugaison…'}
+            </p>
+          )
+        )}
 
         {categorie === 'adjectif' && (
           <div className="mt-4 rounded-lg border border-amber-300 bg-white/60 p-3">
