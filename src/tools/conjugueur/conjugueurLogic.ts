@@ -106,8 +106,17 @@ const VOYELLE_OU_H = /^[aeiouyàâäéèêëïîôöùûüh]/i
 
 /**
  * "Je" s'élide en "J'" devant une voyelle ou un h muet (j'ai, j'aime,
- * j'habite) — seul pronom sujet concerné parmi les 9.
+ * j'habite) — seul pronom sujet concerné parmi les 9. Variante texte brut
+ * (pas de StyledForm) pour un simple affichage sans coloration, ex. l'aperçu
+ * de conjugaison de l'espace enseignant (Admin.tsx).
  */
+export function pronomAfficheTexte(personne: string, formeConjuguee: string): string {
+  if (personne === 'je' && VOYELLE_OU_H.test(formeConjuguee[0] ?? '')) {
+    return "J'"
+  }
+  return PRONOMS[personne]
+}
+
 export function pronomAffiche(personne: string, form: StyledForm): string {
   const premiereLettre = (form.redPrefix || form.stem || form.redEnding)[0] ?? ''
   if (personne === 'je' && VOYELLE_OU_H.test(premiereLettre)) {

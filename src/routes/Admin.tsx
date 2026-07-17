@@ -5,7 +5,7 @@ import type { LexiconWord, Student } from '../lib/api'
 import { phonemes } from '../lib/phonemes'
 import { RelationsEditor } from './RelationsEditor'
 import type { VerbConjugation } from '../lib/conjugations'
-import { PERSONNES_SINGULIER, PERSONNES_PLURIEL, PRONOMS } from '../tools/conjugueur/conjugueurLogic'
+import { PERSONNES_SINGULIER, PERSONNES_PLURIEL, pronomAfficheTexte } from '../tools/conjugueur/conjugueurLogic'
 
 type Categorie = LexiconWord['categorie']
 
@@ -177,16 +177,16 @@ function SequencePicker({
 
 /**
  * Aperçu de la conjugaison générée automatiquement (conjugation-fr, voir
- * src/lib/externalConjugation.ts) — l'enseignante valide visuellement avant
- * d'ajouter le mot, seul filet de sécurité puisque cette base couvre aussi
- * des verbes irréguliers que le générateur PHP (déterministe uniquement)
- * n'aurait jamais osé conjuguer seul.
+ * src/lib/externalConjugation.ts), affiché avant l'ajout du mot. Purement
+ * informatif : il n'y a pas de champ pour la corriger, donc pas de texte
+ * demandant une vérification qu'on ne peut pas honorer — la conjugaison
+ * envoyée est celle-ci, telle quelle.
  */
 function ConjugaisonPreview({ conjugaison }: { conjugaison: VerbConjugation }) {
   return (
     <div className="mt-3 rounded-lg border border-amber-300 bg-white/60 p-3">
       <p className="mb-2 text-sm font-semibold text-green-800">
-        ✓ Conjugaison trouvée (auxiliaire « {conjugaison.auxiliaire} ») — vérifie qu'elle est correcte :
+        ✓ Conjugaison trouvée (auxiliaire « {conjugaison.auxiliaire} ») :
       </p>
       <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm sm:grid-cols-4">
         {(['present', 'imparfait', 'futur', 'passeCompose'] as const).map((temps) => (
@@ -194,11 +194,16 @@ function ConjugaisonPreview({ conjugaison }: { conjugaison: VerbConjugation }) {
             <div className="mb-1 text-xs font-semibold tracking-wide text-gray-500 uppercase">
               {temps === 'present' ? 'Présent' : temps === 'imparfait' ? 'Imparfait' : temps === 'futur' ? 'Futur' : 'Passé composé'}
             </div>
-            {[...PERSONNES_SINGULIER, ...PERSONNES_PLURIEL].map((p) => (
-              <div key={p} className="text-gray-700">
-                {PRONOMS[p]} {conjugaison[temps][p]}
-              </div>
-            ))}
+            {[...PERSONNES_SINGULIER, ...PERSONNES_PLURIEL].map((p) => {
+              const pronom = pronomAfficheTexte(p, conjugaison[temps][p])
+              return (
+                <div key={p} className="text-gray-700">
+                  {pronom}
+                  {pronom.endsWith("'") ? '' : ' '}
+                  {conjugaison[temps][p]}
+                </div>
+              )
+            })}
           </div>
         ))}
       </div>
