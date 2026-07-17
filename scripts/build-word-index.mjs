@@ -306,6 +306,23 @@ for (const [lemme, verbRows] of verbRowsByLemma) {
   for (const row of verbRows) {
     addEntry(`verbe:${lemme}`, 'verbe', row.ortho, row.phonemes, row.role, row.manulexSfi ?? representativeSfi)
   }
+
+  // Un verbe rare peut n'avoir AUCUNE ligne étiquetée infinitif dans
+  // Lexique383 (ex. "pointiller") : le corpus atteste des formes conjuguées
+  // (pointille, pointillé) mais jamais l'infinitif lui-même. Sans ça, la
+  // fiche/le clavier n'avaient tout simplement aucune forme "infinitif" pour
+  // ce lemme à afficher, et retombaient sur une forme conjuguée au hasard.
+  // Pour un verbe en -er, l'infinitif et le participe passé masculin singulier
+  // sont homophones ("pointiller" et "pointillé" se prononcent pareil) : on
+  // reconstruit l'infinitif avec l'orthographe du lemme (garantie correcte,
+  // c'est la définition même du lemme chez Lexique383) et les phonèmes du
+  // participe passé attesté.
+  if (lemme.endsWith('er') && !verbRows.some((r) => r.role === 'infinitif')) {
+    const participe = verbRows.find((r) => r.role === 'participe_passé')
+    if (participe) {
+      addEntry(`verbe:${lemme}`, 'verbe', lemme, participe.phonemes, 'infinitif', participe.manulexSfi ?? representativeSfi)
+    }
+  }
 }
 
 // Même qualification par lemme pour les noms (garde masculin ET féminin,
