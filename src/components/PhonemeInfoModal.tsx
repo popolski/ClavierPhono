@@ -6,7 +6,23 @@ interface PhonemeInfoModalProps {
   onClose: () => void
 }
 
+function playSound(soundId: string) {
+  new Audio(assetUrl(`/audio/phonemes/${encodeURIComponent(soundId)}.mp3`)).play()
+}
+
+// La touche "e" est la seule "touche double" : elle fusionne 2 sons distincts
+// (é fermé, è ouvert), chacun avec son propre geste Borel-Maisonny et son
+// propre enregistrement — un unique bouton "écouter" n'aurait pas de sens ici,
+// il en faut un par geste. Toutes les autres touches n'ont qu'un seul son,
+// dont le fichier audio est nommé d'après phoneme.id.
+const SONS_TOUCHE_E = [
+  { soundId: 'é', label: 'é (fermé)' },
+  { soundId: 'è', label: 'è (ouvert)' },
+]
+
 export function PhonemeInfoModal({ phoneme, onClose }: PhonemeInfoModalProps) {
+  const sonsMultiples = phoneme.id === 'e' ? SONS_TOUCHE_E : null
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
       <div
@@ -14,7 +30,19 @@ export function PhonemeInfoModal({ phoneme, onClose }: PhonemeInfoModalProps) {
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex items-start justify-between">
-          <span className="text-4xl font-bold text-gray-900">{phoneme.displaySymbol}</span>
+          <div className="flex items-center gap-2">
+            <span className="text-4xl font-bold text-gray-900">{phoneme.displaySymbol}</span>
+            {!sonsMultiples && (
+              <button
+                type="button"
+                onClick={() => playSound(phoneme.id)}
+                aria-label={`Écouter le son « ${phoneme.displaySymbol} »`}
+                className="rounded-full p-2 text-2xl leading-none text-gray-500 hover:bg-black/10 active:scale-95"
+              >
+                🔊
+              </button>
+            )}
+          </div>
           <button
             type="button"
             onClick={onClose}
@@ -31,13 +59,24 @@ export function PhonemeInfoModal({ phoneme, onClose }: PhonemeInfoModalProps) {
               Geste{phoneme.gestureImages.length > 1 ? 's' : ''} Borel-Maisonny
             </h3>
             <div className="mt-2 flex gap-4">
-              {phoneme.gestureImages.map((src) => (
-                <img
-                  key={src}
-                  src={assetUrl(src)}
-                  alt={`Geste Borel-Maisonny — ${phoneme.displaySymbol}`}
-                  className="h-28 w-28 rounded-xl border border-gray-100 bg-gray-50 object-contain p-1"
-                />
+              {phoneme.gestureImages.map((src, i) => (
+                <div key={src} className="flex flex-col items-center gap-1">
+                  <img
+                    src={assetUrl(src)}
+                    alt={`Geste Borel-Maisonny — ${sonsMultiples?.[i]?.label ?? phoneme.displaySymbol}`}
+                    className="h-28 w-28 rounded-xl border border-gray-100 bg-gray-50 object-contain p-1"
+                  />
+                  {sonsMultiples?.[i] && (
+                    <button
+                      type="button"
+                      onClick={() => playSound(sonsMultiples[i].soundId)}
+                      aria-label={`Écouter le son « ${sonsMultiples[i].label} »`}
+                      className="flex items-center gap-1 rounded-full px-2 py-1 text-sm text-gray-600 hover:bg-black/10 active:scale-95"
+                    >
+                      🔊 {sonsMultiples[i].label}
+                    </button>
+                  )}
+                </div>
               ))}
             </div>
           </div>
